@@ -46,7 +46,7 @@ constexpr double RandomsGenerator::next()
   seed ^= (seed >> 21);
   seed ^= (seed << 35);
   seed ^= (seed >> 4);
-  return 5.42101086242752217E-20 * (seed * 2685821657736338717LL);
+  return 5.42101086242752217E-20 * (seed * 2685821657736338717ULL);
 }
 
 template <typename T, size_t R, size_t C, size_t MR, size_t MC>
