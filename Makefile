@@ -28,5 +28,6 @@ test : test.out
 
 clean:
 	rm bin/test/* || echo "bin/test/* already clean"
+	rm bin/examples/* || echo "bin/examples/* already clean"
 
 .PHONY : clean test
