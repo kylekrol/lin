@@ -191,7 +191,7 @@ TEST(CoreTests, FixedSizeConstantReference)
     0.0f, 1.1f, 2.6f, 3.1f, 9.9f,
     0.0f, 0.5f, 0.1f, 1.9f, 2.8f
   });
-  auto reference = lin::reference<1, 3>(tensor, 2, 1);
+  auto reference = lin::ref<1, 3>(tensor, 2, 1);
   // Check elements
   ASSERT_FLOAT_EQ(reference(0, 0), 0.5f);
   ASSERT_FLOAT_EQ(reference(0, 1), 0.0f);
@@ -210,7 +210,7 @@ TEST(CoreTests, StaticSizeConstantReference)
     0.0f, 2.5f, 2.6f,
     3.2f, 5.5f, 6.0f
   };
-  auto reference = lin::reference<0, 0, 3, 3>(tensor, 0, 0, 2, 2);
+  auto reference = lin::ref<0, 0, 3, 3>(tensor, 0, 0, 2, 2);
   // Check elements
   ASSERT_FLOAT_EQ(reference(0, 0), 1.0f);
   ASSERT_FLOAT_EQ(reference(1, 0), 0.0f);
@@ -229,7 +229,7 @@ TEST(CoreTests, FixedSizeReferenceReassignment)
     0.9f, 2.5f, 2.6f,
     3.2f, 5.5f, 6.0f
   });
-  auto reference = lin::reference<2, 2>(tensor, 1, 1);
+  auto reference = lin::ref<2, 2>(tensor, 1, 1);
   reference(0, 0) = -1.0f;
   // Check elements
   ASSERT_FLOAT_EQ(tensor(1, 1), -1.0f);
@@ -242,7 +242,7 @@ TEST(CoreTests, FixedSizeReferenceTranpose)
     0.0f, 2.5f, 2.6f,
     3.2f, 5.5f, 6.0f
   });
-  auto trans = lin::transpose(lin::reference<2, 2>(tensor, 1, 1));
+  auto trans = lin::transpose(lin::ref<2, 2>(tensor, 1, 1));
   // Check elements
   ASSERT_FLOAT_EQ(trans(0, 0), 2.5f);
   ASSERT_FLOAT_EQ(trans(1, 0), 2.6f);
@@ -261,7 +261,7 @@ TEST(CoreTests, FixedSizeReferenceMultipleReassignment)
     0.0f, 2.5f, 2.6f,
     3.2f, 5.5f, 6.0f
   });
-  lin::reference<2, 2>(tensor, 1, 1) = 2.0f * lin::reference<2, 2>(tensor, 1, 1);
+  lin::ref<2, 2>(tensor, 1, 1) = 2.0f * lin::ref<2, 2>(tensor, 1, 1);
   // Check tensor elements
   ASSERT_FLOAT_EQ(tensor(0, 0), 1.0f);
   ASSERT_FLOAT_EQ(tensor(1, 0), 0.0f);

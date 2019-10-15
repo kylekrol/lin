@@ -51,13 +51,51 @@ struct dims<StreamReference<R, C, MR, MC, _E>>
 };
 }  // namespace internal
 
+/** @fn ref
+ *  @param[in] E Backing stream the reference pulls data from.
+ *  @param[in] i Row offset of the reference in the backing stream.
+ *  @param[in] j Column offset of the reference in in the backing stream.
+ *  @param[in] r Resizes the references row count.
+ *  @param[in] c Resizes the references column count.
+ *  
+ *  Generates a statically sized, read only reference to the provided backing
+ *  stream. If you are looking to reference a full row/column of a tensor, see
+ *  the row and column reference functions. */
 template <size_t R, size_t C, size_t MR, size_t MC, class _E>
-constexpr internal::StreamReference<R, C, MR, MC, _E>
-reference(internal::Stream<_E> const &E, size_t i, size_t j, size_t r = MR, size_t c = MC);
+constexpr internal::StreamReference<R, C, MR, MC, _E> const
+ref(internal::Stream<_E> const &E, size_t i, size_t j, size_t r = MR, size_t c = MC);
 
+/** @fn ref
+ *  @param[in] E Backing stream the reference pulls data from.
+ *  @param[in] i Row offset of the reference in the backing stream.
+ *  @param[in] j Column offset of the reference in in the backing stream.
+ *  
+ *  Generates a fixed sized, read only reference to the provided backing stream.
+ *  If you are looking to reference a full row/column of a tensor, see the row
+ *  and column reference functions. */
 template <size_t R, size_t C, class _E>
-constexpr internal::StreamReference<R, C, R, C, _E>
-reference(internal::Stream<_E> const &E, size_t i, size_t j);
+constexpr internal::StreamReference<R, C, R, C, _E> const
+ref(internal::Stream<_E> const &E, size_t i, size_t j);
+
+/** @fn ref_row
+ *  @param[in] E Backing stream the reference pulls data from.
+ *  @param[in] i Row index to be referenced.
+ * 
+ *  Generates a read only reference to the i'th row of the provided stream as a
+ *  row vector. This function is a small wrapper around the standard ref
+ *  function using the traits of _E and E's dimensions at runtime. */
+template <class _E>
+constexpr auto const ref_row(internal::Stream<_E> const &E, size_t i);
+
+/** @fn ref_row
+ *  @param[in] E Backing stream the reference pulls data from.
+ *  @param[in] i Column index to be referenced.
+ * 
+ *  Generates a read only reference to the j'th column of the provided stream as
+ *  a column vector. This function is a small wrapper around the standard ref
+ *  function using the traits of _E and E's dimensions at runtime. */
+template <class _E>
+constexpr auto const ref_col(internal::Stream<_E> const &E, size_t j);
 
 }  // namespace lin
 

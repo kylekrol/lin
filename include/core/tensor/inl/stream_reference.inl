@@ -35,16 +35,30 @@ StreamReference<R, C, MR, MC, _E>::operator()(size_t i) const
 }  // namespace internal
 
 template <size_t R, size_t C, size_t MR, size_t MC, class _E>
-constexpr internal::StreamReference<R, C, MR, MC, _E>
-reference(internal::Stream<_E> const &E, size_t i, size_t j, size_t r, size_t c)
+constexpr internal::StreamReference<R, C, MR, MC, _E> const
+ref(internal::Stream<_E> const &E, size_t i, size_t j, size_t r, size_t c)
 {
   return internal::StreamReference<R, C, MR, MC, _E>(E, i, j, r, c);
 }
 
 template <size_t R, size_t C, class _E>
-constexpr internal::StreamReference<R, C, R, C, _E>
-reference(internal::Stream<_E> const &E, size_t i, size_t j)
+constexpr internal::StreamReference<R, C, R, C, _E> const
+ref(internal::Stream<_E> const &E, size_t i, size_t j)
 {
-  return reference<R, C, R, C, _E>(E, i, j);
+  return ref<R, C, R, C>(E, i, j);
+}
+
+template <class _E>
+constexpr auto const ref_row(internal::Stream<_E> const &E, size_t i)
+{
+  typedef internal::traits<_E> TE;
+  return ref<1, TE::cols, 1, TE::max_cols>(E, i, 0, 1, E.cols());
+}
+
+template <class _E>
+constexpr auto const ref_col(internal::Stream<_E> const &E, size_t j)
+{
+  typedef internal::traits<_E> TE;
+  return ref<TE::rows, 1, TE::max_rows, 1>(E, 0, j, E.rows(), 1);
 }
 }  // namespace lin
