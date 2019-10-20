@@ -21,7 +21,7 @@ int main()
   std::cout << "Q =\n" << Q << "\n";
   std::cout << "R =\n" << R << "\n";
 
-  auto B = (Q * R).evaluate();
+  auto B = (Q * R).eval();
   std::cout << "Q * R =\n" << B << "\n";
   std::cout << "fro(A - Q * R) = " << lin::fro(A - B) << std::endl;
 

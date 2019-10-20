@@ -5,9 +5,6 @@
 namespace lin
 {
 
-/******************************************************************************/
-// Constants
-
 namespace internal
 {
 
@@ -123,7 +120,7 @@ template <typename T, size_t R, size_t C, size_t MR, size_t MC>
 constexpr typename internal::Randoms<T, R, C, MR, MC>::Traits::eval
 rands(size_t r, size_t c, internal::RandomsGenerator &rand)
 {
-  return internal::Randoms<T, R, C, MR, MC>(r, c, rand).evaluate();
+  return internal::Randoms<T, R, C, MR, MC>(r, c, rand).eval();
 }
 
 template <class _A>

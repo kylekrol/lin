@@ -26,10 +26,10 @@ int main()
   std::cout << "Solving A * X = Y\n";
  
   lin::qr(A, Q, R);
-  lin::backward_sub(R, X, (lin::transpose(Q) * Y).evaluate());
+  lin::backward_sub(R, X, (lin::transpose(Q) * Y).eval());
   std::cout << "X =\n" << X << "\n";
 
-  auto B = (A * X).evaluate();
+  auto B = (A * X).eval();
   std::cout << "A * X =\n" << B << "\n";
   std::cout << "fro(Y - A * X) = " << lin::fro(Y - B) << std::endl;
 

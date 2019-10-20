@@ -38,7 +38,7 @@ constexpr typename Stream<D>::Traits::elem Stream<D>::operator()(size_t i) const
 }
 
 template <class D>
-constexpr typename Stream<D>::Traits::eval Stream<D>::evaluate() const
+constexpr typename Stream<D>::Traits::eval Stream<D>::eval() const
 {
   return typename Traits::eval(*this);
 }

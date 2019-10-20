@@ -28,7 +28,7 @@ class Stream
   constexpr size_t size() const;
   constexpr typename Traits::elem operator()(size_t i, size_t j) const;
   constexpr typename Traits::elem operator()(size_t i) const;
-  constexpr typename Traits::eval evaluate() const;
+  constexpr typename Traits::eval eval() const;
 
  protected:
   constexpr Stream() = default;

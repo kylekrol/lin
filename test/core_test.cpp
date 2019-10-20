@@ -174,7 +174,7 @@ TEST(CoreTests, FixedSizeTransposeAssignment)
     1.0f, 3.0f,
     2.0f, 4.0f
   });
-  tensor = lin::transpose(tensor).evaluate();
+  tensor = lin::transpose(tensor).eval();
   // Check elements
   ASSERT_FLOAT_EQ(tensor(0, 0), 1.0f);
   ASSERT_FLOAT_EQ(tensor(1, 0), 3.0f);

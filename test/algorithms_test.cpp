@@ -2,6 +2,7 @@
 
 #include <core/core.hpp>
 #include <algorithms/backward_sub.hpp>
+#include <algorithms/lu.hpp>
 #include <algorithms/qr.hpp>
 
 #include <gtest/gtest.h>
@@ -36,7 +37,7 @@ TEST(AlgorithmsTests, FixedSizeLinSolveQRBackSub)
     A = lin::rands<lin::Matrix4x4f>();
     Y = lin::rands<lin::Matrix4x3f>();
     lin::qr(A, Q, R);
-    lin::backward_sub(R, X, (lin::transpose(Q) * Y).evaluate());
+    lin::backward_sub(R, X, (lin::transpose(Q) * Y).eval());
     ASSERT_NEAR(0.0f, lin::fro(A * X - Y), 1e-4);
   }
 }
@@ -49,6 +50,6 @@ TEST(AlgorithmsTests, StaticSizeLinSolveQRBackSub)
   A = lin::rands<float, 0, 0, 8, 8>(6, 6);
   Y = lin::rands<float, 0, 0, 8, 3>(6, 2);
   lin::qr(A, Q, R);
-  lin::backward_sub(R, X, (lin::transpose(Q) * Y).evaluate());
+  lin::backward_sub(R, X, (lin::transpose(Q) * Y).eval());
   ASSERT_NEAR(0.0f, lin::fro(A * X - Y), 1e-4);
 }

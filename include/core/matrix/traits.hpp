@@ -14,7 +14,19 @@ namespace internal
 {
 
 template <class A>
-struct is_matrix : std::integral_constant<bool, !is_vector<A>::value> { };
+struct is_matrix : public std::integral_constant<bool, !is_vector<A>::value> { };
+
+template <class A>
+struct is_tall : public std::integral_constant<bool, (dims<A>::max_rows >= dims<A>::max_cols)> { };
+
+template <class A>
+struct is_short : public std::integral_constant<bool, (dims<A>::max_rows <= dims<A>::max_cols)> { };
+
+template <class A>
+struct is_square
+: public std::integral_constant<bool, (
+    (dims<A>::rows == dims<A>::cols) && (dims<A>::max_cols == dims<A>::max_rows)
+  )> { };
 
 }  // namespace internal
 }  // namespace lin
