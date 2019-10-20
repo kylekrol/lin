@@ -2,7 +2,6 @@
 
 #include <core/core.hpp>
 #include <algorithms/backward_sub.hpp>
-#include <algorithms/lu.hpp>
 #include <algorithms/qr.hpp>
 
 #include <gtest/gtest.h>

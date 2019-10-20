@@ -360,3 +360,18 @@ TEST(CoreTests, OnesTest)
   ASSERT_EQ(a.cols(), 2);
   ASSERT_EQ(a.size(), 4);
 }
+
+TEST(CoreTests, CrossTest)
+{
+  lin::Vector3f a = {4.0f, 2.0f, -1.0f};
+  lin::Vector3f b = {-1.0f, 0.0f, 2.0f};
+  auto const c = lin::cross(a, b);
+  // Check elements
+  ASSERT_FLOAT_EQ(c(0), 4.0f);
+  ASSERT_FLOAT_EQ(c(1), -7.0f);
+  ASSERT_FLOAT_EQ(c(2), 2.0f);
+  // Check dimensions
+  ASSERT_EQ(c.rows(), 3);
+  ASSERT_EQ(c.cols(), 1);
+  ASSERT_EQ(c.size(), 3);
+}

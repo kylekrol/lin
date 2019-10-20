@@ -35,8 +35,8 @@ template <class A>
 struct vector_traits<A, typename std::enable_if<is_row_vector<A>::value>::type>
 {
   enum {
-    size = traits<A>::rows,
-    max_size = traits<A>::max_rows
+    size = traits<A>::cols,
+    max_size = traits<A>::max_cols
   };
   typedef typename traits<A>::elem elem;
 };
@@ -45,8 +45,8 @@ template <class A>
 struct vector_traits<A, typename std::enable_if<is_col_vector<A>::value>::type>
 {
   enum {
-    size = traits<A>::cols,
-    max_size = traits<A>::max_cols
+    size = traits<A>::rows,
+    max_size = traits<A>::max_rows
   };
   typedef typename traits<A>::elem elem;
 };
