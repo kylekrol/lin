@@ -22,4 +22,16 @@ constexpr typename internal::elem<_A>::type norm(internal::Stream<_A> const &A)
 {
   return sqrt(fro(A));
 }
+
+template <class _A, class _B,
+    typename std::enable_if<internal::can_cross<_A, _B>::value, size_t>::type>
+constexpr typename internal::eval<_A>::type cross(internal::Stream<_A> const &A,
+    internal::Stream<_B> const &B)
+{
+  return typename internal::eval<_A>::type({
+    A(1) * B(2) - A(2) * B(1),
+    A(2) * B(0) - A(0) * B(2),
+    A(0) * B(1) - A(1) * B(0)
+  });
+}
 }  // namespace lin
