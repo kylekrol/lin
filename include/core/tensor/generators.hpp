@@ -133,10 +133,8 @@ template <class _A>
 constexpr auto ones(size_t r = internal::dims<_A>::max_rows,
     size_t c = internal::dims<_A>::max_cols);
 
-// Evaluation here is forced because internal::Randoms won't produce the same
-// values every time.
 template <typename T, size_t R, size_t C, size_t MR = R, size_t MC = C>
-constexpr typename internal::Randoms<T, R, C, MR, MC>::Traits::eval
+constexpr internal::Randoms<T, R, C, MR, MC>
 rands(size_t r = MR, size_t c = MC, internal::RandomsGenerator &rand = internal::rand);
 
 template <class _A>

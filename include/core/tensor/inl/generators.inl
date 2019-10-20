@@ -117,10 +117,10 @@ constexpr auto ones(size_t r, size_t c)
 }
 
 template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr typename internal::Randoms<T, R, C, MR, MC>::Traits::eval
+constexpr internal::Randoms<T, R, C, MR, MC>
 rands(size_t r, size_t c, internal::RandomsGenerator &rand)
 {
-  return internal::Randoms<T, R, C, MR, MC>(r, c, rand).eval();
+  return internal::Randoms<T, R, C, MR, MC>(r, c, rand);
 }
 
 template <class _A>
