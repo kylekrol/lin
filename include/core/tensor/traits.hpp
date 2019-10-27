@@ -13,7 +13,8 @@
 namespace lin
 {
 
-typedef unsigned int size_t;
+// Cannot be unsigned due to for loop issues in backward_sub.inl
+typedef int size_t;
 
 namespace internal
 {

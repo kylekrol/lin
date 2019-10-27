@@ -20,11 +20,12 @@ constexpr int backward_sub(internal::Base<_U> const &U, internal::Base<_X> &X,
 
   // Solve for the last rows
   // It's trivially the last row of Y divided by the bottom right element of U
-  const int m = U.rows() - 1;
+  const size_t m = U.rows() - 1;
   ref_row(X, m) = ref_row(Y, m) / U(m, m);
 
+  // Below for loop caused issues with size_t being unsigned
   // Solve for the other rows in descending order
-  for (int n = m - 1; n >= 0; n--)
+  for (size_t n = m - 1; n >= 0; n--)
     ref_row(X, n) = (
             ref_row(Y, n) - (ref<1, 0, 1, TU::max_rows>(U, n, n + 1, 1, m - n) * 
                 ref<0, TY::cols, TY::max_rows, TY::max_cols>(X, n + 1, 0, m - n, X.cols()))
