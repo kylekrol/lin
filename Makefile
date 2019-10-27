@@ -1,5 +1,5 @@
 CLANGXX       ?= clang++
-CLANGCXXFLAGS += -Iinclude -I/opt/local/include -std=c++14 -Werror -Wall
+CLANGCXXFLAGS += -Iinclude -I/opt/local/include -std=c++14 -Werror -Wall -Wextra
 LLD           ?= clang++
 LLDFLAGS      += -L/opt/local/lib -lgtest
 
