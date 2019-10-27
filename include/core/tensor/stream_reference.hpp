@@ -85,7 +85,7 @@ ref(internal::Stream<_E> const &E, size_t i, size_t j);
  *  row vector. This function is a small wrapper around the standard ref
  *  function using the traits of _E and E's dimensions at runtime. */
 template <class _E>
-constexpr auto const ref_row(internal::Stream<_E> const &E, size_t i);
+constexpr auto ref_row(internal::Stream<_E> const &E, size_t i);
 
 /** @fn ref_row
  *  @param[in] E Backing stream the reference pulls data from.
@@ -95,7 +95,7 @@ constexpr auto const ref_row(internal::Stream<_E> const &E, size_t i);
  *  a column vector. This function is a small wrapper around the standard ref
  *  function using the traits of _E and E's dimensions at runtime. */
 template <class _E>
-constexpr auto const ref_col(internal::Stream<_E> const &E, size_t j);
+constexpr auto ref_col(internal::Stream<_E> const &E, size_t j);
 
 }  // namespace lin
 

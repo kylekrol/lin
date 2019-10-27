@@ -49,14 +49,14 @@ ref(internal::Stream<_E> const &E, size_t i, size_t j)
 }
 
 template <class _E>
-constexpr auto const ref_row(internal::Stream<_E> const &E, size_t i)
+constexpr auto ref_row(internal::Stream<_E> const &E, size_t i)
 {
   typedef internal::traits<_E> TE;
   return ref<1, TE::cols, 1, TE::max_cols>(E, i, 0, 1, E.cols());
 }
 
 template <class _E>
-constexpr auto const ref_col(internal::Stream<_E> const &E, size_t j)
+constexpr auto ref_col(internal::Stream<_E> const &E, size_t j)
 {
   typedef internal::traits<_E> TE;
   return ref<TE::rows, 1, TE::max_rows, 1>(E, 0, j, E.rows(), 1);
