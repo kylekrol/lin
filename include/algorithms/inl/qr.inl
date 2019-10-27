@@ -19,7 +19,7 @@ constexpr int qr(internal::Stream<_M> const &M, internal::Base<_Q> &Q, internal:
   R = zeroes<_R>(R.rows(), R.cols());
   Q = M;
 
-  for (int j = 0; j < M.cols(); j++) {
+  for (size_t j = 0; j < M.cols(); j++) {
     auto Qj = ref_col(Q, j);
 
     // Normalize this column
@@ -27,7 +27,7 @@ constexpr int qr(internal::Stream<_M> const &M, internal::Base<_Q> &Q, internal:
     Qj = Qj / R(j, j);
 
     // Remove parallel components from subsequent columns
-    for (int k = j + 1; k < M.cols(); k++) {
+    for (size_t k = j + 1; k < M.cols(); k++) {
       auto Qk = ref_col(Q, k);
       R(j, k) = dot(Qj, Qk);
       Qk = Qk - Qj * R(j, k);
