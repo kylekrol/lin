@@ -18,9 +18,9 @@ TEST(CoreTests, FixedSizeInitialization)
   ASSERT_FLOAT_EQ(tensor(0, 2), 3.0f);
   ASSERT_FLOAT_EQ(tensor(1, 2), 6.0f);
   // Check dimensions
-  ASSERT_EQ(tensor.rows(), 2);
-  ASSERT_EQ(tensor.cols(), 3);
-  ASSERT_EQ(tensor.size(), 6);
+  ASSERT_EQ(tensor.rows(), 2u);
+  ASSERT_EQ(tensor.cols(), 3u);
+  ASSERT_EQ(tensor.size(), 6u);
 }
 
 TEST(CoreTests, StaticSizeInitialization)
@@ -36,9 +36,9 @@ TEST(CoreTests, StaticSizeInitialization)
   ASSERT_FLOAT_EQ(tensor(0, 1), 2.0f);
   ASSERT_FLOAT_EQ(tensor(1, 1), 4.0f);
   // Check dimensions
-  ASSERT_EQ(tensor.rows(), 2);
-  ASSERT_EQ(tensor.cols(), 2);
-  ASSERT_EQ(tensor.size(), 4);
+  ASSERT_EQ(tensor.rows(), 2u);
+  ASSERT_EQ(tensor.cols(), 2u);
+  ASSERT_EQ(tensor.size(), 4u);
 }
 
 TEST(CoreTests, FixedSizeInitializerListAssignment)
@@ -60,9 +60,9 @@ TEST(CoreTests, FixedSizeInitializerListAssignment)
   ASSERT_FLOAT_EQ(tensor(0, 2), 4.0f);
   ASSERT_FLOAT_EQ(tensor(1, 2), 1.0f);
   // Check dimensions
-  ASSERT_EQ(tensor.rows(), 2);
-  ASSERT_EQ(tensor.cols(), 3);
-  ASSERT_EQ(tensor.size(), 6);
+  ASSERT_EQ(tensor.rows(), 2u);
+  ASSERT_EQ(tensor.cols(), 3u);
+  ASSERT_EQ(tensor.size(), 6u);
 }
 
 TEST(CoreTests, FixedSizeSum)
@@ -82,9 +82,9 @@ TEST(CoreTests, FixedSizeSum)
   ASSERT_FLOAT_EQ(sum(0, 1), 1.25f);
   ASSERT_FLOAT_EQ(sum(1, 1), -3.0f);
   // Check dimensions
-  ASSERT_EQ(sum.rows(), 2);
-  ASSERT_EQ(sum.cols(), 2);
-  ASSERT_EQ(sum.size(), 4);
+  ASSERT_EQ(sum.rows(), 2u);
+  ASSERT_EQ(sum.cols(), 2u);
+  ASSERT_EQ(sum.size(), 4u);
 }
 
 TEST(CoreTests, StaticSizeSum)
@@ -102,9 +102,9 @@ TEST(CoreTests, StaticSizeSum)
   ASSERT_FLOAT_EQ(sum(0, 0), 2.0f);
   ASSERT_FLOAT_EQ(sum(0, 1), 1.0f);
   // Check dimensions
-  ASSERT_EQ(sum.rows(), 1);
-  ASSERT_EQ(sum.cols(), 2);
-  ASSERT_EQ(sum.size(), 2);
+  ASSERT_EQ(sum.rows(), 1u);
+  ASSERT_EQ(sum.cols(), 2u);
+  ASSERT_EQ(sum.size(), 2u);
 }
 
 TEST(CoreTests, StaticSizeDifference)
@@ -123,9 +123,9 @@ TEST(CoreTests, StaticSizeDifference)
   ASSERT_FLOAT_EQ(difference(0, 1), 3.0f);
   ASSERT_FLOAT_EQ(difference(0, 2), 5.0f);
   // Check dimensions
-  ASSERT_EQ(difference.rows(), 1);
-  ASSERT_EQ(difference.cols(), 3);
-  ASSERT_EQ(difference.size(), 3);
+  ASSERT_EQ(difference.rows(), 1u);
+  ASSERT_EQ(difference.cols(), 3u);
+  ASSERT_EQ(difference.size(), 3u);
 }
 
 TEST(CoreTests, StaticSizeMultiple)
@@ -144,9 +144,9 @@ TEST(CoreTests, StaticSizeMultiple)
   ASSERT_FLOAT_EQ(multiple(0, 2), 1.0f);
   ASSERT_FLOAT_EQ(multiple(1, 2), 0.0f);
   // Check dimensions
-  ASSERT_EQ(multiple.rows(), 2);
-  ASSERT_EQ(multiple.cols(), 3);
-  ASSERT_EQ(multiple.size(), 6);
+  ASSERT_EQ(multiple.rows(), 2u);
+  ASSERT_EQ(multiple.cols(), 3u);
+  ASSERT_EQ(multiple.size(), 6u);
 }
 
 
@@ -163,9 +163,9 @@ TEST(CoreTests, FixedSizeTranspose)
   ASSERT_FLOAT_EQ(trans(0, 1), 2.0f);
   ASSERT_FLOAT_EQ(trans(0, 2), 3.0f);
   // Check dimensions
-  ASSERT_EQ(trans.rows(), 1);
-  ASSERT_EQ(trans.cols(), 3);
-  ASSERT_EQ(trans.size(), 3);
+  ASSERT_EQ(trans.rows(), 1u);
+  ASSERT_EQ(trans.cols(), 3u);
+  ASSERT_EQ(trans.size(), 3u);
 }
 
 TEST(CoreTests, FixedSizeTransposeAssignment)
@@ -197,9 +197,9 @@ TEST(CoreTests, FixedSizeConstantReference)
   ASSERT_FLOAT_EQ(reference(0, 1), 0.0f);
   ASSERT_FLOAT_EQ(reference(0, 2), 3.0f);
   // Check dimensions
-  ASSERT_EQ(reference.rows(), 1);
-  ASSERT_EQ(reference.cols(), 3);
-  ASSERT_EQ(reference.size(), 3);
+  ASSERT_EQ(reference.rows(), 1u);
+  ASSERT_EQ(reference.cols(), 3u);
+  ASSERT_EQ(reference.size(), 3u);
 }
 
 TEST(CoreTests, StaticSizeConstantReference)
@@ -217,9 +217,9 @@ TEST(CoreTests, StaticSizeConstantReference)
   ASSERT_FLOAT_EQ(reference(0, 1), 3.0f);
   ASSERT_FLOAT_EQ(reference(1, 1), 2.5f);
   // Check dimensions
-  ASSERT_EQ(reference.rows(), 2);
-  ASSERT_EQ(reference.cols(), 2);
-  ASSERT_EQ(reference.size(), 4);
+  ASSERT_EQ(reference.rows(), 2u);
+  ASSERT_EQ(reference.cols(), 2u);
+  ASSERT_EQ(reference.size(), 4u);
 }
 
 TEST(CoreTests, FixedSizeReferenceReassignment)
@@ -249,9 +249,9 @@ TEST(CoreTests, FixedSizeReferenceTranpose)
   ASSERT_FLOAT_EQ(trans(0, 1), 5.5f);
   ASSERT_FLOAT_EQ(trans(1, 1), 6.0f);
   // Check dimensions
-  ASSERT_EQ(trans.rows(), 2);
-  ASSERT_EQ(trans.cols(), 2);
-  ASSERT_EQ(trans.size(), 4);
+  ASSERT_EQ(trans.rows(), 2u);
+  ASSERT_EQ(trans.cols(), 2u);
+  ASSERT_EQ(trans.size(), 4u);
 }
 
 TEST(CoreTests, FixedSizeReferenceMultipleReassignment)
@@ -292,9 +292,9 @@ TEST(CoreTests, FixedSizeMultiplication)
   ASSERT_FLOAT_EQ(result(0, 1), 17.0f);
   ASSERT_FLOAT_EQ(result(1, 1), 29.0f);
   // Check dimensions
-  ASSERT_EQ(result.rows(), 2);
-  ASSERT_EQ(result.cols(), 2);
-  ASSERT_EQ(result.size(), 4);
+  ASSERT_EQ(result.rows(), 2u);
+  ASSERT_EQ(result.cols(), 2u);
+  ASSERT_EQ(result.size(), 4u);
 }
 
 TEST(CoreTests, DotProduct)
@@ -342,9 +342,9 @@ TEST(CoreTests, ZeroesTest)
   ASSERT_FLOAT_EQ(a(0, 1), 0.0f);
   ASSERT_FLOAT_EQ(a(1, 1), 0.0f);
   // Check dimensions
-  ASSERT_EQ(a.rows(), 2);
-  ASSERT_EQ(a.cols(), 2);
-  ASSERT_EQ(a.size(), 4);
+  ASSERT_EQ(a.rows(), 2u);
+  ASSERT_EQ(a.cols(), 2u);
+  ASSERT_EQ(a.size(), 4u);
 }
 
 TEST(CoreTests, OnesTest)
@@ -356,9 +356,24 @@ TEST(CoreTests, OnesTest)
   ASSERT_FLOAT_EQ(a(0, 1), 1.0f);
   ASSERT_FLOAT_EQ(a(1, 1), 1.0f);
   // Check dimensions
-  ASSERT_EQ(a.rows(), 2);
-  ASSERT_EQ(a.cols(), 2);
-  ASSERT_EQ(a.size(), 4);
+  ASSERT_EQ(a.rows(), 2u);
+  ASSERT_EQ(a.cols(), 2u);
+  ASSERT_EQ(a.size(), 4u);
+}
+
+TEST(CoreTests, CrossTest)
+{
+  lin::Vector3f a = {4.0f, 2.0f, -1.0f};
+  lin::Vector3f b = {-1.0f, 0.0f, 2.0f};
+  auto const c = lin::cross(a, b);
+  // Check elements
+  ASSERT_FLOAT_EQ(c(0), 4.0f);
+  ASSERT_FLOAT_EQ(c(1), -7.0f);
+  ASSERT_FLOAT_EQ(c(2), 2.0f);
+  // Check dimensions
+  ASSERT_EQ(c.rows(), 3u);
+  ASSERT_EQ(c.cols(), 1u);
+  ASSERT_EQ(c.size(), 3u);
 }
 
 TEST(CoreTests, CrossTest)
