@@ -5,66 +5,66 @@
 namespace lin
 {
 
-template <typename T, size_t N, size_t MN>
-constexpr RowVector<T, N, MN>::RowVector(size_t n)
-: internal::Tensor<RowVector<T, N, MN>>(1, n) { }
+template <typename tT, size_t tN, size_t tMN>
+constexpr RowVector<tT, tN, tMN>::RowVector(size_t n)
+: internal::Tensor<RowVector<tT, tN, tMN>>(1, n) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr RowVector<T, N, MN>::RowVector(size_t r, size_t c)
-: internal::Tensor<RowVector<T, N, MN>>(r, c) { }
+template <typename tT, size_t tN, size_t tMN>
+constexpr RowVector<tT, tN, tMN>::RowVector(size_t r, size_t c)
+: internal::Tensor<RowVector<tT, tN, tMN>>(r, c) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr RowVector<T, N, MN>::RowVector(std::initializer_list<typename Traits::elem> const &l)
-: internal::Tensor<RowVector<T, N, MN>>(l) { }
+template <typename tT, size_t tN, size_t tMN>
+constexpr RowVector<tT, tN, tMN>::RowVector(std::initializer_list<typename Traits::elem> const &l)
+: internal::Tensor<RowVector<tT, tN, tMN>>(l) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr RowVector<T, N, MN>::RowVector(size_t n,
+template <typename tT, size_t tN, size_t tMN>
+constexpr RowVector<tT, tN, tMN>::RowVector(size_t n,
     std::initializer_list<typename Traits::elem> const &l)
-: internal::Tensor<RowVector<T, N, MN>>(1, n, l) { }
+: internal::Tensor<RowVector<tT, tN, tMN>>(1, n, l) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr RowVector<T, N, MN>::RowVector(size_t r, size_t c,
+template <typename tT, size_t tN, size_t tMN>
+constexpr RowVector<tT, tN, tMN>::RowVector(size_t r, size_t c,
     std::initializer_list<typename Traits::elem> const &l)
-: internal::Tensor<RowVector<T, N, MN>>(r, c, l) { }
+: internal::Tensor<RowVector<tT, tN, tMN>>(r, c, l) { }
 
-template <typename T, size_t N, size_t MN> template <class _E>
-constexpr RowVector<T, N, MN>::RowVector(internal::Stream<_E> const &E)
-: internal::Tensor<RowVector<T, N, MN>>(E) { }
+template <typename tT, size_t tN, size_t tMN> template <class tE>
+constexpr RowVector<tT, tN, tMN>::RowVector(internal::Stream<tE> const &E)
+: internal::Tensor<RowVector<tT, tN, tMN>>(E) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr void RowVector<T, N, MN>::resize(size_t n)
+template <typename tT, size_t tN, size_t tMN>
+constexpr void RowVector<tT, tN, tMN>::resize(size_t n)
 {
   resize(1, n);
 }
 
-template <typename T, size_t N, size_t MN>
-constexpr Vector<T, N, MN>::Vector(size_t n)
-: internal::Tensor<Vector<T, N, MN>>(n, 1) { }
+template <typename tT, size_t tN, size_t tMN>
+constexpr Vector<tT, tN, tMN>::Vector(size_t n)
+: internal::Tensor<Vector<tT, tN, tMN>>(n, 1) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr Vector<T, N, MN>::Vector(size_t r, size_t c)
-: internal::Tensor<Vector<T, N, MN>>(r, c) { }
+template <typename tT, size_t tN, size_t tMN>
+constexpr Vector<tT, tN, tMN>::Vector(size_t r, size_t c)
+: internal::Tensor<Vector<tT, tN, tMN>>(r, c) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr Vector<T, N, MN>::Vector(std::initializer_list<typename Traits::elem> const &l)
-: internal::Tensor<Vector<T, N, MN>>(l) { }
+template <typename tT, size_t tN, size_t tMN>
+constexpr Vector<tT, tN, tMN>::Vector(std::initializer_list<typename Traits::elem> const &l)
+: internal::Tensor<Vector<tT, tN, tMN>>(l) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr Vector<T, N, MN>::Vector(size_t n,
+template <typename tT, size_t tN, size_t tMN>
+constexpr Vector<tT, tN, tMN>::Vector(size_t n,
     std::initializer_list<typename Traits::elem> const &l)
-: internal::Tensor<Vector<T, N, MN>>(n, 1, l) { }
+: internal::Tensor<Vector<tT, tN, tMN>>(n, 1, l) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr Vector<T, N, MN>::Vector(size_t r, size_t c,
+template <typename tT, size_t tN, size_t tMN>
+constexpr Vector<tT, tN, tMN>::Vector(size_t r, size_t c,
     std::initializer_list<typename Traits::elem> const &l)
-: internal::Tensor<Vector<T, N, MN>>(r, c, l) { }
+: internal::Tensor<Vector<tT, tN, tMN>>(r, c, l) { }
 
-template <typename T, size_t N, size_t MN> template <class _E>
-constexpr Vector<T, N, MN>::Vector(internal::Stream<_E> const &E)
-: internal::Tensor<Vector<T, N, MN>>(E) { }
+template <typename tT, size_t tN, size_t tMN> template <class tE>
+constexpr Vector<tT, tN, tMN>::Vector(internal::Stream<tE> const &E)
+: internal::Tensor<Vector<tT, tN, tMN>>(E) { }
 
-template <typename T, size_t N, size_t MN>
-constexpr void Vector<T, N, MN>::resize(size_t n)
+template <typename tT, size_t tN, size_t tMN>
+constexpr void Vector<tT, tN, tMN>::resize(size_t n)
 {
   resize(n, 1);
 }

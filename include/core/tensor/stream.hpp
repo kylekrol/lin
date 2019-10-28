@@ -16,13 +16,13 @@ namespace lin
 namespace internal
 {
 
-template <class D>
+template <class tD>
 class Stream
 {
-  static_assert(is_traits_valid<D>::value, "Invalid stream traits detected");
+  static_assert(is_traits_valid<tD>::value, "Invalid stream traits detected");
 
  public:
-  typedef traits<D> Traits;
+  typedef traits<tD> Traits;
   constexpr size_t rows() const;
   constexpr size_t cols() const;
   constexpr size_t size() const;
@@ -32,13 +32,13 @@ class Stream
 
  protected:
   constexpr Stream() = default;
-  constexpr D const &derived() const;
-  constexpr D &derived();
+  constexpr tD const &derived() const;
+  constexpr tD &derived();
 };
 
 #ifdef LIN_DESKTOP
-template <class _A>
-inline std::ostream &operator<<(std::ostream &os, Stream<_A> const &A);
+template <class tA>
+inline std::ostream &operator<<(std::ostream &os, Stream<tA> const &A);
 #endif
 
 }  // namespace internal

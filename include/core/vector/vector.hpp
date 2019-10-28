@@ -12,71 +12,71 @@
 namespace lin
 {
 
-template <typename T, size_t N, size_t MN = N>
-class RowVector : public internal::Tensor<RowVector<T, N, MN>>
+template <typename tT, size_t tN, size_t tMN = tN>
+class RowVector : public internal::Tensor<RowVector<tT, tN, tMN>>
 {
-  static_assert(internal::is_row_vector<RowVector<T, N, MN>>::value,
+  static_assert(internal::is_row_vector<RowVector<tT, tN, tMN>>::value,
       "Invalid RowVector<...> template parameters.");
 
  public:
-  typedef internal::traits<RowVector<T, N, MN>> Traits;
-  using internal::Tensor<RowVector<T, N, MN>>::resize;
-  using internal::Tensor<RowVector<T, N, MN>>::operator=;
+  typedef internal::traits<RowVector<tT, tN, tMN>> Traits;
+  using internal::Tensor<RowVector<tT, tN, tMN>>::resize;
+  using internal::Tensor<RowVector<tT, tN, tMN>>::operator=;
   constexpr RowVector() = default;
   constexpr RowVector(size_t n);
   constexpr RowVector(size_t r, size_t c);
   constexpr RowVector(std::initializer_list<typename Traits::elem> const &l);
   constexpr RowVector(size_t n, std::initializer_list<typename Traits::elem> const &l);
   constexpr RowVector(size_t r, size_t c, std::initializer_list<typename Traits::elem> const &l);
-  template <class _E>
-  constexpr RowVector(internal::Stream<_E> const &E);
+  template <class tE>
+  constexpr RowVector(internal::Stream<tE> const &E);
   constexpr void resize(size_t n);
 };
 
-template <size_t N, size_t MN = N>
-using RowVectorf = RowVector<float, N, MN>;
+template <size_t tN, size_t tMN = tN>
+using RowVectorf = RowVector<float, tN, tMN>;
 
 typedef RowVectorf<2> RowVector2f;
 typedef RowVectorf<3> RowVector3f;
 typedef RowVectorf<4> RowVector4f;
 
-template <size_t N, size_t MN = N>
-using RowVectord = RowVector<double, N, MN>;
+template <size_t tN, size_t tMN = tN>
+using RowVectord = RowVector<double, tN, tMN>;
 
 typedef RowVectord<2> RowVector2d;
 typedef RowVectord<3> RowVector3d;
 typedef RowVectord<4> RowVector4d;
 
-template <typename T, size_t N, size_t MN = N>
-class Vector : public internal::Tensor<Vector<T, N, MN>>
+template <typename tT, size_t tN, size_t tMN = tN>
+class Vector : public internal::Tensor<Vector<tT, tN, tMN>>
 {
-  static_assert(internal::is_col_vector<Vector<T, N, MN>>::value,
+  static_assert(internal::is_col_vector<Vector<tT, tN, tMN>>::value,
       "Invalid Vector<...> template parameters.");
 
  public:
-  typedef internal::traits<Vector<T, N, MN>> Traits;
-  using internal::Tensor<Vector<T, N, MN>>::resize;
-  using internal::Tensor<Vector<T, N, MN>>::operator=;
+  typedef internal::traits<Vector<tT, tN, tMN>> Traits;
+  using internal::Tensor<Vector<tT, tN, tMN>>::resize;
+  using internal::Tensor<Vector<tT, tN, tMN>>::operator=;
   constexpr Vector() = default;
   constexpr Vector(size_t n);
   constexpr Vector(size_t r, size_t c);
   constexpr Vector(std::initializer_list<typename Traits::elem> const &l);
   constexpr Vector(size_t n, std::initializer_list<typename Traits::elem> const &l);
   constexpr Vector(size_t r, size_t c, std::initializer_list<typename Traits::elem> const &l);
-  template <class _E>
-  constexpr Vector(internal::Stream<_E> const &E);
+  template <class tE>
+  constexpr Vector(internal::Stream<tE> const &E);
   constexpr void resize(size_t n);
 };
 
-template <size_t N, size_t MN = N>
-using Vectorf = Vector<float, N, MN>;
+template <size_t tN, size_t tMN = tN>
+using Vectorf = Vector<float, tN, tMN>;
 
 typedef Vectorf<2> Vector2f;
 typedef Vectorf<3> Vector3f;
 typedef Vectorf<4> Vector4f;
 
-template <size_t N, size_t MN = N>
-using Vectord = Vector<double, N, MN>;
+template <size_t tN, size_t tMN = tN>
+using Vectord = Vector<double, tN, tMN>;
 
 typedef Vectord<2> Vector2d;
 typedef Vectord<3> Vector3d;
@@ -85,57 +85,57 @@ typedef Vectord<4> Vector4d;
 namespace internal
 {
 
-template <typename T, size_t N, size_t MN>
-struct elem<RowVector<T, N, MN>>
+template <typename tT, size_t tN, size_t tMN>
+struct elem<RowVector<tT, tN, tMN>>
 {
-  typedef T type;
+  typedef tT type;
 };
 
-template <typename T, size_t N, size_t MN>
-struct dims<RowVector<T, N, MN>>
+template <typename tT, size_t tN, size_t tMN>
+struct dims<RowVector<tT, tN, tMN>>
 {
   enum {
     rows = 1,
-    cols = N,
+    cols = tN,
     max_rows = 1,
-    max_cols = MN
+    max_cols = tMN
   };
 };
 
-template <class A>
-struct eval<A, typename std::enable_if<is_row_vector<A>::value>::type>
+template <class tA>
+struct eval<tA, typename std::enable_if<is_row_vector<tA>::value>::type>
 {
   typedef RowVector<
-      typename elem<A>::type,
-      dims<A>::cols,
-      dims<A>::max_cols
+      typename elem<tA>::type,
+      dims<tA>::cols,
+      dims<tA>::max_cols
     > type;
 };
 
-template <typename T, size_t N, size_t MN>
-struct elem<Vector<T, N, MN>>
+template <typename tT, size_t tN, size_t tMN>
+struct elem<Vector<tT, tN, tMN>>
 {
-  typedef T type;
+  typedef tT type;
 };
 
-template <typename T, size_t N, size_t MN>
-struct dims<Vector<T, N, MN>>
+template <typename tT, size_t tN, size_t tMN>
+struct dims<Vector<tT, tN, tMN>>
 {
   enum {
-    rows = N,
+    rows = tN,
     cols = 1,
-    max_rows = MN,
+    max_rows = tMN,
     max_cols = 1
   };
 };
 
-template <class A>
-struct eval<A, typename std::enable_if<is_col_vector<A>::value>::type>
+template <class tA>
+struct eval<tA, typename std::enable_if<is_col_vector<tA>::value>::type>
 {
   typedef Vector<
-      typename elem<A>::type,
-      dims<A>::rows,
-      dims<A>::max_rows
+      typename elem<tA>::type,
+      dims<tA>::rows,
+      dims<tA>::max_rows
     > type;
 };
 }  // namespace internal

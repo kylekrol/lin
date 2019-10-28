@@ -15,13 +15,12 @@ namespace internal
 
 /** @struct can_qr
  *  True if the qr factorization function can be called on the specified
- *  template and false otherwise. To be compatible, _M and _Q must have
- *  identical traits. Furthermore, the product of _Q and _R must exist and
- *  result in traits identical to _M - i.e. because M = Q * R. */
-template <class _M, class _Q, class _R>
-struct can_qr
-: public std::integral_constant<bool, (
-    are_traits_equal<_M, _Q>::value && are_traits_equal<_M, Multiply<_Q, _R>>::value
+ *  template and false otherwise. To be compatible, tM and tQ must have
+ *  identical traits. Furthermore, the product of tQ and tR must exist and
+ *  result in traits identical to tM - i.e. because M = Q * R. */
+template <class tM, class tQ, class tR>
+struct can_qr : public std::integral_constant<bool, (
+    are_traits_equal<tM, tQ>::value && are_traits_equal<tM, Multiply<tQ, tR>>::value
   )> { };
 
 }  // namespace internal
@@ -34,9 +33,9 @@ struct can_qr
  *  Calculates the QR factorization of M and stores the result in Q and R.
  * 
  *  REQUIRES: Q and R are already sized to the proper dimensions. */
-template <class _M, class _Q, class _R,
-    typename std::enable_if<internal::can_qr<_M, _Q, _R>::value, size_t>::type = 0>
-constexpr int qr(internal::Stream<_M> const &M, internal::Base<_Q> &Q, internal::Base<_R> &R);
+template <class tM, class tQ, class tR,
+    typename std::enable_if<internal::can_qr<tM, tQ, tR>::value, size_t>::type = 0>
+constexpr int qr(internal::Stream<tM> const &M, internal::Base<tQ> &Q, internal::Base<tR> &R);
 
 /** @fn qr
  *  @param[in] M m by n matrix where m >= n.
@@ -46,9 +45,9 @@ constexpr int qr(internal::Stream<_M> const &M, internal::Base<_Q> &Q, internal:
  *  Calculates the QR factorization of M and stores the result in Q and R.
  * 
  *  Will resize Q and R if required. */
-template <class _M, class _Q, class _R,
-    typename std::enable_if<internal::can_qr<_M, _Q, _R>::value, size_t>::type = 0>
-constexpr int qr(internal::Stream<_M> const &M, internal::Tensor<_Q> &Q, internal::Tensor<_R> &R);
+template <class tM, class tQ, class tR,
+    typename std::enable_if<internal::can_qr<tM, tQ, tR>::value, size_t>::type = 0>
+constexpr int qr(internal::Stream<tM> const &M, internal::Tensor<tQ> &Q, internal::Tensor<tR> &R);
 
 }  // namespace lin
 

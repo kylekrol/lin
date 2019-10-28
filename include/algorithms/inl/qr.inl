@@ -5,9 +5,9 @@
 namespace lin
 {
 
-template <class _M, class _Q, class _R,
-    typename std::enable_if<internal::can_qr<_M, _Q, _R>::value, size_t>::type>
-constexpr int qr(internal::Stream<_M> const &M, internal::Base<_Q> &Q, internal::Base<_R> &R)
+template <class tM, class tQ, class tR,
+    typename std::enable_if<internal::can_qr<tM, tQ, tR>::value, size_t>::type>
+constexpr int qr(internal::Stream<tM> const &M, internal::Base<tQ> &Q, internal::Base<tR> &R)
 {
   assert(M.rows() >= M.cols() /* M isn't 'tall' in qr(...) */);
   assert(M.rows() == Q.rows() /* Q rows doesn't match in qr(...) */);
@@ -16,7 +16,7 @@ constexpr int qr(internal::Stream<_M> const &M, internal::Base<_Q> &Q, internal:
   assert(M.cols() == R.cols() /* R cols doesn't match in qr(...) */);
 
   // Initialize R and Q
-  R = zeroes<_R>(R.rows(), R.cols());
+  R = zeroes<tR>(R.rows(), R.cols());
   Q = M;
 
   for (size_t j = 0; j < M.cols(); j++) {
@@ -37,14 +37,14 @@ constexpr int qr(internal::Stream<_M> const &M, internal::Base<_Q> &Q, internal:
   return 0;  // TODO : Return an actual status code
 }
 
-template <class _M, class _Q, class _R,
-    typename std::enable_if<internal::can_qr<_M, _Q, _R>::value, size_t>::type>
-constexpr int qr(internal::Stream<_M> const &M, internal::Tensor<_Q> &Q, internal::Tensor<_R> &R)
+template <class tM, class tQ, class tR,
+    typename std::enable_if<internal::can_qr<tM, tQ, tR>::value, size_t>::type>
+constexpr int qr(internal::Stream<tM> const &M, internal::Tensor<tQ> &Q, internal::Tensor<tR> &R)
 {
   // Resize while Q and R and stil Tensor types
   Q.resize(M.rows(), M.cols());
   R.resize(M.cols(), M.cols());
   // Calculate the qr factorization
-  return qr(M, static_cast<internal::Base<_Q> &>(Q), static_cast<internal::Base<_R> &>(R));
+  return qr(M, static_cast<internal::Base<tQ> &>(Q), static_cast<internal::Base<tR> &>(R));
 }
 }  // namespace lin

@@ -13,41 +13,41 @@ namespace lin
 namespace internal
 {
 
-template <size_t R, size_t C, size_t MR, size_t MC, class _E>
-class BaseReference : public Base<BaseReference<R, C, MR, MC, _E>>,
-    public Dimensions<BaseReference<R, C, MR, MC, _E>>
+template <size_t tR, size_t tC, size_t tMR, size_t tMC, class tE>
+class BaseReference : public Base<BaseReference<tR, tC, tMR, tMC, tE>>,
+    public Dimensions<BaseReference<tR, tC, tMR, tMC, tE>>
 {
  public:
-  typedef traits<BaseReference<R, C, MR, MC, _E>> Traits;
-  using Dimensions<BaseReference<R, C, MR, MC, _E>>::rows;
-  using Dimensions<BaseReference<R, C, MR, MC, _E>>::cols;
-  using Base<BaseReference<R, C, MR, MC, _E>>::size;
-  using Base<BaseReference<R, C, MR, MC, _E>>::operator=;
-  using Base<BaseReference<R, C, MR, MC, _E>>::operator();
+  typedef traits<BaseReference<tR, tC, tMR, tMC, tE>> Traits;
+  using Dimensions<BaseReference<tR, tC, tMR, tMC, tE>>::rows;
+  using Dimensions<BaseReference<tR, tC, tMR, tMC, tE>>::cols;
+  using Base<BaseReference<tR, tC, tMR, tMC, tE>>::size;
+  using Base<BaseReference<tR, tC, tMR, tMC, tE>>::operator=;
+  using Base<BaseReference<tR, tC, tMR, tMC, tE>>::operator();
   constexpr BaseReference() = delete;
-  constexpr BaseReference(Base<_E> &E, size_t i, size_t j, size_t r, size_t c);
+  constexpr BaseReference(Base<tE> &E, size_t i, size_t j, size_t r, size_t c);
   constexpr typename Traits::elem &operator()(size_t i, size_t j);
   constexpr typename Traits::elem &operator()(size_t i);
 
  private:
-  using Dimensions<BaseReference<R, C, MR, MC, _E>>::resize;
-  using Base<BaseReference<R, C, MR, MC, _E>>::derived;
-  Base<_E> &E;
+  using Dimensions<BaseReference<tR, tC, tMR, tMC, tE>>::resize;
+  using Base<BaseReference<tR, tC, tMR, tMC, tE>>::derived;
+  Base<tE> &E;
   size_t const i;
   size_t const j;
 };
 
-template <size_t R, size_t C, size_t MR, size_t MC, class _E>
-struct elem<BaseReference<R, C, MR, MC, _E>> : public elem<_E> { };
+template <size_t tR, size_t tC, size_t tMR, size_t tMC, class tE>
+struct elem<BaseReference<tR, tC, tMR, tMC, tE>> : public elem<tE> { };
 
-template <size_t R, size_t C, size_t MR, size_t MC, class _E>
-struct dims<BaseReference<R, C, MR, MC, _E>>
+template <size_t tR, size_t tC, size_t tMR, size_t tMC, class tE>
+struct dims<BaseReference<tR, tC, tMR, tMC, tE>>
 {
   enum {
-    rows = R,
-    cols = C,
-    max_rows = MR,
-    max_cols = MC
+    rows = tR,
+    cols = tC,
+    max_rows = tMR,
+    max_cols = tMC
   };
 };
 }  // namespace internal
@@ -62,9 +62,9 @@ struct dims<BaseReference<R, C, MR, MC, _E>>
  *  Generates a statically sized, read/write reference to the provided backing
  *  stream. If you are looking to reference a full row/column of a tensor, see
  *  the row and column reference functions. */
-template <size_t R, size_t C, size_t MR, size_t MC, class _E>
-constexpr internal::BaseReference<R, C, MR, MC, _E>
-ref(internal::Base<_E> &E, size_t i, size_t j, size_t r = MR, size_t c = MC);
+template <size_t tR, size_t tC, size_t tMR, size_t tMC, class tE>
+constexpr internal::BaseReference<tR, tC, tMR, tMC, tE>
+ref(internal::Base<tE> &E, size_t i, size_t j, size_t r = tMR, size_t c = tMC);
 
 /** @fn ref
  *  @param[in] E Backing stream the reference pulls data from.
@@ -74,9 +74,9 @@ ref(internal::Base<_E> &E, size_t i, size_t j, size_t r = MR, size_t c = MC);
  *  Generates a fixed sized, read/write reference to the provided backing
  *  stream. If you are looking to reference a full row/column of a tensor, see
  *  the row and column reference functions. */
-template <size_t R, size_t C, class _E>
-constexpr internal::BaseReference<R, C, R, C, _E>
-ref(internal::Base<_E> &E, size_t i, size_t j);
+template <size_t tR, size_t tC, class tE>
+constexpr internal::BaseReference<tR, tC, tR, tC, tE>
+ref(internal::Base<tE> &E, size_t i, size_t j);
 
 /** @fn ref_row
  *  @param[in] E Backing stream the reference pulls data from.
@@ -85,8 +85,8 @@ ref(internal::Base<_E> &E, size_t i, size_t j);
  *  Generates a read/write reference to the i'th row of the provided stream as a
  *  row vector. This function is a small wrapper around the standard ref
  *  function using the traits of _E and E's dimensions at runtime. */
-template <class _E>
-constexpr auto ref_row(internal::Base<_E> &E, size_t i);
+template <class tE>
+constexpr auto ref_row(internal::Base<tE> &E, size_t i);
 
 /** @fn ref_row
  *  @param[in] E Backing stream the reference pulls data from.
@@ -96,8 +96,8 @@ constexpr auto ref_row(internal::Base<_E> &E, size_t i);
  *  stream as a column vector. This function is a small wrapper around the
  *  standard ref function using the traits of _E and E's dimensions at runtime.
  *  */
-template <class _E>
-constexpr auto ref_col(internal::Base<_E> &E, size_t j);
+template <class tE>
+constexpr auto ref_col(internal::Base<tE> &E, size_t j);
 
 }  // namespace lin
 

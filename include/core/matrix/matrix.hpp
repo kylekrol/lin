@@ -12,26 +12,26 @@
 namespace lin
 {
 
-template <typename T, size_t R, size_t C, size_t MR = R, size_t MC = C>
-class Matrix : public internal::Tensor<Matrix<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
+class Matrix : public internal::Tensor<Matrix<tT, tR, tC, tMR, tMC>>
 {
-  static_assert(internal::is_matrix<Matrix<T, R, C, MR, MC>>::value,
+  static_assert(internal::is_matrix<Matrix<tT, tR, tC, tMR, tMC>>::value,
       "Invalid Matrix<...> template parameters.");
 
  public:
-  typedef internal::traits<Matrix<T, R, C, MR, MC>> Traits;
-  using internal::Tensor<Matrix<T, R, C, MR, MC>>::resize;
-  using internal::Tensor<Matrix<T, R, C, MR, MC>>::operator=;
+  typedef internal::traits<Matrix<tT, tR, tC, tMR, tMC>> Traits;
+  using internal::Tensor<Matrix<tT, tR, tC, tMR, tMC>>::resize;
+  using internal::Tensor<Matrix<tT, tR, tC, tMR, tMC>>::operator=;
   constexpr Matrix() = default;
   constexpr Matrix(size_t r, size_t c);
   constexpr Matrix(std::initializer_list<typename Traits::elem> const &l);
   constexpr Matrix(size_t r, size_t c, std::initializer_list<typename Traits::elem> const &l);
-  template <class _E>
-  constexpr Matrix(internal::Stream<_E> const &E);
+  template <class tE>
+  constexpr Matrix(internal::Stream<tE> const &E);
 };
 
-template <size_t R, size_t C, size_t MR = R, size_t MC = C>
-using Matrixf = Matrix<float, R, C, MR, MC>;
+template <size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
+using Matrixf = Matrix<float, tR, tC, tMR, tMC>;
 
 typedef Matrixf<2, 2> Matrix2x2f;
 typedef Matrixf<3, 2> Matrix3x2f;
@@ -43,8 +43,8 @@ typedef Matrixf<2, 4> Matrix2x4f;
 typedef Matrixf<3, 4> Matrix3x4f;
 typedef Matrixf<4, 4> Matrix4x4f;
 
-template <size_t R, size_t C, size_t MR = R, size_t MC = C>
-using Matrixd = Matrix<double, R, C, MR, MC>;
+template <size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
+using Matrixd = Matrix<double, tR, tC, tMR, tMC>;
 
 typedef Matrixd<2, 2> Matrix2x2d;
 typedef Matrixd<3, 2> Matrix3x2d;
@@ -59,32 +59,32 @@ typedef Matrixd<4, 4> Matrix4x4d;
 namespace internal
 {
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-struct elem<Matrix<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+struct elem<Matrix<tT, tR, tC, tMR, tMC>>
 {
-  typedef T type;
+  typedef tT type;
 };
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-struct dims<Matrix<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+struct dims<Matrix<tT, tR, tC, tMR, tMC>>
 {
   enum {
-    rows = R,
-    cols = C,
-    max_rows = MR,
-    max_cols = MC
+    rows = tR,
+    cols = tC,
+    max_rows = tMR,
+    max_cols = tMC
   };
 };
 
-template <class A>
-struct eval<A, typename std::enable_if<is_matrix<A>::value>::type>
+template <class tA>
+struct eval<tA, typename std::enable_if<is_matrix<tA>::value>::type>
 {
   typedef Matrix<
-      typename elem<A>::type,
-      dims<A>::rows,
-      dims<A>::cols,
-      dims<A>::max_rows,
-      dims<A>::max_cols
+      typename elem<tA>::type,
+      dims<tA>::rows,
+      dims<tA>::cols,
+      dims<tA>::max_rows,
+      dims<tA>::max_cols
     > type;
 };
 }  // namespace internal

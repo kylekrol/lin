@@ -20,34 +20,30 @@ namespace lin
 namespace internal
 {
 
-template <class D>
-class Tensor : public Base<D>, public Dimensions<D>
+template <class tD>
+class Tensor : public Base<tD>, public Dimensions<tD>
 {
  public:
-  typedef traits<D> Traits;
-  using Dimensions<D>::rows;
-  using Dimensions<D>::cols;
-  using Dimensions<D>::resize;
-  using Base<D>::size;
-  using Base<D>::operator=;
-  using Base<D>::operator();
+  typedef traits<tD> Traits;
+  using Dimensions<tD>::rows;
+  using Dimensions<tD>::cols;
+  using Dimensions<tD>::resize;
+  using Base<tD>::size;
+  using Base<tD>::operator=;
+  using Base<tD>::operator();
   constexpr typename Traits::elem &operator()(size_t i, size_t j);
   constexpr typename Traits::elem &operator()(size_t i);
   constexpr typename Traits::elem const *data() const;
   constexpr typename Traits::elem *data();
 
-
-  constexpr static typename Traits::eval rands(size_t r = Traits::max_rows,
-      size_t c = Traits::max_cols, RandomsGenerator &randoms = rand);
-
  protected:
-  using Base<D>::derived;
+  using Base<tD>::derived;
   constexpr Tensor() = default;
   constexpr Tensor(size_t r, size_t c);
   constexpr Tensor(std::initializer_list<typename Traits::elem> const &l);
   constexpr Tensor(size_t r, size_t c, std::initializer_list<typename Traits::elem> const &l);
-  template <class _E>
-  constexpr Tensor(Stream<_E> const &E);
+  template <class tE>
+  constexpr Tensor(Stream<tE> const &E);
 
  private:
   std::array<typename Traits::elem, Traits::max_size> elements;

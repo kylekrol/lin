@@ -18,13 +18,12 @@ namespace internal
 
 /** @struct can_backward_sub
  *  True if the backward substitution function can be called on the specified
- *  template and false otherwise. To be compatible, _X and _Y must have
- *  compatible traits. Furthermore, the product of _U and _X must exist and
- *  result in the same traits as _Y. */
-template <class _U, class _X, class _Y>
-struct can_backward_sub
-: public std::integral_constant<bool, (
-    are_traits_equal<_X, _Y>::value && are_traits_equal<Multiply<_U, _X>, _Y>::value
+ *  template and false otherwise. To be compatible, tX and tY must have
+ *  compatible traits. Furthermore, the product of tU and tX must exist and
+ *  result in the same traits as tY. */
+template <class tU, class tX, class tY>
+struct can_backward_sub : public std::integral_constant<bool, (
+    are_traits_equal<tX, tY>::value && are_traits_equal<Multiply<tU, tX>, tY>::value
   )> { };
 
 }  // namespace internal
@@ -38,10 +37,10 @@ struct can_backward_sub
  *  given and U is knows to be an upper triangular matrix.
  * 
  *  REQUIRES: X is already resized to proper dimensions. */
-template <class _U, class _X, class _Y,
-    typename std::enable_if<internal::can_backward_sub<_U, _X, _Y>::value, size_t>::type = 0>
-constexpr int backward_sub(internal::Base<_U> const &U, internal::Base<_X> &X,
-    internal::Base<_Y> const &Y);
+template <class tU, class tX, class tY,
+    typename std::enable_if<internal::can_backward_sub<tU, tX, tY>::value, size_t>::type = 0>
+constexpr int backward_sub(internal::Base<tU> const &U, internal::Base<tX> &X,
+    internal::Base<tY> const &Y);
 
 /** @fn backward_sub
  *  @param[in] U n by n upper-right triangular matrix.
@@ -52,10 +51,10 @@ constexpr int backward_sub(internal::Base<_U> const &U, internal::Base<_X> &X,
  *  given and U is knows to be an upper triangular matrix.
  * 
  *  Will resize X is required. */
-template <class _U, class _X, class _Y,
-    typename std::enable_if<internal::can_backward_sub<_U, _X, _Y>::value, size_t>::type = 0>
-constexpr int backward_sub(internal::Base<_U> const &U, internal::Tensor<_X> &X,
-    internal::Base<_Y> const &Y);
+template <class tU, class tX, class tY,
+    typename std::enable_if<internal::can_backward_sub<tU, tX, tY>::value, size_t>::type = 0>
+constexpr int backward_sub(internal::Base<tU> const &U, internal::Tensor<tX> &X,
+    internal::Base<tY> const &Y);
 
 }  // namespace lin
 

@@ -12,10 +12,10 @@ namespace lin
 namespace internal
 {
 
-template <size_t N, size_t MN>
+template <size_t tN, size_t tMN>
 class Dimension;
 
-template <class D>
+template <class tD>
 class Dimensions
 {
  public:
@@ -25,8 +25,8 @@ class Dimensions
   constexpr void resize(size_t r, size_t c);
 
  private:
-  Dimension<dims<D>::rows, dims<D>::max_rows> row_dimension;
-  Dimension<dims<D>::cols, dims<D>::max_cols> col_dimension;
+  Dimension<dims<tD>::rows, dims<tD>::max_rows> row_dimension;
+  Dimension<dims<tD>::cols, dims<tD>::max_cols> col_dimension;
 };
 }  // namespace internal
 }  // namespace lin
