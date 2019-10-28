@@ -119,10 +119,10 @@ constexpr auto consts(typename internal::elem<tA>::type t, size_t r = internal::
 
 template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
 constexpr internal::Constants<tT, tR, tC, tMR, tMC>
-zeroes(size_t r = tMR, size_t c = tMC);
+zeros(size_t r = tMR, size_t c = tMC);
 
 template <class tA>
-constexpr auto zeroes(size_t r = internal::dims<tA>::max_rows,
+constexpr auto zeros(size_t r = internal::dims<tA>::max_rows,
     size_t c = internal::dims<tA>::max_cols);
 
 template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>

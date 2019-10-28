@@ -333,9 +333,9 @@ TEST(CoreTests, Norm)
   ASSERT_FLOAT_EQ(lin::norm(lin::transpose(u)), 5.0f);
 }
 
-TEST(CoreTests, ZeroesTest)
+TEST(CoreTests, ZerosTest)
 {
-  lin::Matrix2x2f a = lin::zeroes<float, 2, 2>();
+  lin::Matrix2x2f a = lin::zeros<float, 2, 2>();
   // Check elements
   ASSERT_FLOAT_EQ(a(0, 0), 0.0f);
   ASSERT_FLOAT_EQ(a(1, 0), 0.0f);

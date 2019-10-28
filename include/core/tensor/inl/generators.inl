@@ -88,16 +88,16 @@ constexpr auto consts(typename internal::elem<tA>::type t, size_t r, size_t c)
 
 template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
 constexpr internal::Constants<tT, tR, tC, tMR, tMC>
-zeroes(size_t r, size_t c)
+zeros(size_t r, size_t c)
 {
   return consts<tT, tR, tC, tMR, tMC>(static_cast<tT>(0.0), r, c);
 }
 
 template <class tA>
-constexpr auto zeroes(size_t r, size_t c)
+constexpr auto zeros(size_t r, size_t c)
 {
   typedef internal::traits<tA> TA;
-  return zeroes<typename TA::elem, TA::rows, TA::cols, TA::max_rows, TA::max_cols>(r, c);
+  return zeros<typename TA::elem, TA::rows, TA::cols, TA::max_rows, TA::max_cols>(r, c);
 }
 
 template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
