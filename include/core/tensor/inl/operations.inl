@@ -7,253 +7,253 @@ namespace lin
 namespace internal
 {
 
-template <class _A, class _B>
-constexpr Add<_A, _B>::Add(Stream<_A> const &A, Stream<_B> const &B)
+template <class tA, class tB>
+constexpr Add<tA, tB>::Add(Stream<tA> const &A, Stream<tB> const &B)
 : A(A), B(B)
 {
   assert(A.rows() == B.rows() /* Invalid rows in Add<...>::Add */);
   assert(A.cols() == B.cols() /* Invalid cols in Add<...>::Add */);
 }
 
-template <class _A, class _B>
-constexpr size_t Add<_A, _B>::rows() const
+template <class tA, class tB>
+constexpr size_t Add<tA, tB>::rows() const
 {
   return A.rows();
 }
 
-template <class _A, class _B>
-constexpr size_t Add<_A, _B>::cols() const
+template <class tA, class tB>
+constexpr size_t Add<tA, tB>::cols() const
 {
   return A.cols();
 }
 
-template <class _A, class _B>
-constexpr typename Add<_A, _B>::Traits::elem
-Add<_A, _B>::operator()(size_t i, size_t j) const
+template <class tA, class tB>
+constexpr typename Add<tA, tB>::Traits::elem
+Add<tA, tB>::operator()(size_t i, size_t j) const
 {
   return A(i, j) + B(i, j);
 }
 
-template <class _A, class _B>
-constexpr typename Add<_A, _B>::Traits::elem
-Add<_A, _B>::operator()(size_t i) const
+template <class tA, class tB>
+constexpr typename Add<tA, tB>::Traits::elem
+Add<tA, tB>::operator()(size_t i) const
 {
   return A(i) + B(i);
 }
 
-template <class _A, class _B>
-constexpr Subtract<_A, _B>::Subtract(Stream<_A> const &A, Stream<_B> const &B)
+template <class tA, class tB>
+constexpr Subtract<tA, tB>::Subtract(Stream<tA> const &A, Stream<tB> const &B)
 : A(A), B(B)
 {
   assert(A.rows() == B.rows() /* Invalid rows in Subtract<...>::Subtract */);
   assert(A.cols() == B.cols() /* Invalid cols in Subtract<...>::Subtract */);
 }
 
-template <class _A, class _B>
-constexpr size_t Subtract<_A, _B>::rows() const
+template <class tA, class tB>
+constexpr size_t Subtract<tA, tB>::rows() const
 {
   return A.rows();
 }
 
-template <class _A, class _B>
-constexpr size_t Subtract<_A, _B>::cols() const
+template <class tA, class tB>
+constexpr size_t Subtract<tA, tB>::cols() const
 {
   return A.cols();
 }
 
-template <class _A, class _B>
-constexpr typename Subtract<_A, _B>::Traits::elem
-Subtract<_A, _B>::operator()(size_t i, size_t j) const
+template <class tA, class tB>
+constexpr typename Subtract<tA, tB>::Traits::elem
+Subtract<tA, tB>::operator()(size_t i, size_t j) const
 {
   return A(i, j) - B(i, j);
 }
 
-template <class _A, class _B>
-constexpr typename Subtract<_A, _B>::Traits::elem
-Subtract<_A, _B>::operator()(size_t i) const
+template <class tA, class tB>
+constexpr typename Subtract<tA, tB>::Traits::elem
+Subtract<tA, tB>::operator()(size_t i) const
 {
   return A(i) - B(i);
 }
 
-template <class _A>
-constexpr ScaleMultiple<_A>::ScaleMultiple(Stream<_A> const &A, typename Traits::elem s)
+template <class tA>
+constexpr ScaleMultiple<tA>::ScaleMultiple(Stream<tA> const &A, typename Traits::elem s)
 : A(A), s(s) { }
 
-template <class _A>
-constexpr size_t ScaleMultiple<_A>::rows() const
+template <class tA>
+constexpr size_t ScaleMultiple<tA>::rows() const
 {
   return A.rows();
 }
 
-template <class _A>
-constexpr size_t ScaleMultiple<_A>::cols() const
+template <class tA>
+constexpr size_t ScaleMultiple<tA>::cols() const
 {
   return A.cols();
 }
 
-template <class _A>
-constexpr typename ScaleMultiple<_A>::Traits::elem
-ScaleMultiple<_A>::operator()(size_t i, size_t j) const
+template <class tA>
+constexpr typename ScaleMultiple<tA>::Traits::elem
+ScaleMultiple<tA>::operator()(size_t i, size_t j) const
 {
   return A(i, j) * s;
 }
 
-template <class _A>
-constexpr typename ScaleMultiple<_A>::Traits::elem
-ScaleMultiple<_A>::operator()(size_t i) const
+template <class tA>
+constexpr typename ScaleMultiple<tA>::Traits::elem
+ScaleMultiple<tA>::operator()(size_t i) const
 {
   return A(i) * s;
 }
 
-template <class _A>
-constexpr ScaleDivide<_A>::ScaleDivide(Stream<_A> const &A, typename Traits::elem s)
+template <class tA>
+constexpr ScaleDivide<tA>::ScaleDivide(Stream<tA> const &A, typename Traits::elem s)
 : A(A), s(s) { }
 
-template <class _A>
-constexpr size_t ScaleDivide<_A>::rows() const
+template <class tA>
+constexpr size_t ScaleDivide<tA>::rows() const
 {
   return A.rows();
 }
 
-template <class _A>
-constexpr size_t ScaleDivide<_A>::cols() const
+template <class tA>
+constexpr size_t ScaleDivide<tA>::cols() const
 {
   return A.cols();
 }
 
-template <class _A>
-constexpr typename ScaleDivide<_A>::Traits::elem
-ScaleDivide<_A>::operator()(size_t i, size_t j) const
+template <class tA>
+constexpr typename ScaleDivide<tA>::Traits::elem
+ScaleDivide<tA>::operator()(size_t i, size_t j) const
 {
   return A(i, j) / s;
 }
 
-template <class _A>
-constexpr typename ScaleDivide<_A>::Traits::elem
-ScaleDivide<_A>::operator()(size_t i) const
+template <class tA>
+constexpr typename ScaleDivide<tA>::Traits::elem
+ScaleDivide<tA>::operator()(size_t i) const
 {
   return A(i) / s;
 }
 
-template <class _A, class _B>
-constexpr Multiply<_A, _B>::Multiply(Stream<_A> const &A, Stream<_B> const &B)
+template <class tA, class tB>
+constexpr Multiply<tA, tB>::Multiply(Stream<tA> const &A, Stream<tB> const &B)
 : A(A), B(B)
 {
-  assert(A.cols() == B.rows() /* Incompatiblity in Multiply<...>::Multiplu */);
+  assert(A.cols() == B.rows() /* Incompatiblity in Multiply<...>::Multiply */);
 }
 
-template <class _A, class _B>
-constexpr size_t Multiply<_A, _B>::rows() const
+template <class tA, class tB>
+constexpr size_t Multiply<tA, tB>::rows() const
 {
   return A.rows();
 }
 
-template <class _A, class _B>
-constexpr size_t Multiply<_A, _B>::cols() const
+template <class tA, class tB>
+constexpr size_t Multiply<tA, tB>::cols() const
 {
   return B.cols();
 }
 
-template <class _A, class _B>
-constexpr typename Multiply<_A, _B>::Traits::elem
-Multiply<_A, _B>::operator()(size_t i, size_t j) const
+template <class tA, class tB>
+constexpr typename Multiply<tA, tB>::Traits::elem
+Multiply<tA, tB>::operator()(size_t i, size_t j) const
 {
   typename Traits::elem x = A(i, 0) * B(0, j);
   for (size_t k = 1; k < A.cols(); k++) x += A(i, k) * B(k, j);
   return x;
 }
 
-template <class _A, class _B>
-constexpr typename Multiply<_A, _B>::Traits::elem
-Multiply<_A, _B>::operator()(size_t i) const
+template <class tA, class tB>
+constexpr typename Multiply<tA, tB>::Traits::elem
+Multiply<tA, tB>::operator()(size_t i) const
 {
   return operator()(i / cols(), i % cols());
 }
 
-template <class _A>
-constexpr Transpose<_A>::Transpose(Stream<_A> const &A)
+template <class tA>
+constexpr Transpose<tA>::Transpose(Stream<tA> const &A)
 : A(A) { }
 
-template <class _A>
-constexpr size_t Transpose<_A>::rows() const
+template <class tA>
+constexpr size_t Transpose<tA>::rows() const
 {
   return A.cols();
 }
 
-template <class _A>
-constexpr size_t Transpose<_A>::cols() const
+template <class tA>
+constexpr size_t Transpose<tA>::cols() const
 {
   return A.rows();
 }
 
-template <class _A>
-constexpr typename Transpose<_A>::Traits::elem
-Transpose<_A>::operator()(size_t i, size_t j) const
+template <class tA>
+constexpr typename Transpose<tA>::Traits::elem
+Transpose<tA>::operator()(size_t i, size_t j) const
 {
   return A(j, i);
 }
 
-template <class _A>
-constexpr typename Transpose<_A>::Traits::elem
-Transpose<_A>::operator()(size_t i) const
+template <class tA>
+constexpr typename Transpose<tA>::Traits::elem
+Transpose<tA>::operator()(size_t i) const
 {
   return operator()(i / cols(), i % cols());
 }
 
-template <class _A, class _B,
-    typename std::enable_if<can_add<_A, _B>::value, size_t>::type>
-constexpr Add<_A, _B> operator+(Stream<_A> const &A, Stream<_B> const &B)
+template <class tA, class tB,
+    typename std::enable_if<can_add<tA, tB>::value, size_t>::type>
+constexpr Add<tA, tB> operator+(Stream<tA> const &A, Stream<tB> const &B)
 {
-  return Add<_A, _B>(A, B);
+  return Add<tA, tB>(A, B);
 }
 
-template <class _A, class _B,
-    typename std::enable_if<can_subtract<_A, _B>::value, size_t>::type>
-constexpr Subtract<_A, _B> operator-(Stream<_A> const &A, Stream<_B> const &B)
+template <class tA, class tB,
+    typename std::enable_if<can_subtract<tA, tB>::value, size_t>::type>
+constexpr Subtract<tA, tB> operator-(Stream<tA> const &A, Stream<tB> const &B)
 {
-  return Subtract<_A, _B>(A, B);
+  return Subtract<tA, tB>(A, B);
 }
 
-template <class _A,
-    typename std::enable_if<can_scale_multiple<_A>::value, size_t>::type>
-constexpr ScaleMultiple<_A> operator*(Stream<_A> const &A, typename Stream<_A>::Traits::elem s)
+template <class tA,
+    typename std::enable_if<can_scale_multiple<tA>::value, size_t>::type>
+constexpr ScaleMultiple<tA> operator*(Stream<tA> const &A, typename Stream<tA>::Traits::elem s)
 {
-  return ScaleMultiple<_A>(A, s);
+  return ScaleMultiple<tA>(A, s);
 }
 
-template <class _A,
-    typename std::enable_if<can_scale_multiple<_A>::value, size_t>::type>
-constexpr ScaleMultiple<_A> operator*(typename Stream<_A>::Traits::elem s, Stream<_A> const &A)
+template <class tA,
+    typename std::enable_if<can_scale_multiple<tA>::value, size_t>::type>
+constexpr ScaleMultiple<tA> operator*(typename Stream<tA>::Traits::elem s, Stream<tA> const &A)
 {
   return (A * s);
 }
 
-template <class _A,
-    typename std::enable_if<can_scale_divide<_A>::value, size_t>::type>
-constexpr ScaleDivide<_A> operator/(Stream<_A> const &A, typename Stream<_A>::Traits::elem s)
+template <class tA,
+    typename std::enable_if<can_scale_divide<tA>::value, size_t>::type>
+constexpr ScaleDivide<tA> operator/(Stream<tA> const &A, typename Stream<tA>::Traits::elem s)
 {
-  return ScaleDivide<_A>(A, s);
+  return ScaleDivide<tA>(A, s);
 }
 
-template <class _A, class _B,
-    typename std::enable_if<can_multiply<_A, _B>::value, size_t>::type>
-constexpr Multiply<_A, _B> operator*(Stream<_A> const &A, Stream<_B> const &B)
+template <class tA, class tB,
+    typename std::enable_if<can_multiply<tA, tB>::value, size_t>::type>
+constexpr Multiply<tA, tB> operator*(Stream<tA> const &A, Stream<tB> const &B)
 {
-  return Multiply<_A, _B>(A, B);
+  return Multiply<tA, tB>(A, B);
 }
 }  // namespace internal
 
-template <class _A,
-    typename std::enable_if<internal::can_transpose<_A>::value, size_t>::type>
-constexpr internal::Transpose<_A> transpose(internal::Stream<_A> const &A)
+template <class tA,
+    typename std::enable_if<internal::can_transpose<tA>::value, size_t>::type>
+constexpr internal::Transpose<tA> transpose(internal::Stream<tA> const &A)
 {
-  return internal::Transpose<_A>(A);
+  return internal::Transpose<tA>(A);
 }
 
-template <class _A>
-constexpr typename internal::Stream<_A>::Traits::elem fro(internal::Stream<_A> const &A)
+template <class tA>
+constexpr typename internal::Stream<tA>::Traits::elem fro(internal::Stream<tA> const &A)
 {
-  typename internal::Stream<_A>::Traits::elem x = A(0) * A(0);
+  typename internal::Stream<tA>::Traits::elem x = A(0) * A(0);
   for (size_t i = 1; i < A.size(); i++) x += A(i) * A(i);
   return x;
 }

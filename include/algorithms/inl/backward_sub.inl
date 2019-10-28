@@ -5,13 +5,13 @@
 namespace lin
 {
 
-template <class _U, class _X, class _Y,
-    typename std::enable_if<internal::can_backward_sub<_U, _X, _Y>::value, size_t>::type>
-constexpr int backward_sub(internal::Base<_U> const &U, internal::Base<_X> &X,
-    internal::Base<_Y> const &Y)
+template <class tU, class tX, class tY,
+    typename std::enable_if<internal::can_backward_sub<tU, tX, tY>::value, size_t>::type>
+constexpr int backward_sub(internal::Base<tU> const &U, internal::Base<tX> &X,
+    internal::Base<tY> const &Y)
 {
-  typedef internal::traits<_U> TU;
-  typedef internal::traits<_Y> TY;
+  typedef internal::traits<tU> TU;
+  typedef internal::traits<tY> TY;
 
   assert(U.rows() == U.cols() /* U isn't square in backward_sub(...) */);
   assert(U.cols() == Y.rows() /* Y rows don't match in backward_sub(...) */);
@@ -35,12 +35,12 @@ constexpr int backward_sub(internal::Base<_U> const &U, internal::Base<_X> &X,
   return 0;  // TODO : Return an actual error code
 }
 
-template <class _U, class _X, class _Y,
-    typename std::enable_if<internal::can_backward_sub<_U, _X, _Y>::value, size_t>::type>
-constexpr int backward_sub(internal::Base<_U> const &U, internal::Tensor<_X> &X,
-    internal::Base<_Y> const &Y)
+template <class tU, class tX, class tY,
+    typename std::enable_if<internal::can_backward_sub<tU, tX, tY>::value, size_t>::type>
+constexpr int backward_sub(internal::Base<tU> const &U, internal::Tensor<tX> &X,
+    internal::Base<tY> const &Y)
 {
   X.resize(Y.rows(), Y.cols());
-  return backward_sub(U, static_cast<internal::Base<_X> &>(X), Y);
+  return backward_sub(U, static_cast<internal::Base<tX> &>(X), Y);
 }
 }  // namespace lin

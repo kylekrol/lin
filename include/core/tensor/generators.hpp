@@ -18,40 +18,40 @@ namespace lin
 namespace internal
 {
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-class Constants : public Stream<Constants<T, R, C, MR, MC>>,
-    public Dimensions<Constants<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+class Constants : public Stream<Constants<tT, tR, tC, tMR, tMC>>,
+    public Dimensions<Constants<tT, tR, tC, tMR, tMC>>
 {
  public:
-  typedef traits<Constants<T, R, C, MR, MC>> Traits;
-  using Dimensions<Constants<T, R, C, MR, MC>>::rows;
-  using Dimensions<Constants<T, R, C, MR, MC>>::cols;
-  using Stream<Constants<T, R, C, MR, MC>>::size;
+  typedef traits<Constants<tT, tR, tC, tMR, tMC>> Traits;
+  using Dimensions<Constants<tT, tR, tC, tMR, tMC>>::rows;
+  using Dimensions<Constants<tT, tR, tC, tMR, tMC>>::cols;
+  using Stream<Constants<tT, tR, tC, tMR, tMC>>::size;
   constexpr Constants() = delete;
-  constexpr Constants(T t, size_t r, size_t c);
+  constexpr Constants(tT t, size_t r, size_t c);
   constexpr typename Traits::elem operator()(size_t i, size_t j) const;
   constexpr typename Traits::elem operator()(size_t i) const;
 
  private:
-  using Dimensions<Constants<T, R, C, MR, MC>>::resize;
-  using Stream<Constants<T, R, C, MR, MC>>::derived;
-  T const t;
+  using Dimensions<Constants<tT, tR, tC, tMR, tMC>>::resize;
+  using Stream<Constants<tT, tR, tC, tMR, tMC>>::derived;
+  tT const t;
 };
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-struct elem<Constants<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+struct elem<Constants<tT, tR, tC, tMR, tMC>>
 {
-  typedef T type;
+  typedef tT type;
 };
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-struct dims<Constants<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+struct dims<Constants<tT, tR, tC, tMR, tMC>>
 {
   enum {
-    rows = R,
-    cols = C,
-    max_rows = MR,
-    max_cols = MC,
+    rows = tR,
+    cols = tC,
+    max_rows = tMR,
+    max_cols = tMC,
   };
 };
 
@@ -71,75 +71,75 @@ static RandomsGenerator rand(time(nullptr));
 static RandomsGenerator rand(LIN_RANDOM_SEED);
 #endif
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-class Randoms : public Stream<Randoms<T, R, C, MR, MC>>,
-    public Dimensions<Randoms<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+class Randoms : public Stream<Randoms<tT, tR, tC, tMR, tMC>>,
+    public Dimensions<Randoms<tT, tR, tC, tMR, tMC>>
 {
  public:
-  typedef traits<Randoms<T, R, C, MR, MC>> Traits;
-  using Dimensions<Randoms<T, R, C, MR, MC>>::rows;
-  using Dimensions<Randoms<T, R, C, MR, MC>>::cols;
-  using Stream<Randoms<T, R, C, MR, MC>>::size;
+  typedef traits<Randoms<tT, tR, tC, tMR, tMC>> Traits;
+  using Dimensions<Randoms<tT, tR, tC, tMR, tMC>>::rows;
+  using Dimensions<Randoms<tT, tR, tC, tMR, tMC>>::cols;
+  using Stream<Randoms<tT, tR, tC, tMR, tMC>>::size;
   constexpr Randoms() = delete;
   constexpr Randoms(size_t r, size_t c, RandomsGenerator &rand);
   constexpr typename Traits::elem operator()(size_t i, size_t j) const;
   constexpr typename Traits::elem operator()(size_t i) const;
 
  private:
-  using Dimensions<Randoms<T, R, C, MR, MC>>::resize;
-  using Stream<Randoms<T, R, C, MR, MC>>::derived;
+  using Dimensions<Randoms<tT, tR, tC, tMR, tMC>>::resize;
+  using Stream<Randoms<tT, tR, tC, tMR, tMC>>::derived;
   RandomsGenerator &rand;
 };
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-struct elem<Randoms<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+struct elem<Randoms<tT, tR, tC, tMR, tMC>>
 {
-  typedef T type;
+  typedef tT type;
 };
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-struct dims<Randoms<T, R, C, MR, MC>>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+struct dims<Randoms<tT, tR, tC, tMR, tMC>>
 {
   enum {
-    rows = R,
-    cols = C,
-    max_rows = MR,
-    max_cols = MC,
+    rows = tR,
+    cols = tC,
+    max_rows = tMR,
+    max_cols = tMC,
   };
 };
 }  // namespace internal
 
-template <typename T, size_t R, size_t C, size_t MR = R, size_t MC = C>
-constexpr internal::Constants<T, R, C, MR, MC>
-consts(T t, size_t r = MR, size_t c = MC);
+template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
+constexpr internal::Constants<tT, tR, tC, tMR, tMC>
+consts(tT t, size_t r = tMR, size_t c = tMC);
 
-template <class _A>
-constexpr auto consts(typename internal::elem<_A>::type t, size_t r = internal::dims<_A>::max_rows,
-    size_t c = internal::dims<_A>::max_cols);
+template <class tA>
+constexpr auto consts(typename internal::elem<tA>::type t, size_t r = internal::dims<tA>::max_rows,
+    size_t c = internal::dims<tA>::max_cols);
 
-template <typename T, size_t R, size_t C, size_t MR = R, size_t MC = C>
-constexpr internal::Constants<T, R, C, MR, MC>
-zeroes(size_t r = MR, size_t c = MC);
+template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
+constexpr internal::Constants<tT, tR, tC, tMR, tMC>
+zeroes(size_t r = tMR, size_t c = tMC);
 
-template <class _A>
-constexpr auto zeroes(size_t r = internal::dims<_A>::max_rows,
-    size_t c = internal::dims<_A>::max_cols);
+template <class tA>
+constexpr auto zeroes(size_t r = internal::dims<tA>::max_rows,
+    size_t c = internal::dims<tA>::max_cols);
 
-template <typename T, size_t R, size_t C, size_t MR = R, size_t MC = C>
-constexpr internal::Constants<T, R, C, MR, MC>
-ones(size_t r = MR, size_t c = MC);
+template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
+constexpr internal::Constants<tT, tR, tC, tMR, tMC>
+ones(size_t r = tMR, size_t c = tMC);
 
-template <class _A>
-constexpr auto ones(size_t r = internal::dims<_A>::max_rows,
-    size_t c = internal::dims<_A>::max_cols);
+template <class tA>
+constexpr auto ones(size_t r = internal::dims<tA>::max_rows,
+    size_t c = internal::dims<tA>::max_cols);
 
-template <typename T, size_t R, size_t C, size_t MR = R, size_t MC = C>
-constexpr internal::Randoms<T, R, C, MR, MC>
-rands(size_t r = MR, size_t c = MC, internal::RandomsGenerator &rand = internal::rand);
+template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
+constexpr internal::Randoms<tT, tR, tC, tMR, tMC>
+rands(size_t r = tMR, size_t c = tMC, internal::RandomsGenerator &rand = internal::rand);
 
-template <class _A>
-constexpr auto rands(size_t r = internal::dims<_A>::max_rows,
-    size_t c = internal::dims<_A>::max_cols, internal::RandomsGenerator &rand = internal::rand);
+template <class tA>
+constexpr auto rands(size_t r = internal::dims<tA>::max_rows,
+    size_t c = internal::dims<tA>::max_cols, internal::RandomsGenerator &rand = internal::rand);
 
 }  // namespace lin
 

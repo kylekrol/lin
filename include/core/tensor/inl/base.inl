@@ -7,32 +7,32 @@ namespace lin
 namespace internal
 {
 
-template <class D>
-constexpr typename Base<D>::Traits::elem Base<D>::operator()(size_t i, size_t j) const
+template <class tD>
+constexpr typename Base<tD>::Traits::elem Base<tD>::operator()(size_t i, size_t j) const
 {
-  return const_cast<Base<D> &>(*this)(i, j);
+  return const_cast<Base<tD> &>(*this)(i, j);
 }
 
-template <class D>
-constexpr typename Base<D>::Traits::elem Base<D>::operator()(size_t i) const
+template <class tD>
+constexpr typename Base<tD>::Traits::elem Base<tD>::operator()(size_t i) const
 {
-  return const_cast<Base<D> &>(*this)(i);
+  return const_cast<Base<tD> &>(*this)(i);
 }
 
-template <class D>
-constexpr typename Base<D>::Traits::elem &Base<D>::operator()(size_t i, size_t j)
+template <class tD>
+constexpr typename Base<tD>::Traits::elem &Base<tD>::operator()(size_t i, size_t j)
 {
   return derived()(i, j);
 }
 
-template <class D>
-constexpr typename Base<D>::Traits::elem &Base<D>::operator()(size_t i)
+template <class tD>
+constexpr typename Base<tD>::Traits::elem &Base<tD>::operator()(size_t i)
 {
   return derived()(i);
 }
 
-template <class D>
-constexpr D &Base<D>::operator=(std::initializer_list<typename Base<D>::Traits::elem> const &l)
+template <class tD>
+constexpr tD &Base<tD>::operator=(std::initializer_list<typename Base<tD>::Traits::elem> const &l)
 {
   assert(size() == l.size() /* Incompatible size in Base<...>::operator= */);
   size_t i = 0;
@@ -41,11 +41,12 @@ constexpr D &Base<D>::operator=(std::initializer_list<typename Base<D>::Traits::
   return derived();
 }
 
-template <class D> template <class _E, typename std::enable_if<can_assign<D, _E>::value, size_t>::type>
-constexpr D &Base<D>::operator=(Stream<_E> const &E)
+template <class tD>
+template <class tE, typename std::enable_if<can_assign<tD, tE>::value, size_t>::type>
+constexpr tD &Base<tD>::operator=(Stream<tE> const &E)
 {
-  assert(rows() == E.rows() /* Incompatible rows in Base<_D>::operator= */);
-  assert(cols() == E.cols() /* Incompatible cols in Base<_D>::operator= */);
+  assert(rows() == E.rows() /* Incompatible rows in Base<...>::operator=<...> */);
+  assert(cols() == E.cols() /* Incompatible cols in Base<...>::operator=<...> */);
   for (size_t i = 0; i < size(); i++) operator()(i) = E(i);
   return derived();
 }

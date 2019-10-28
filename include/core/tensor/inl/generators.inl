@@ -8,25 +8,25 @@ namespace lin
 namespace internal
 {
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr Constants<T, R, C, MR, MC>::Constants(T t, size_t r, size_t c)
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr Constants<tT, tR, tC, tMR, tMC>::Constants(tT t, size_t r, size_t c)
 : t(t)
 {
   resize(r, c);
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr typename Constants<T, R, C, MR, MC>::Traits::elem
-Constants<T, R, C, MR, MC>::operator()(size_t i, size_t j) const
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr typename Constants<tT, tR, tC, tMR, tMC>::Traits::elem
+Constants<tT, tR, tC, tMR, tMC>::operator()(size_t i, size_t j) const
 {
   assert(i < rows() /* Invalid row index in Constants<...>::operator() */);
   assert(j < cols() /* Invalid col index in Constants<...>::operator() */);
   return t;
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr typename Constants<T, R, C, MR, MC>::Traits::elem
-Constants<T, R, C, MR, MC>::operator()(size_t i) const
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr typename Constants<tT, tR, tC, tMR, tMC>::Traits::elem
+Constants<tT, tR, tC, tMR, tMC>::operator()(size_t i) const
 {
   assert(i < size() /* Invalid size index in Constants<...>::operator() */);
   return t;
@@ -46,88 +46,85 @@ constexpr double RandomsGenerator::next()
   return 5.42101086242752217E-20 * (seed * 2685821657736338717ULL);
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr Randoms<T, R, C, MR, MC>::Randoms(size_t r, size_t c, RandomsGenerator &rand)
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr Randoms<tT, tR, tC, tMR, tMC>::Randoms(size_t r, size_t c, RandomsGenerator &rand)
 : rand(rand)
 {
   resize(r, c);
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr typename Randoms<T, R, C, MR, MC>::Traits::elem
-Randoms<T, R, C, MR, MC>::operator()(size_t i, size_t j) const
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr typename Randoms<tT, tR, tC, tMR, tMC>::Traits::elem
+Randoms<tT, tR, tC, tMR, tMC>::operator()(size_t i, size_t j) const
 {
   assert(i < rows() /* Invalid row index in Constants<...>::operator() */);
   assert(j < cols() /* Invalid col index in Constants<...>::operator() */);
   return rand.next();
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr typename Randoms<T, R, C, MR, MC>::Traits::elem
-Randoms<T, R, C, MR, MC>::operator()(size_t i) const
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr typename Randoms<tT, tR, tC, tMR, tMC>::Traits::elem
+Randoms<tT, tR, tC, tMR, tMC>::operator()(size_t i) const
 {
   assert(i < size() /* Invalid size index in Constants<...>::operator() */);
   return rand.next();
 }
 }  // namespace internal
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr internal::Constants<T, R, C, MR, MC>
-consts(T t, size_t r, size_t c)
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr internal::Constants<tT, tR, tC, tMR, tMC>
+consts(tT t, size_t r, size_t c)
 {
-  return internal::Constants<T, R, C, MR, MC>(t, r, c);
+  return internal::Constants<tT, tR, tC, tMR, tMC>(t, r, c);
 }
 
-template <class _A>
-constexpr auto consts(typename internal::elem<_A>::type t, size_t r, size_t c)
+template <class tA>
+constexpr auto consts(typename internal::elem<tA>::type t, size_t r, size_t c)
 {
-  typedef internal::traits<_A> Traits;
+  typedef internal::traits<tA> Traits;
   return consts<typename Traits::elem, Traits::rows, Traits::cols,
       Traits::max_rows, Traits::max_cols>(t, r, c);
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr internal::Constants<T, R, C, MR, MC>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr internal::Constants<tT, tR, tC, tMR, tMC>
 zeroes(size_t r, size_t c)
 {
-  return consts<T, R, C, MR, MC>(static_cast<T>(0.0), r, c);
+  return consts<tT, tR, tC, tMR, tMC>(static_cast<tT>(0.0), r, c);
 }
 
-template <class _A>
+template <class tA>
 constexpr auto zeroes(size_t r, size_t c)
 {
-  typedef internal::traits<_A> Traits;
-  return zeroes<typename Traits::elem, Traits::rows, Traits::cols,
-      Traits::max_rows, Traits::max_cols>(r, c);
+  typedef internal::traits<tA> TA;
+  return zeroes<typename TA::elem, TA::rows, TA::cols, TA::max_rows, TA::max_cols>(r, c);
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr internal::Constants<T, R, C, MR, MC>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr internal::Constants<tT, tR, tC, tMR, tMC>
 ones(size_t r, size_t c)
 {
-  return consts<T, R, C, MR, MC>(static_cast<T>(1.0), r, c);
+  return consts<tT, tR, tC, tMR, tMC>(static_cast<tT>(1.0), r, c);
 }
 
-template <class _A>
+template <class tA>
 constexpr auto ones(size_t r, size_t c)
 {
-  typedef internal::traits<_A> Traits;
-  return ones<typename Traits::elem, Traits::rows, Traits::cols,
-      Traits::max_rows, Traits::max_cols>(r, c);
+  typedef internal::traits<tA> TA;
+  return ones<typename TA::elem, TA::rows, TA::cols, TA::max_rows, TA::max_cols>(r, c);
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-constexpr internal::Randoms<T, R, C, MR, MC>
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr internal::Randoms<tT, tR, tC, tMR, tMC>
 rands(size_t r, size_t c, internal::RandomsGenerator &rand)
 {
-  return internal::Randoms<T, R, C, MR, MC>(r, c, rand);
+  return internal::Randoms<tT, tR, tC, tMR, tMC>(r, c, rand);
 }
 
-template <class _A>
+template <class tA>
 constexpr auto rands(size_t r, size_t c, internal::RandomsGenerator &rand)
 {
-  typedef internal::traits<_A> Traits;
-  return rands<typename Traits::elem, Traits::rows, Traits::cols,
-      Traits::max_rows, Traits::max_cols>(r, c, rand);
+  typedef internal::traits<tA> TA;
+  return rands<typename TA::elem, TA::rows, TA::cols, TA::max_rows, TA::max_cols>(r, c, rand);
 }
 }  // namespace lin

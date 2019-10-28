@@ -12,55 +12,54 @@ namespace lin
 namespace internal
 {
 
-template <class A>
-struct is_row_vector
-: std::integral_constant<bool, (
-    has_fixed_rows<A>::value && (dims<A>::rows == 1) && (dims<A>::max_cols > 1)
+template <class tA>
+struct is_row_vector : public std::integral_constant<bool, (
+    has_fixed_rows<tA>::value && (dims<tA>::rows == 1) && (dims<tA>::max_cols > 1)
   )> { };
 
-template <class A>
-struct is_col_vector
-: std::integral_constant<bool, (
-    has_fixed_cols<A>::value && (dims<A>::cols == 1) && (dims<A>::max_rows > 1)
+template <class tA>
+struct is_col_vector : public std::integral_constant<bool, (
+    has_fixed_cols<tA>::value && (dims<tA>::cols == 1) && (dims<tA>::max_rows > 1)
   )> { };
 
-template <class A>
-struct is_vector
-: std::integral_constant<bool, is_row_vector<A>::value || is_col_vector<A>::value> { };
+template <class tA>
+struct is_vector : public std::integral_constant<bool, (
+    is_row_vector<tA>::value || is_col_vector<tA>::value
+  )> { };
 
-template <class A, typename T = void>
+template <class tA, typename tT = void>
 struct vector_traits;
 
-template <class A>
-struct vector_traits<A, typename std::enable_if<is_row_vector<A>::value>::type>
+template <class tA>
+struct vector_traits<tA, typename std::enable_if<is_row_vector<tA>::value>::type>
 {
   enum {
-    size = traits<A>::cols,
-    max_size = traits<A>::max_cols
+    size = traits<tA>::cols,
+    max_size = traits<tA>::max_cols
   };
-  typedef typename traits<A>::elem elem;
+  typedef typename traits<tA>::elem elem;
 };
 
-template <class A>
-struct vector_traits<A, typename std::enable_if<is_col_vector<A>::value>::type>
+template <class tA>
+struct vector_traits<tA, typename std::enable_if<is_col_vector<tA>::value>::type>
 {
   enum {
-    size = traits<A>::rows,
-    max_size = traits<A>::max_rows
+    size = traits<tA>::rows,
+    max_size = traits<tA>::max_rows
   };
-  typedef typename traits<A>::elem elem;
+  typedef typename traits<tA>::elem elem;
 };
 
-template <class A, class B, typename T = void>
-struct are_vector_traits_equal : std::false_type { };
+template <class tA, class tB, typename tT = void>
+struct are_vector_traits_equal : public std::false_type { };
 
-template <class A, class B>
-struct are_vector_traits_equal<A, B,
-    typename std::enable_if<is_vector<A>::value && is_vector<B>::value>::type>
-: std::integral_constant<bool, (
-    (vector_traits<A>::size == vector_traits<B>::size) &&
-    (vector_traits<A>::max_size == vector_traits<B>::max_size) &&
-    are_elem_equal<A, B>::value
+template <class tA, class tB>
+struct are_vector_traits_equal<tA, tB,
+    typename std::enable_if<is_vector<tA>::value && is_vector<tB>::value>::type>
+: public std::integral_constant<bool, (
+    (vector_traits<tA>::size == vector_traits<tB>::size) &&
+    (vector_traits<tA>::max_size == vector_traits<tB>::max_size) &&
+    are_elem_equal<tA, tB>::value
   )> { };
 
 }  // namespace internal

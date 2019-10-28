@@ -7,57 +7,57 @@ namespace lin
 namespace internal
 {
 
-template <class D>
-constexpr size_t Stream<D>::rows() const
+template <class tD>
+constexpr size_t Stream<tD>::rows() const
 {
   return derived().rows();
 }
 
-template <class D>
-constexpr size_t Stream<D>::cols() const
+template <class tD>
+constexpr size_t Stream<tD>::cols() const
 {
   return derived().cols();
 }
 
-template <class D>
-constexpr size_t Stream<D>::size() const
+template <class tD>
+constexpr size_t Stream<tD>::size() const
 {
   return rows() * cols();
 }
 
-template <class D>
-constexpr typename Stream<D>::Traits::elem Stream<D>::operator()(size_t i, size_t j) const
+template <class tD>
+constexpr typename Stream<tD>::Traits::elem Stream<tD>::operator()(size_t i, size_t j) const
 {
   return derived()(i, j);
 }
 
-template <class D>
-constexpr typename Stream<D>::Traits::elem Stream<D>::operator()(size_t i) const
+template <class tD>
+constexpr typename Stream<tD>::Traits::elem Stream<tD>::operator()(size_t i) const
 {
   return derived()(i);
 }
 
-template <class D>
-constexpr typename Stream<D>::Traits::eval Stream<D>::eval() const
+template <class tD>
+constexpr typename Stream<tD>::Traits::eval Stream<tD>::eval() const
 {
   return typename Traits::eval(*this);
 }
 
-template <class D>
-constexpr D const &Stream<D>::derived() const
+template <class tD>
+constexpr tD const &Stream<tD>::derived() const
 {
-  return static_cast<D const &>(*this);
+  return static_cast<tD const &>(*this);
 }
 
-template <class D>
-constexpr D &Stream<D>::derived()
+template <class tD>
+constexpr tD &Stream<tD>::derived()
 {
-  return static_cast<D &>(*this);
+  return static_cast<tD &>(*this);
 }
 
 #ifdef LIN_DESKTOP
-template <class _A>
-inline std::ostream &operator<<(std::ostream &os, Stream<_A> const &A)
+template <class tA>
+inline std::ostream &operator<<(std::ostream &os, Stream<tA> const &A)
 {
   for (size_t i = 0; i < A.rows() - 1; i++) {
     for (size_t j = 0; j < A.cols() - 1; j++)
