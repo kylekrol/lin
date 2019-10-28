@@ -16,7 +16,7 @@ constexpr int qr(internal::Stream<tM> const &M, internal::Base<tQ> &Q, internal:
   assert(M.cols() == R.cols() /* R cols doesn't match in qr(...) */);
 
   // Initialize R and Q
-  R = zeroes<tR>(R.rows(), R.cols());
+  R = zeros<tR>(R.rows(), R.cols());
   Q = M;
 
   for (size_t j = 0; j < M.cols(); j++) {
