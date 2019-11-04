@@ -7,7 +7,6 @@
 #include "generators.hpp"
 #include "traits.hpp"
 
-#include <array>
 #include <cassert>
 #include <initializer_list>
 
@@ -46,7 +45,7 @@ class Tensor : public Base<tD>, public Dimensions<tD>
   constexpr Tensor(Stream<tE> const &E);
 
  private:
-  std::array<typename Traits::elem, Traits::max_size> elements;
+  typename Traits::elem elements[Traits::max_size] = { static_cast<typename Traits::elem>(0) };
 };
 }  // namespace internal
 }  // namespace lin

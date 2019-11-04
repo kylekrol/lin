@@ -25,13 +25,13 @@ constexpr typename Tensor<tD>::Traits::elem &Tensor<tD>::operator()(size_t i)
 template <class tD>
 constexpr typename Tensor<tD>::Traits::elem const *Tensor<tD>::data() const
 {
-  return elements.data();
+  return elements;
 }
 
 template <class tD>
 constexpr typename Tensor<tD>::Traits::elem *Tensor<tD>::data()
 {
-  return elements.data();
+  return elements;
 }
 
 template <class tD>
