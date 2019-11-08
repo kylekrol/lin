@@ -20,7 +20,7 @@ template <class tA,
     typename std::enable_if<internal::is_vector<tA>::value, size_t>::type>
 constexpr typename internal::elem<tA>::type norm(internal::Stream<tA> const &A)
 {
-  return sqrt(fro(A));
+  return std::sqrt(fro(A));
 }
 
 template <class tA, class tB,
