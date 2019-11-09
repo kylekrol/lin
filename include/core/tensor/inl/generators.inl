@@ -115,6 +115,21 @@ constexpr auto ones(size_t r, size_t c)
 }
 
 template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
+constexpr internal::Constants<tT, tR, tC, tMR, tMC>
+nans(size_t r, size_t c)
+{
+  static_assert(std::numeric_limits<tT>::has_quiet_NaN, "Quiet NaNs not supported.");
+  return consts<tT, tR, tC, tMR, tMC>(std::numeric_limits<tT>::quiet_NaN(), r, c);
+}
+
+template <class tA>
+constexpr auto nans(size_t r, size_t c)
+{
+  typedef internal::traits<tA> TA;
+  return nans<typename TA::elem, TA::rows, TA::cols, TA::max_rows, TA::max_cols>(r, c);
+}
+
+template <typename tT, size_t tR, size_t tC, size_t tMR, size_t tMC>
 constexpr internal::Randoms<tT, tR, tC, tMR, tMC>
 rands(size_t r, size_t c, internal::RandomsGenerator &rand)
 {

@@ -8,6 +8,7 @@
 #include "traits.hpp"
 
 #include <cassert>
+#include <limits>
 
 #if defined(LIN_DESKTOP) && !defined(LIN_RANDOM_SEED)
 #include <ctime>
@@ -131,6 +132,14 @@ ones(size_t r = tMR, size_t c = tMC);
 
 template <class tA>
 constexpr auto ones(size_t r = internal::dims<tA>::max_rows,
+    size_t c = internal::dims<tA>::max_cols);
+
+template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>
+constexpr internal::Constants<tT, tR, tC, tMR, tMC>
+nans(size_t r = tMR, size_t c = tMC);
+
+template <class tA>
+constexpr auto nans(size_t r = internal::dims<tA>::max_rows,
     size_t c = internal::dims<tA>::max_cols);
 
 template <typename tT, size_t tR, size_t tC, size_t tMR = tR, size_t tMC = tC>

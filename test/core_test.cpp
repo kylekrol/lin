@@ -2,6 +2,7 @@
 
 #include <core/core.hpp>
 
+#include <cmath>
 #include <gtest/gtest.h>
 
 TEST(CoreTests, FixedSizeInitialization)
@@ -355,6 +356,17 @@ TEST(CoreTests, OnesTest)
   ASSERT_FLOAT_EQ(a(1, 0), 1.0f);
   ASSERT_FLOAT_EQ(a(0, 1), 1.0f);
   ASSERT_FLOAT_EQ(a(1, 1), 1.0f);
+  // Check dimensions
+  ASSERT_EQ(a.rows(), 2u);
+  ASSERT_EQ(a.cols(), 2u);
+  ASSERT_EQ(a.size(), 4u);
+}
+
+TEST(CoreTests, NansTest)
+{
+  lin::Matrix2x2f a = lin::nans<float, 2, 2>();
+  // Check elements
+  ASSERT_TRUE(std::isnan(a(0, 0)));
   // Check dimensions
   ASSERT_EQ(a.rows(), 2u);
   ASSERT_EQ(a.cols(), 2u);
