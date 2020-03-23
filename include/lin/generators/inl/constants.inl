@@ -74,7 +74,7 @@ constexpr StreamConstants<T, R, C, MR, MC>::StreamConstants(T t, size_t r, size_
 }
 }  // namespace internal
 
-template <typename T, size_t R, size_t C, size_t MR = R, size_t MC = C>
+template <typename T, size_t R, size_t C, size_t MR, size_t MC>
 constexpr internal::StreamConstants<T, R, C, MR, MC> consts(T t, size_t r, size_t c) {
   return internal::StreamConstants<T, R, C, MR, MC>(t, r, c);
 }
