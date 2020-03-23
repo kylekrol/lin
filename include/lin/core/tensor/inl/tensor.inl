@@ -13,12 +13,14 @@ constexpr Tensor<D>::Tensor(size_t r, size_t c) {
 }
 
 template <class D>
-constexpr Tensor<D>::Tensor(std::initializer_list<traits_elem_t<D>> const &list) {
+template <typename T>
+constexpr Tensor<D>::Tensor(std::initializer_list<T> const &list) {
   derived() = list;
 }
 
 template <class D>
-constexpr Tensor<D>::Tensor(size_t r, size_t c, std::initializer_list<traits_elem_t<D>> const &list) {
+template <typename T>
+constexpr Tensor<D>::Tensor(size_t r, size_t c, std::initializer_list<T> const &list) {
   resize(r, c);
   derived() = list;
 }

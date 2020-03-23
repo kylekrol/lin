@@ -42,8 +42,10 @@ class Tensor : public Base<D>, public Dimensions<D> {
   constexpr Tensor<D> &operator=(Tensor<D> &&) = default;
   /* Tensor constructor(s). */
   constexpr Tensor(size_t r = Traits::MaxRows, size_t c = Traits::MaxCols);
-  constexpr Tensor(std::initializer_list<typename Traits::Elem> const &list);
-  constexpr Tensor(size_t r, size_t c, std::initializer_list<typename Traits::Elem> const &list);
+  template <typename T>
+  constexpr Tensor(std::initializer_list<T> const &list);
+  template <typename T>
+  constexpr Tensor(size_t r, size_t c, std::initializer_list<T> const &list);
   template <class C>
   constexpr Tensor(Stream<C> const &stream);
   /* Elements access and read/write functions. */
