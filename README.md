@@ -5,7 +5,7 @@
 
 Linear algebra library solely using static memory alocation. It's been developed primarily for the [PAN](https://github.com/pathfinder-for-autonomous-navigation) mission.
 
-The library is structure into a set of individual modules.
+The library is structured into a set of individual modules.
 
 Most of the core functionality can be included with `#include <lin/core.hpp>`. This will bring in the basic matrix types, vector types, and simple operators - e.g. matrix/vector addition, element wise scaling, taking a transpose, frobenius norm, etc.
 
