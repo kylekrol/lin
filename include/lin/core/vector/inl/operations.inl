@@ -55,7 +55,7 @@ constexpr auto dot(internal::Stream<C> const &u, internal::Stream<D> const &v) {
   return x;
 }
 
-template <class C>
+template <class C, internal::enable_if_t<internal::can_norm<C>::value, size_t>>
 constexpr typename C::Traits::Elem norm(internal::Stream<C> const &u) {
   return std::sqrt(fro(u));
 }

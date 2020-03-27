@@ -51,7 +51,7 @@ constexpr auto dot(internal::Stream<C> const &u, internal::Stream<D> const &v);
 
 /** @fn norm
  *  Calculates the norm of a vector. */
-template <class C>
+template <class C, internal::enable_if_t<internal::can_norm<C>::value, size_t> = 0>
 constexpr typename C::Traits::Elem norm(internal::Stream<C> const &u);
 
 }  // namespace lin
