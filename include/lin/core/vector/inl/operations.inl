@@ -30,9 +30,9 @@ template <class C, typename>
 struct can_norm : false_type { };
 
 template <class C>
-struct can_norm<C, void_t<
-    decltype(std::sqrt(std::declval<multiply_expr<traits_elem_t<C>, traits_elem_t<C>>>()))
-  >> : true_type { };
+struct can_norm<C, enable_if_t<(
+    is_vector<C>::value
+  )>> : true_type { };
 
 }  // namespace internal
 
