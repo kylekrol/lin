@@ -113,7 +113,7 @@ constexpr auto zeros(size_t r, size_t c) {
 template <typename T, size_t R, size_t C, size_t MR, size_t MC, internal::enable_if_t<
     std::numeric_limits<T>::has_quiet_NaN, size_t>>
 constexpr internal::StreamConstants<T, R, C, MR, MC> nans(size_t r, size_t c) {
-  return consts<T, R, C, MR, MC>(std::numeric_limits<T>::quit_NaN(), r, c);
+  return consts<T, R, C, MR, MC>(std::numeric_limits<T>::quiet_NaN(), r, c);
 }
 
 template <class C, internal::enable_if_t<(internal::has_traits<C>::value &&
