@@ -7,6 +7,10 @@
 #include <gtest/gtest.h>
 
 #include <cmath>
+#include <limits>
+
+constexpr static double _nan = std::numeric_limits<double>::quiet_NaN();
+constexpr static double _inf = std::numeric_limits<double>::infinity();
 
 TEST(CoreTensorOperations, All) {
   lin::Matrix2x2f A({0.0f, 0.0f, 0.0f, 0.0f});
@@ -15,11 +19,65 @@ TEST(CoreTensorOperations, All) {
   ASSERT_FALSE(lin::all(B, [](float const &f) { return f == 0.0f; }));
 }
 
+TEST(CoreTensorOperations, AllIsFinite) {
+  lin::Matrix2x2d A { 0.0, _nan, 0.0, 0.0 };
+  ASSERT_FALSE(lin::all_isfinite(A));
+  lin::Matrix2x2d B { 0.0, _inf, 0.0, 0.0 };
+  ASSERT_FALSE(lin::all_isfinite(B));
+  lin::Matrix2x2d C; // Zero initialized
+  ASSERT_TRUE(lin::all_isfinite(C));
+}
+
+TEST(CoreTensorOperations, AllIsInfinite) {
+  lin::Matrix2x2f A ({ _inf, _inf, _inf, _inf });
+  ASSERT_TRUE(lin::all_isinf(A));
+  lin::Matrix2x2f B { _inf, _inf, _nan, _inf };
+  ASSERT_FALSE(lin::all_isinf(B));
+  lin::Matrix2x2f C { _inf, _inf, 0.0, _inf };
+  ASSERT_FALSE(lin::all_isinf(C));
+}
+
+TEST(CoreTensorOperations, AllIsNan) {
+  lin::Matrix2x2f A { _nan, _nan, _nan, _nan };
+  ASSERT_TRUE(lin::all_isnan(A));
+  lin::Matrix2x2f B { _nan, _nan, _nan, _inf };
+  ASSERT_FALSE(lin::all_isnan(B));
+  lin::Matrix2x2f C { _nan, _nan, 0.0, _nan };
+  ASSERT_FALSE(lin::all_isnan(C));
+}
+
 TEST(CoreTensorOperations, Any) {
   lin::Matrix2x2f A({0.0f, 0.0f, 0.0f, 0.0f});
   ASSERT_FALSE(lin::any(A, [](float const &f) -> bool { return f != 0.0f; }));
   lin::Matrix2x2f B({0.0f, 0.0f, 1.0f, 0.0f});
   ASSERT_TRUE(lin::any(B, [](float const &f) -> bool { return f != 0.0f; }));
+}
+
+TEST(CoreTensorOperations, AnyIsFinite) {
+  lin::Matrix2x2f A { _nan, _nan, _nan, _nan };
+  ASSERT_FALSE(lin::any_isfinite(A));
+  lin::Matrix2x2f B { _nan, _nan, _nan, _inf };
+  ASSERT_FALSE(lin::any_isfinite(B));
+  lin::Matrix2x2f C { _nan, _inf, 0.0, _inf };
+  ASSERT_TRUE(lin::any_isfinite(C));
+}
+
+TEST(CoreTensorOperations, AnyIsInfinite) {
+  lin::Matrix2x2f A { _nan, _nan, _nan, _nan };
+  ASSERT_FALSE(lin::any_isinf(A));
+  lin::Matrix2x2f B { _nan, _nan, _nan, 0.0 };
+  ASSERT_FALSE(lin::any_isinf(B));
+  lin::Matrix2x2f C { _nan, _inf, 0.0, _inf };
+  ASSERT_TRUE(lin::any_isinf(C));
+}
+
+TEST(CoreTensorOperations, AnyIsNan) {
+    lin::Matrix2x2f A ({ _inf, _inf, _inf, _inf });
+  ASSERT_FALSE(lin::any_isnan(A));
+  lin::Matrix2x2f B { _inf, _inf, _nan, _inf };
+  ASSERT_TRUE(lin::any_isnan(B));
+  lin::Matrix2x2f C { _inf, _inf, 0.0, _inf };
+  ASSERT_FALSE(lin::any_isnan(C));
 }
 
 TEST(CoreTensorOperations, Frobenius) {

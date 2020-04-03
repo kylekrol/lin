@@ -14,6 +14,7 @@
 #include "vector.hpp"
 
 #include <cmath>
+#include <type_traits>  // Move this out of here
 
 namespace lin {
 namespace internal {
@@ -35,10 +36,9 @@ struct can_norm;
 }  // namespace internal
 
 /** @fn cross
- *  Calculates the cross product of two vectors. The return type is a three
- *  dimensional column vector whose return type is the same as the result of
- *  multiplying the first stream's element type with the second stream's element
- *  type. */
+ *  Calculates the cross product of two vectors. The return type will have
+ *  identical dimensions to the first argument and an element type determined
+ *  by multiplying the first argument's element type with the second's. */
 template <class C, class D, internal::enable_if_t<internal::can_cross<C, D>::value, size_t> = 0>
 constexpr auto cross(internal::Stream<C> const &u, internal::Stream<D> const &d);
 

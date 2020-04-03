@@ -159,10 +159,52 @@ constexpr bool all(internal::Stream<C> const &c, bool (*f)(typename C::Traits::E
 }
 
 template <class C>
+constexpr bool all_isfinite(internal::Stream<C> const &c) {
+  return all(c, [](internal::traits_elem_t<C> const &e) -> bool {
+    return std::isfinite(e);
+  });
+}
+
+template <class C>
+constexpr bool all_isinf(internal::Stream<C> const &c) {
+  return all(c, [](internal::traits_elem_t<C> const &e) -> bool {
+    return std::isinf(e);
+  });
+}
+
+template <class C>
+constexpr bool all_isnan(internal::Stream<C> const &c) {
+  return all(c, [](internal::traits_elem_t<C> const &e) -> bool {
+    return std::isnan(e);
+  });
+}
+
+template <class C>
 constexpr bool any(internal::Stream<C> const &c, bool (*f)(typename C::Traits::Elem const &)) {
   for (size_t i = 0; i < c.size(); i++)
     if (f(c(i))) return true;
   return false;
+}
+
+template <class C>
+constexpr bool any_isfinite(internal::Stream<C> const &c) {
+  return any(c, [](internal::traits_elem_t<C> const &e) -> bool {
+    return std::isfinite(e);
+  });
+}
+
+template <class C>
+constexpr bool any_isinf(internal::Stream<C> const &c) {
+  return any(c, [](internal::traits_elem_t<C> const &e) -> bool {
+    return std::isinf(e);
+  });
+}
+
+template <class C>
+constexpr bool any_isnan(internal::Stream<C> const &c) {
+  return any(c, [](internal::traits_elem_t<C> const &e) -> bool {
+    return std::isnan(e);
+  });
 }
 
 template <class C>

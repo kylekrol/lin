@@ -39,7 +39,10 @@ struct can_norm<C, enable_if_t<(
 template <class C, class D, internal::enable_if_t<internal::can_cross<C, D>::value, size_t>>
 constexpr auto cross(internal::Stream<C> const &u, internal::Stream<D> const &v) {
   typedef internal::multiply_expr<typename C::Traits::Elem, typename D::Traits::Elem> T;
-  return Vector<T, 3>({
+  return std::conditional_t<
+      internal::is_col_vector<C>::value,
+      Vector<T, C::VectorTraits::Length, C::VectorTraits::MaxLength>,
+      RowVector<T, C::VectorTraits::Length, C::VectorTraits::MaxLength>>({
     u(1) * v(2) - u(2) * v(1),
     u(2) * v(0) - u(0) * v(2),
     u(0) * v(1) - u(1) * v(0)
