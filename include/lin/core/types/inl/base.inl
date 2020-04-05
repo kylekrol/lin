@@ -7,18 +7,6 @@
 namespace lin {
 namespace internal {
 
-template <typename T, typename U>
-struct can_assign_types : is_detected<assign_expr, T, U> { };
-
-template <class C, class D, typename V>
-struct can_assign : false_type { };
-
-template <class C, class D>
-struct can_assign<C, D, enable_if_t<(
-    have_same_dimensions<C, D>::value &&
-    can_assign_types<_traits_elem_t<C>, _traits_elem_t<D>>::value
-  )>> : true_type { };
-
 template <class D>
 constexpr traits_elem_t<D> Base<D>::operator()(size_t i, size_t j) const {
   return const_cast<Base<D> &>(*this)(i, j);
@@ -40,7 +28,7 @@ constexpr traits_elem_t<D> &Base<D>::operator()(size_t i) {
 }
 
 template <class D>
-template <typename T, enable_if_t<can_assign_types<traits_elem_t<D>, T>::value, size_t>>
+template <typename T, std::enable_if_t<can_assign_types<traits_elem_t<D>, T>::value, size_t>>
 constexpr D &Base<D>::operator=(std::initializer_list<T> const &list) {
   LIN_ASSERT(list.size() == size() /* Invalid arguments passed to Base<...>::operator= */);
   size_t i = 0;
@@ -49,7 +37,7 @@ constexpr D &Base<D>::operator=(std::initializer_list<T> const &list) {
 }
 
 template <class D>
-template <class C, enable_if_t<can_assign<D, C>::value, size_t>>
+template <class C, std::enable_if_t<can_assign<D, C>::value, size_t>>
 constexpr D &Base<D>::operator=(Stream<C> const &stream) {
   LIN_ASSERT(stream.rows() == rows() /* Invalid arguments passed to Base<...>::operator= */);
   LIN_ASSERT(stream.cols() == cols() /* Invalid arguments passed to Base<...>::operator= */);

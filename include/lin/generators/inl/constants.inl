@@ -47,10 +47,12 @@ class StreamConstants : public Stream<StreamConstants<T, R, C, MR, MC>>,
 template <typename T, size_t R, size_t C, size_t MR, size_t MC>
 struct _traits<StreamConstants<T, R, C, MR, MC>> {
   typedef T Elem;
-  constexpr static size_t Rows = R;
-  constexpr static size_t Cols = C;
-  constexpr static size_t MaxRows = MR;
-  constexpr static size_t MaxCols = MC;
+  enum : size_t {
+    Rows = R,
+    Cols = C,
+    MaxRows = MR,
+    MaxCols = MC
+  };
 };
 
 template <typename T, size_t R, size_t C, size_t MR, size_t MC>
@@ -79,7 +81,7 @@ constexpr internal::StreamConstants<T, R, C, MR, MC> consts(T t, size_t r, size_
   return internal::StreamConstants<T, R, C, MR, MC>(t, r, c);
 }
 
-template <class C, internal::enable_if_t<internal::has_traits<C>::value, size_t>>
+template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t>>
 constexpr auto consts(typename C::Traits::Elem t, size_t r, size_t c) {
   return consts<
       internal::_traits_elem_t<C>,
@@ -95,7 +97,7 @@ constexpr internal::StreamConstants<T, R, C, MR, MC> ones(size_t r, size_t c) {
   return consts<T, R, C, MR, MC>(static_cast<T>(1), r, c);
 }
 
-template <class C, internal::enable_if_t<internal::has_traits<C>::value, size_t>>
+template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t>>
 constexpr auto ones(size_t r, size_t c) {
   return consts<C>(static_cast<internal::traits_elem_t<C>>(1), r, c);
 }
@@ -105,18 +107,18 @@ constexpr internal::StreamConstants<T, R, C, MR, MC> zeros(size_t r, size_t c) {
     return consts<T, R, C, MR, MC>(static_cast<T>(0), r, c);
 }
 
-template <class C, internal::enable_if_t<internal::has_traits<C>::value, size_t>>
+template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t>>
 constexpr auto zeros(size_t r, size_t c) {
   return consts<C>(static_cast<internal::traits_elem_t<C>>(0), r, c);
 }
 
-template <typename T, size_t R, size_t C, size_t MR, size_t MC, internal::enable_if_t<
+template <typename T, size_t R, size_t C, size_t MR, size_t MC, std::enable_if_t<
     std::numeric_limits<T>::has_quiet_NaN, size_t>>
 constexpr internal::StreamConstants<T, R, C, MR, MC> nans(size_t r, size_t c) {
   return consts<T, R, C, MR, MC>(std::numeric_limits<T>::quiet_NaN(), r, c);
 }
 
-template <class C, internal::enable_if_t<(internal::has_traits<C>::value &&
+template <class C, std::enable_if_t<(internal::has_traits<C>::value &&
     std::numeric_limits<typename C::Traits::Elem>::has_quiet_NaN), size_t>>
 constexpr auto nans(size_t r, size_t c) {
   return consts<C>(std::numeric_limits<internal::traits_elem_t<C>>::quiet_NaN(), r, c);

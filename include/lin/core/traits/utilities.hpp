@@ -13,39 +13,46 @@
 namespace lin {
 namespace internal {
 
-/** @typedef true_type */
-typedef std::true_type true_type;
-
-/** @typedef false_type */
-typedef std::false_type false_type;
-
-/** @typedef is_same */
-template <typename T, typename U>
-using is_same = std::is_same<T, U>;
-
-/** @typedef enable_if */
-template <bool B, typename T = void>
-using enable_if = std::enable_if<B, T>;
-
-/** @typedef enable_if_t */
-template <bool B, typename T = void>
-using enable_if_t = std::enable_if_t<B, T>;
-
 /** @typedef void_t */
 template <typename...>
 using void_t = void;
 
-template <template <typename...> class E, typename, typename... Ts>
-struct _is_detected : false_type { };
-
+/** @struct is_detected
+ *  Tests if a given expression can be instantiated with the specified types. */
 template <template <typename...> class E, typename... Ts>
-struct _is_detected<E, void_t<E<Ts...>>, Ts...> : true_type { };
+struct is_detected;
 
-/** @struct is_detected */
-template <template <typename...> class E, typename... Ts>
-struct is_detected : _is_detected<E, void, Ts...> { };
+/** @struct conjunction
+ *  Essentially performs a logical and operation on a set of types. The provided
+ *  types are expected to be true or false types. If no types are specified, the
+ *  resulting type is true. */
+template <class... Cs>
+struct conjunction;
+
+/** @struct disjuntion
+ *  Essentially performs a logical or operation on a set of types. The provided
+ *  types are expected to be true or false types. If no types are specified, the
+ *  resulting type is false. */
+template <class... Cs>
+struct disjunction;
+
+/** @struct negation
+ *  Essentially performs a logical not operation on the specified type. The
+ *  provided type is expected to be a true or false type. */
+template <class C>
+struct negation;
+
+/** @struct all */
+template <template <class> class C, class... Cs>
+struct all : conjunction<C<Cs>...> { };
+
+/** @struct any */
+template <template <class> class C, class... Cs>
+struct any : disjunction<C<Cs>...> { };
 
 }  // namespace internal
 }  // namespace lin
+
+#include "inl/utilities.inl"
 
 #endif

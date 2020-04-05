@@ -5,25 +5,10 @@
 #include "../backward_subsitution.hpp"
 
 namespace lin {
-namespace internal {
-
-template <class C, class D, class E, typename>
-struct can_backward_sub : false_type { };
-
-template <class C, class D, class E>
-struct can_backward_sub<C, D, E, enable_if_t<(
-    is_same<_traits_elem_t<C>, _traits_elem_t<D>>::value &&
-    is_same<_traits_elem_t<C>, _traits_elem_t<E>>::value &&
-    is_square<C>::value &&
-    can_multiply<C, D>::value &&
-    have_same_dimensions<D, E>::value
-  )>> : true_type { };
-
-}  // namespace internal
 
 /** @fn backward_sub */
-template <class C, class D, class E,
-    internal::enable_if_t<internal::can_backward_sub<C, D, E>::value, size_t>>
+template <class C, class D, class E, std::enable_if_t<
+    internal::can_backward_sub<C, D, E>::value, size_t>>
 constexpr int backward_sub(internal::Base<C> const &U, internal::Base<D> &X,
     internal::Base<E> const &Y) {
   LIN_ASSERT(U.rows() == U.cols() /* U isn't square in backward_sub(...) */);
@@ -52,8 +37,8 @@ constexpr int backward_sub(internal::Base<C> const &U, internal::Base<D> &X,
 }
 
 /** @fn backward_sub */
-template <class C, class D, class E,
-    internal::enable_if_t<internal::can_backward_sub<C, D, E>::value, size_t>>
+template <class C, class D, class E, std::enable_if_t<
+    internal::can_backward_sub<C, D, E>::value, size_t>>
 constexpr int backward_sub(internal::Base<C> const &U, internal::Tensor<D> &X,
     internal::Base<E> const &Y) {
   X.resize(Y.rows(), Y.cols());

@@ -1,10 +1,10 @@
-/** @file lin/core/tensor/base.hpp
+/** @file lin/core/types/base.hpp
  *  @author Kyle Krol
  *  Defines the tensor type which is a tensor value-backed, read-write
  *  interface. */
 
-#ifndef LIN_CORE_TENSOR_TENSOR_HPP_
-#define LIN_CORE_TENSOR_TENSOR_HPP_
+#ifndef LIN_CORE_TYPES_TENSOR_HPP_
+#define LIN_CORE_TYPES_TENSOR_HPP_
 
 #include "../config.hpp"
 #include "../traits.hpp"

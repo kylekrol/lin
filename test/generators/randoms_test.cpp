@@ -1,9 +1,7 @@
 /** @file test/generators/randoms_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core/matrix/matrix.hpp>
-#include <lin/core/traits.hpp>
-#include <lin/core/vector/vector.hpp>
+#include <lin/core.hpp>
 #include <lin/generators/randoms.hpp>
 
 #include <gtest/gtest.h>

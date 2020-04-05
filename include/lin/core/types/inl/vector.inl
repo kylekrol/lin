@@ -1,6 +1,6 @@
-/** @file lin/core/vector/inl/vector.inl
+/** @file lin/core/types/inl/vector.inl
  *  @author Kyle Krol
- *  See %lin/core/vector/vector.hpp for more information. */
+ *  See %lin/core/types/vector.hpp for more information. */
 
 #include "../vector.hpp"
 
@@ -17,12 +17,12 @@ struct _traits<Vector<T, N, MN>> {
 };
 
 template <class C>
-struct _evaluates_to<C, enable_if_t<is_col_vector<C>::value>> {
+struct _evaluates_to<C, std::enable_if_t<is_col_vector<C>::value>> {
   typedef Vector<
       _traits_elem_t<C>,
       _vector_traits<C>::Length,
       _vector_traits<C>::MaxLength
-    > type;
+    > Eval;
 };
 
 template <typename T, size_t N, size_t MN>
@@ -35,12 +35,12 @@ struct _traits<RowVector<T, N, MN>> {
 };
 
 template <class C>
-struct _evaluates_to<C, enable_if_t<is_row_vector<C>::value>> {
+struct _evaluates_to<C, std::enable_if_t<is_row_vector<C>::value>> {
   typedef RowVector<
       _traits_elem_t<C>,
       _vector_traits<C>::Length,
       _vector_traits<C>::MaxLength
-    > type;
+    > Eval;
 };
 }  // namespace internal
 

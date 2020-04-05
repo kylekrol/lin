@@ -1,6 +1,6 @@
-/** @file lin/core/tensor/inl/dimensions.inl
+/** @file lin/core/types/inl/dimensions.inl
  *  @author Kyle Krol
- *  See %lin/core/tensor/dimensions.hpp for more information. */
+ *  See %lin/core/types/dimensions.hpp for more information. */
 
 #include "../dimensions.hpp"
 

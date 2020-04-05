@@ -2,8 +2,6 @@
  *  @author Kyle Krol
  *  Template metaprogramming constructs for the core matrix module. */
 
-// TODO : Documentation for this entire file
-
 #ifndef LIN_CORE_TRAITS_MATRIX_HPP_
 #define LIN_CORE_TRAITS_MATRIX_HPP_
 
@@ -14,12 +12,11 @@
 namespace lin {
 namespace internal {
 
-/** @struct is_matrix */
-template <class C, typename V = void>
-struct is_matrix : false_type { };
-
+/** @struct is_matrix
+ *  Test if a type is a vector type. We'll treat anything not considered a
+ *  vector as if it's a matrix. */
 template <class C>
-struct is_matrix<C, enable_if_t<(!is_vector<C>::value)>> : true_type { };
+struct is_matrix : negation<is_vector<C>> { };
 
 }  // namespace internal
 }  // namespace lin

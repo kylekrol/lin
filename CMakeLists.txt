@@ -11,11 +11,11 @@ enable_testing()
 add_subdirectory(gtest)
 
 add_executable(core_tests
-  test/core/matrix_matrix_test.cpp
-  test/core/tensor_operations_test.cpp
-  test/core/tensor_operators_test.cpp
-  test/core/vector_operations_test.cpp
-  test/core/vector_vector_test.cpp
+  test/core/types_matrix_test.cpp
+  test/core/types_vector_test.cpp
+  test/core/operations_tensor_operations_test.cpp
+  test/core/operations_tensor_operators_test.cpp
+  test/core/operations_vector_operations_test.cpp
 )
 target_include_directories(core_tests PRIVATE
   include

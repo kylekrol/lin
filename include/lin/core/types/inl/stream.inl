@@ -1,6 +1,6 @@
-/** @file lin/core/tensor/inl/stream.inl
+/** @file lin/core/types/inl/stream.inl
  *  @author Kyle Krol
- *  See %lin/core/tensor/stream.hpp for more information. */
+ *  See %lin/core/types/stream.hpp for more information. */
 
 #include "../stream.hpp"
 

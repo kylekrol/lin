@@ -1,11 +1,11 @@
-/** @file lin/core/tensor/stream.hpp
+/** @file lin/core/types/stream.hpp
  *  @author Kyle Krol
  *  Defines the stream type which is a tensor read-only interface. */
 
 // TODO : Add iostream support if available
 
-#ifndef LIN_CORE_TENSOR_STREAM_HPP_
-#define LIN_CORE_TENSOR_STREAM_HPP_
+#ifndef LIN_CORE_TYPES_STREAM_HPP_
+#define LIN_CORE_TYPES_STREAM_HPP_
 
 #include "../config.hpp"
 #include "../traits.hpp"

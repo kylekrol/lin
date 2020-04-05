@@ -6,9 +6,8 @@
 #define LIN_CORE_HPP_
 
 #include "core/config.hpp"
-#include "core/matrix.hpp"
-#include "core/tensor.hpp"
+#include "core/operations.hpp"
 #include "core/traits.hpp"
-#include "core/vector.hpp"
+#include "core/types.hpp"
 
 #endif

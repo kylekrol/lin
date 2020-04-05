@@ -1,17 +1,18 @@
-/** @file lin/core/matrix/matrix.hpp
+/** @file lin/core/types/matrix.hpp
  *  @author Kyle Krol
  *  Defines the user-facing matrix types. */
 
 // TODO : Documentation for the matrix class
 
-#ifndef LIN_CORE_MATRIX_MATRIX_HPP_
-#define LIN_CORE_MATRIX_MATRIX_HPP_
+#ifndef LIN_CORE_TYPES_MATRIX_HPP_
+#define LIN_CORE_TYPES_MATRIX_HPP_
 
-#include "../config/assert.hpp"
-#include "../tensor/tensor.hpp"
+#include "../config.hpp"
 #include "../traits.hpp"
+#include "tensor.hpp"
 
 #include <initializer_list>
+#include <type_traits>
 
 namespace lin {
 
@@ -44,6 +45,10 @@ class Matrix : public internal::Tensor<Matrix<T, R, C, MR, MC>> {
   constexpr Matrix(size_t r, size_t c, std::initializer_list<U> const &list);
   template <class D>
   constexpr Matrix(internal::Stream<D> const &stream);
+
+ protected:
+  /* Import elements from internal::Tensor<Matrix<T, R, C, MR, MC>>. */
+  using internal::Tensor<Matrix<T, R, C, MR, MC>>::derived;
 };
 
 template <size_t R, size_t C, size_t MR = R, size_t MC = C>

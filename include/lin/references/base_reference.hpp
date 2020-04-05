@@ -8,10 +8,7 @@
 #ifndef LIN_REFERENCE_BASE_REFERENCE_HPP_
 #define LIN_REFERENCE_BASE_REFERENCE_HPP_
 
-#include "../core/config/assert.hpp"
-#include "../core/tensor/base.hpp"
-#include "../core/tensor/dimensions.hpp"
-#include "../core/traits.hpp"
+#include "../core.hpp"
 
 namespace lin {
 namespace internal {

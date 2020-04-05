@@ -1,10 +1,10 @@
-/** @file lin/core/tensor/dimensions.hpp
+/** @file lin/core/types/dimensions.hpp
  *  @author Kyle Krol
  *  Defines the dimensions type to allow simple resizing and dimensions
  *  tracking. */
 
-#ifndef LIN_CORE_TENSOR_DIMENSIONS_HPP_
-#define LIN_CORE_TENSOR_DIMENSIONS_HPP_
+#ifndef LIN_CORE_TYPES_DIMENSIONS_HPP_
+#define LIN_CORE_TYPES_DIMENSIONS_HPP_
 
 #include "../config.hpp"
 #include "../traits.hpp"

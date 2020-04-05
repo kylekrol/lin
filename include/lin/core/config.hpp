@@ -6,5 +6,6 @@
 #define LIN_CORE_CONFIG_HPP_
 
 #include "config/assert.hpp"
+#include "config/types.hpp"
 
 #endif

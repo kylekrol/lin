@@ -5,7 +5,6 @@
 #ifndef LIN_CORE_TRAITS_HPP_
 #define LIN_CORE_TRAITS_HPP_
 
-#include "traits/expressions.hpp"
 #include "traits/matrix.hpp"
 #include "traits/tensor.hpp"
 #include "traits/utilities.hpp"

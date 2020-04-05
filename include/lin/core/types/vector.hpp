@@ -1,17 +1,18 @@
-/** @file lin/core/vector/vector.hpp
+/** @file lin/core/types/vector.hpp
  *  @author Kyle Krol
  *  Defines the user-facing vector and row vector types. */
 
 // TODO : Documentation for the vector and row vector classes
 
-#ifndef LIN_CORE_VECTOR_VECTOR_HPP_
-#define LIN_CORE_VECTOR_VECTOR_HPP_
+#ifndef LIN_CORE_TYPES_VECTOR_HPP_
+#define LIN_CORE_TYPES_VECTOR_HPP_
 
-#include "../config/assert.hpp"
-#include "../tensor/tensor.hpp"
+#include "../config.hpp"
 #include "../traits.hpp"
+#include "tensor.hpp"
 
 #include <initializer_list>
+#include <type_traits>
 
 namespace lin {
 
@@ -50,6 +51,10 @@ class Vector : public internal::Tensor<Vector<T, N, MN>> {
   constexpr Vector(internal::Stream<C> const &stream);
   /* Custom vector resize function. */
   constexpr void resize(size_t n);
+
+ protected:
+  /* Import elements from internal::Tensor<Vector<T, N, MN>>. */
+  using internal::Tensor<Vector<T, N, MN>>::derived;
 };
 
 template <size_t N, size_t MN = N>
@@ -101,6 +106,10 @@ class RowVector : public internal::Tensor<RowVector<T, N, MN>> {
   constexpr RowVector(internal::Stream<C> const &stream);
   /* Custom row vector resize function. */
   constexpr void resize(size_t n);
+
+ protected:
+  /* Import elements from internal::Tensor<RowVector<T, N, MN>>. */
+  using internal::Tensor<RowVector<T, N, MN>>::derived;
 };
 
 template <size_t N, size_t MN = N>

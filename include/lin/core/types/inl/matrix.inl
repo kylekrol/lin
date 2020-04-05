@@ -1,6 +1,6 @@
-/** @file lin/core/matrix/inl/matrix.inl
+/** @file lin/core/types/inl/matrix.inl
  *  @author Kyle Krol
- *  See %lin/core/matrix/matrix.hpp for more information. */
+ *  See %lin/core/types/matrix.hpp for more information. */
 
 #include "../matrix.hpp"
 
@@ -17,14 +17,14 @@ struct _traits<Matrix<T, R, C, MR, MC>> {
 };
 
 template <class C>
-struct _evaluates_to<C, enable_if_t<is_matrix<C>::value>> {
+struct _evaluates_to<C, std::enable_if_t<is_matrix<C>::value>> {
   typedef Matrix<
       _traits_elem_t<C>,
       _traits<C>::Rows,
       _traits<C>::Cols,
       _traits<C>::MaxRows,
       _traits<C>::MaxCols
-    > type;
+    > Eval;
 };
 }  // namespace internal
 

@@ -1,11 +1,13 @@
-/** @file test/core/matrix_matrix_test.cpp
+/** @file test/core/types_matrix_test.cpp
  *  @author Kyle Krol */
 
 // TODO : Test the stream constructor
 
-#include <lin/core/matrix/matrix.hpp>
+#include <lin/core/types/matrix.hpp>
 
 #include <gtest/gtest.h>
+
+static_assert(lin::internal::can_assign_types<float, float>::value, "shit my pants");
 
 // Check for constexpr matrix dimensions and zero initialization
 constexpr static lin::Matrix2x2f A;
@@ -17,7 +19,7 @@ static_assert(A(0, 1) == 0.0f, "");
 static_assert(A(1, 0) == 0.0f, "");
 static_assert(A(1, 1) == 0.0f, "");
 
-TEST(CoreMatrixMatrix, MatrixDimensions) {
+TEST(CoreTypesMatrix, MatrixDimensions) {
   lin::Matrixf<3, 5> A;
   ASSERT_EQ(3,  A.rows());
   ASSERT_EQ(5,  A.cols());
@@ -29,7 +31,7 @@ TEST(CoreMatrixMatrix, MatrixDimensions) {
   ASSERT_EQ(6, B.size());
 }
 
-TEST(CoreMatrixMatrix, MatrixResize) {
+TEST(CoreTypesMatrix, MatrixResize) {
   lin::Matrixf<0, 0, 4, 4> A;
   ASSERT_EQ(4,  A.rows());
   ASSERT_EQ(4,  A.cols());
@@ -46,14 +48,14 @@ TEST(CoreMatrixMatrix, MatrixResize) {
   ASSERT_EQ(6, A.size());
 }
 
-TEST(CoreMatrixMatrix, MatrixResizeConstructor) {
+TEST(CoreTypesMatrix, MatrixResizeConstructor) {
   lin::Matrixf<0, 0, 4, 4> A(2, 3);
   ASSERT_EQ(2, A.rows());
   ASSERT_EQ(3, A.cols());
   ASSERT_EQ(6, A.size());
 }
 
-TEST(CoreMatrixMatrix, MatrixListConstructor) {
+TEST(CoreTypesMatrix, MatrixListConstructor) {
   lin::Matrix2x2f A({0.0f, 1.0f, 2.0f, 3.0f});
   ASSERT_FLOAT_EQ(0.0f, A(0, 0));
   ASSERT_FLOAT_EQ(1.0f, A(0, 1));
@@ -61,7 +63,7 @@ TEST(CoreMatrixMatrix, MatrixListConstructor) {
   ASSERT_FLOAT_EQ(3.0f, A(1, 1));
 }
 
-TEST(CoreMatrixMatrix, MatrixResizeListConstructor) {
+TEST(CoreTypesMatrix, MatrixResizeListConstructor) {
   lin::Matrixf<0, 0, 4, 4> A(2, 2, {0.0f, 1.0f, 2.0f, 3.0f});
   ASSERT_FLOAT_EQ(0.0f, A(0, 0));
   ASSERT_FLOAT_EQ(1.0f, A(0, 1));

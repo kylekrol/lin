@@ -1,11 +1,9 @@
-/** @file lin/core/tensor/base.hpp
+/** @file lin/core/types/base.hpp
  *  @author Kyle Krol
  *  Defines the base type which is a tensor read-write interface. */
 
-// TODO : Make list assignment operator tolerant to more types and types check
-
-#ifndef LIN_CORE_TENSOR_BASE_HPP_
-#define LIN_CORE_TENSOR_BASE_HPP_
+#ifndef LIN_CORE_TYPES_BASE_HPP_
+#define LIN_CORE_TYPES_BASE_HPP_
 
 #include "../config.hpp"
 #include "../traits.hpp"
@@ -13,20 +11,28 @@
 #include "stream.hpp"
 
 #include <initializer_list>
+#include <type_traits>
 #include <utility>
 
 namespace lin {
 namespace internal {
 
+/** @typedef assign_expr */
+template <typename T, typename U>
+using assign_expr = decltype(std::declval<T &>() = std::declval<U &>());
+
 /** @struct can_assign_types
  *  Tests if one type can be assigned to another. */
 template <typename T, typename U>
-struct can_assign_types;
+struct can_assign_types : is_detected<assign_expr, T, U> { };
 
 /** @struct can_assign
  *  Tests if one tensor type can be assigned to another. */
-template <class C, class D, typename V = void>
-struct can_assign;
+template <class C, class D>
+struct can_assign : conjunction<
+    have_same_dimensions<C, D>,
+    can_assign_types<_traits_elem_t<C>, _traits_elem_t<D>>
+  > { };
 
 /** @class Base
  *  Representation of a tensor presenting read/write access to it's elements.
@@ -54,9 +60,10 @@ class Base : public Stream<D> {
   constexpr typename Traits::Elem operator()(size_t i) const;
   constexpr typename Traits::Elem &operator()(size_t i);
   /* Assignment extra assignment operators. */
-  template <typename T, enable_if_t<can_assign_types<typename Traits::Elem, T>::value, size_t> = 0>
+  template <typename T, std::enable_if_t<
+      can_assign_types<typename Traits::Elem, T>::value, size_t> = 0>
   constexpr D &operator=(std::initializer_list<T> const &list);
-  template <class C, enable_if_t<can_assign<D, C>::value, size_t> = 0>
+  template <class C, std::enable_if_t<can_assign<D, C>::value, size_t> = 0>
   constexpr D &operator=(Stream<C> const &stream);
 
  protected:

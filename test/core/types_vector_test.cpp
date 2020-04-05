@@ -1,9 +1,9 @@
-/** @file test/core/vector_vector_test.cpp
+/** @file test/core/types_vector_test.cpp
  *  @author Kyle Krol */
 
 // TODO : Test the stream constructor
 
-#include <lin/core/vector/vector.hpp>
+#include <lin/core/types/vector.hpp>
 
 #include <gtest/gtest.h>
 
@@ -25,7 +25,7 @@ static_assert(v(0) == 0.0f, "");
 static_assert(v(1) == 0.0f, "");
 static_assert(v(2) == 0.0f, "");
 
-TEST(CoreVectorVector, VectorDimensions) {
+TEST(CoreTypesVector, VectorDimensions) {
   lin::Vectorf<5> u;
   ASSERT_EQ(5, u.rows());
   ASSERT_EQ(1, u.cols());
@@ -37,7 +37,7 @@ TEST(CoreVectorVector, VectorDimensions) {
   ASSERT_EQ(7, v.size());
 }
 
-TEST(CoreVectorVector, RowVectorDimensions) {
+TEST(CoreTypesVector, RowVectorDimensions) {
   lin::RowVectord<8> u;
   ASSERT_EQ(1, u.rows());
   ASSERT_EQ(8, u.cols());
@@ -49,7 +49,7 @@ TEST(CoreVectorVector, RowVectorDimensions) {
   ASSERT_EQ(2, v.size());
 }
 
-TEST(CoreVectorVector, VectorResize) {
+TEST(CoreTypesVector, VectorResize) {
   lin::Vectorf<0, 5> u;
   ASSERT_EQ(5, u.rows());
   ASSERT_EQ(1, u.cols());
@@ -66,7 +66,7 @@ TEST(CoreVectorVector, VectorResize) {
   ASSERT_EQ(3, u.size());
 }
 
-TEST(CoreVectorVector, RowVectorResize) {
+TEST(CoreTypesVector, RowVectorResize) {
   lin::RowVectorf<0, 5> u;
   ASSERT_EQ(1, u.rows());
   ASSERT_EQ(5, u.cols());
@@ -83,28 +83,28 @@ TEST(CoreVectorVector, RowVectorResize) {
   ASSERT_EQ(3, u.size());
 }
 
-TEST(CoreVectorVector, VectorResSizeConstructor) {
+TEST(CoreTypesVector, VectorResSizeConstructor) {
   lin::Vectorf<0, 5> u(4);
   ASSERT_EQ(4, u.rows());
   ASSERT_EQ(1, u.cols());
   ASSERT_EQ(4, u.size());
 }
 
-TEST(CoreVectorVector, RowVectorResizeConstructor) {
+TEST(CoreTypesVector, RowVectorResizeConstructor) {
   lin::RowVectorf<0, 5> u(4);
   ASSERT_EQ(1, u.rows());
   ASSERT_EQ(4, u.cols());
   ASSERT_EQ(4, u.size());
 }
 
-TEST(CoreVectorVector, VectorListConstructor) {
+TEST(CoreTypesVector, VectorListConstructor) {
   lin::Vector3f u({0.0f, 1.0f, 2.0f});
   ASSERT_FLOAT_EQ(0.0f, u(0));
   ASSERT_FLOAT_EQ(1.0f, u(1));
   ASSERT_FLOAT_EQ(2.0f, u(2));
 }
 
-TEST(CoreVectorVector, RowVectorListConstructor) {
+TEST(CoreTypesVector, RowVectorListConstructor) {
   lin::RowVector4f u({0.0f, 1.0f, 2.0f, 3.0f});
   ASSERT_FLOAT_EQ(0.0f, u(0));
   ASSERT_FLOAT_EQ(1.0f, u(1));
@@ -112,7 +112,7 @@ TEST(CoreVectorVector, RowVectorListConstructor) {
   ASSERT_FLOAT_EQ(3.0f, u(3));
 }
 
-TEST(CoreVectorVector, VectorResizeListConstructor) {
+TEST(CoreTypesVector, VectorResizeListConstructor) {
   lin::Vectorf<0, 5> u(2, {0.0f, 1.0f});
   ASSERT_EQ(2, u.rows());
   ASSERT_EQ(1, u.cols());
@@ -121,7 +121,7 @@ TEST(CoreVectorVector, VectorResizeListConstructor) {
   ASSERT_FLOAT_EQ(1.0f, u(1));
 }
 
-TEST(CoreVectorVector, RowVectorResizeListConstructor) {
+TEST(CoreTypesVector, RowVectorResizeListConstructor) {
   lin::RowVectorf<0, 5> u(2, {0.0f, 1.0f});
   ASSERT_EQ(1, u.rows());
   ASSERT_EQ(2, u.cols());

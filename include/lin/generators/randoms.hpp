@@ -8,9 +8,9 @@
 #ifndef LIN_GENERATORS_RANDOMS_HPP_
 #define LIN_GENERATORS_RANDOMS_HPP_
 
-#include "../core/matrix/matrix.hpp"
-#include "../core/traits.hpp"
-#include "../core/vector/vector.hpp"
+#include "../core.hpp"
+
+#include <type_traits>
 
 #ifdef LIN_RANDOM_WITH_CTIME
   #ifdef LIN_RANDOM_SEED
@@ -47,7 +47,7 @@ extern RandomsGenerator const rand;
 }  // namespace internal
 
 /** @fn rands */
-template <class C, internal::enable_if_t<internal::has_traits<C>::value, size_t> = 0>
+template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t> = 0>
 constexpr typename C::Traits::Eval rands(size_t r = C::Traits::MaxRows,
     size_t c = C::Traits::MaxCols, internal::RandomsGenerator const &rand = internal::rand);
 

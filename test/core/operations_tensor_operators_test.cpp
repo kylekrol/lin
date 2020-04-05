@@ -1,14 +1,14 @@
-/** @file test/core/tensor_operators_test.cpp
+/** @file test/core/operations_tensor_operators_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core/matrix/matrix.hpp>
-#include <lin/core/tensor/operators.hpp>
+#include <lin/core/types/matrix.hpp>
+#include <lin/core/operations/tensor_operators.hpp>
 
 #include <gtest/gtest.h>
 
 #include <type_traits>
 
-TEST(CoreTensorOperators, Add) {
+TEST(CoreOperationsTensorOperators, Add) {
   lin::Matrix2x2f A({1.0f, 2.0f, 3.0f, 4.0f}), B({5.0f, 6.0f, 7.0f, 8.0f});
   auto const C = A + B;
   ASSERT_FLOAT_EQ( 6.0f, C(0, 0));
@@ -40,7 +40,7 @@ TEST(CoreTensorOperators, Add) {
   ASSERT_EQ(6, F.size());
 }
 
-TEST(CoreTensorOperators, Subtract) {
+TEST(CoreOperationsTensorOperators, Subtract) {
   lin::Matrix2x2f A({1.0f, 1.0f, 5.0f, 2.0f}), B({5.0f, 6.0f, 7.0f, 8.0f});
   auto const C = A - B;
   ASSERT_FLOAT_EQ(-4.0f, C(0, 0));
@@ -72,7 +72,7 @@ TEST(CoreTensorOperators, Subtract) {
   ASSERT_EQ(6, F.size());
 }
 
-TEST(CoreTensorOperators, Scale) {
+TEST(CoreOperationsTensorOperators, Scale) {
   lin::Matrixd<0, 3, 5, 3> A(2, 3, {
     1.0, 3.0, 2.0,
     0.5, 1.0, 2.5
@@ -90,7 +90,7 @@ TEST(CoreTensorOperators, Scale) {
   ASSERT_EQ(6, B.size());
 }
 
-TEST(CoreTensorOperators, Divide) {
+TEST(CoreOperationsTensorOperators, Divide) {
   lin::Matrixd<0, 3, 5, 3> A(2, 3, {
     2.0, 6.0, 4.0,
     1.0, 9.0, 8.0
@@ -108,7 +108,7 @@ TEST(CoreTensorOperators, Divide) {
   ASSERT_EQ(6, B.size());
 }
 
-TEST(CoreTensorOperators, Negate) {
+TEST(CoreOperationsTensorOperators, Negate) {
   lin::Matrix2x2f A({
     1.0f, -1.0f,
     -1.0f, 1.0f
@@ -123,7 +123,7 @@ TEST(CoreTensorOperators, Negate) {
   ASSERT_EQ(4, B.size());
 }
 
-TEST(CoreTensorOperators, Multiply) {
+TEST(CoreOperationsTensorOperators, Multiply) {
   lin::Matrix2x2f A({1.0f, 2.0f, 3.0f, 4.0f}), B({5.0f, 6.0f, 7.0f, 8.0f});
   auto const C = A * B;
   ASSERT_FLOAT_EQ(19.0f, C(0, 0));

@@ -1,6 +1,6 @@
-/** @file lin/core/tensor/inl/tensor.inl
+/** @file lin/core/types/inl/tensor.inl
  *  @author Kyle Krol
- *  See %lin/core/tensor/tensor.hpp for more information. */
+ *  See %lin/core/types/tensor.hpp for more information. */
 
 #include "../tensor.hpp"
 

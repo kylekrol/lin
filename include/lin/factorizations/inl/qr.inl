@@ -5,25 +5,8 @@
 #include "../qr.hpp"
 
 namespace lin {
-namespace internal {
 
-template <class C, class D, class E, typename>
-struct can_qr : false_type { };
-
-template <class C, class D, class E>
-struct can_qr<C, D, E, enable_if_t<(
-    is_same<_traits_elem_t<C>, _traits_elem_t<D>>::value &&
-    is_same<_traits_elem_t<C>, _traits_elem_t<E>>::value &&
-    is_tall<C>::value &&
-    is_square<E>::value &&
-    have_same_dimensions<C, D>::value &&
-    can_multiply<D, E>::value
-  )>> : true_type { };
-
-}  // namespace internal
-
-template <class C, class D, class E,
-    internal::enable_if_t<internal::can_qr<C, D, E>::value, size_t>>
+template <class C, class D, class E, std::enable_if_t<internal::can_qr<C, D, E>::value, size_t>>
 constexpr int qr(internal::Stream<C> const &M, internal::Base<D> &Q, internal::Base<E> &R) {
   LIN_ASSERT(M.rows() >= M.cols() /* M isn't 'tall' in qr(...) */);
   LIN_ASSERT(M.rows() == Q.rows() /* Q rows doesn't match in qr(...) */);
@@ -53,8 +36,7 @@ constexpr int qr(internal::Stream<C> const &M, internal::Base<D> &Q, internal::B
   return 0;  // TODO : Return an actual status code
 }
 
-template <class C, class D, class E,
-    internal::enable_if_t<internal::can_qr<C, D, E>::value, size_t>>
+template <class C, class D, class E, std::enable_if_t<internal::can_qr<C, D, E>::value, size_t>>
 constexpr int qr(internal::Stream<C> const &M, internal::Tensor<D> &Q, internal::Tensor<E> &R) {
   Q.resize(M.rows(), M.cols());
   R.resize(M.cols(), M.cols());
