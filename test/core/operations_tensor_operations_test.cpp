@@ -1,91 +1,88 @@
 /** @file test/core/operations_tensor_operations_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core/types/matrix.hpp>
+#include <lin/core/types.hpp>
 #include <lin/core/operations/tensor_operations.hpp>
 
 #include <gtest/gtest.h>
 
-// #include <cmath>
-// #include <limits>
+TEST(CoreOperationsTensorOperations, Add) {
+  lin::Vector2f a {1.0f, 2.0f};
+  lin::Vector2f b {1.0f, 3.0f};
 
-// constexpr static double _nan = std::numeric_limits<double>::quiet_NaN();
-// constexpr static double _inf = std::numeric_limits<double>::infinity();
+  lin::Vector2f c = lin::add(a, b);
+  ASSERT_FLOAT_EQ(2.0f, c(0));
+  ASSERT_FLOAT_EQ(5.0f, c(1));
 
-// TEST(CoreOperationsTensorOperations, All) {
-//   lin::Matrix2x2f A({0.0f, 0.0f, 0.0f, 0.0f});
-//   ASSERT_TRUE(lin::all(A, [](float const &f) { return f == 0.0f; }));
-//   lin::Matrix2x2f B({0.0f, 0.0f, 1.0f, 0.0f});
-//   ASSERT_FALSE(lin::all(B, [](float const &f) { return f == 0.0f; }));
-// }
+  lin::Vector2f d = lin::add(a, 1.0f);
+  ASSERT_FLOAT_EQ(2.0f, d(0));
+  ASSERT_FLOAT_EQ(3.0f, d(1));
 
-// TEST(CoreOperationsTensorOperations, AllIsFinite) {
-//   lin::Matrix2x2d A { 0.0, _nan, 0.0, 0.0 };
-//   ASSERT_FALSE(lin::all_isfinite(A));
-//   lin::Matrix2x2d B { 0.0, _inf, 0.0, 0.0 };
-//   ASSERT_FALSE(lin::all_isfinite(B));
-//   lin::Matrix2x2d C; // Zero initialized
-//   ASSERT_TRUE(lin::all_isfinite(C));
-// }
+  lin::Vector2d e = lin::add(-2.0, b);
+  ASSERT_DOUBLE_EQ(-1.0, e(0));
+  ASSERT_DOUBLE_EQ( 1.0, e(1));
 
-// TEST(CoreOperationsTensorOperations, AllIsInfinite) {
-//   lin::Matrix2x2f A ({ _inf, _inf, _inf, _inf });
-//   ASSERT_TRUE(lin::all_isinf(A));
-//   lin::Matrix2x2f B { _inf, _inf, _nan, _inf };
-//   ASSERT_FALSE(lin::all_isinf(B));
-//   lin::Matrix2x2f C { _inf, _inf, 0.0, _inf };
-//   ASSERT_FALSE(lin::all_isinf(C));
-// }
+  ASSERT_DOUBLE_EQ(5.0, lin::add(2.0, 3.0));
+}
 
-// TEST(CoreOperationsTensorOperations, AllIsNan) {
-//   lin::Matrix2x2f A { _nan, _nan, _nan, _nan };
-//   ASSERT_TRUE(lin::all_isnan(A));
-//   lin::Matrix2x2f B { _nan, _nan, _nan, _inf };
-//   ASSERT_FALSE(lin::all_isnan(B));
-//   lin::Matrix2x2f C { _nan, _nan, 0.0, _nan };
-//   ASSERT_FALSE(lin::all_isnan(C));
-// }
+TEST(CoreOperationsTensorOperations, Divide) {
+  lin::Vectorf<0, 3> a(2, {12.0f, 9.0f});
+  lin::Vectorf<0, 3> b(2, { 2.0f, 3.0f});
 
-// TEST(CoreOperationsTensorOperations, Any) {
-//   lin::Matrix2x2f A({0.0f, 0.0f, 0.0f, 0.0f});
-//   ASSERT_FALSE(lin::any(A, [](float const &f) -> bool { return f != 0.0f; }));
-//   lin::Matrix2x2f B({0.0f, 0.0f, 1.0f, 0.0f});
-//   ASSERT_TRUE(lin::any(B, [](float const &f) -> bool { return f != 0.0f; }));
-// }
+  lin::Vectorf<0, 3> c(2); c = lin::divide(a, b);
+  ASSERT_FLOAT_EQ(6.0f, c(0));
+  ASSERT_FLOAT_EQ(3.0f, c(1));
 
-// TEST(CoreOperationsTensorOperations, AnyIsFinite) {
-//   lin::Matrix2x2f A { _nan, _nan, _nan, _nan };
-//   ASSERT_FALSE(lin::any_isfinite(A));
-//   lin::Matrix2x2f B { _nan, _nan, _nan, _inf };
-//   ASSERT_FALSE(lin::any_isfinite(B));
-//   lin::Matrix2x2f C { _nan, _inf, 0.0, _inf };
-//   ASSERT_TRUE(lin::any_isfinite(C));
-// }
+  lin::Vectorf<0, 3> d(2); d = lin::divide(a, 6.0f);
+  ASSERT_FLOAT_EQ(2.0f, d(0));
+  ASSERT_FLOAT_EQ(1.5f, d(1));
 
-// TEST(CoreOperationsTensorOperations, AnyIsInfinite) {
-//   lin::Matrix2x2f A { _nan, _nan, _nan, _nan };
-//   ASSERT_FALSE(lin::any_isinf(A));
-//   lin::Matrix2x2f B { _nan, _nan, _nan, 0.0 };
-//   ASSERT_FALSE(lin::any_isinf(B));
-//   lin::Matrix2x2f C { _nan, _inf, 0.0, _inf };
-//   ASSERT_TRUE(lin::any_isinf(C));
-// }
+  lin::Vectord<0, 3> e(2); e = lin::divide(6.0, b);
+  ASSERT_DOUBLE_EQ(3.0, e(0));
+  ASSERT_DOUBLE_EQ(2.0, e(1));
 
-// TEST(CoreOperationsTensorOperations, AnyIsNan) {
-//     lin::Matrix2x2f A ({ _inf, _inf, _inf, _inf });
-//   ASSERT_FALSE(lin::any_isnan(A));
-//   lin::Matrix2x2f B { _inf, _inf, _nan, _inf };
-//   ASSERT_TRUE(lin::any_isnan(B));
-//   lin::Matrix2x2f C { _inf, _inf, 0.0, _inf };
-//   ASSERT_FALSE(lin::any_isnan(C));
-// }
+  ASSERT_DOUBLE_EQ(5.0, lin::divide(25.0, 5.0));
+}
 
-TEST(CoreOperationsTensorOperations, Frobenius) {
+TEST(CoreOperationsTensorOperations, Fro) {
   lin::Matrix2x2f A({0.0f, 1.0f, 2.0f, 3.0f});
   ASSERT_FLOAT_EQ(14.0f, lin::fro(A));
 
   lin::Matrixf<0, 0, 4, 4> B(3, 2, {0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f});
   ASSERT_FLOAT_EQ(55.0f, lin::fro(B));
+}
+
+TEST(CoreOperationsTensorOperations, Multiply) {
+  lin::Vector2f a {1.0f, 2.0f};
+  lin::Vector2f b {1.0f, 3.0f};
+
+  lin::Vector2f c = lin::multiply(a, b);
+  ASSERT_FLOAT_EQ(1.0f, c(0));
+  ASSERT_FLOAT_EQ(6.0f, c(1));
+
+  lin::Vector2f d = lin::multiply(a, 2.0f);
+  ASSERT_FLOAT_EQ(2.0f, d(0));
+  ASSERT_FLOAT_EQ(4.0f, d(1));
+
+  lin::Vector2d e = lin::multiply(-2.0, b);
+  ASSERT_DOUBLE_EQ(-2.0, e(0));
+  ASSERT_DOUBLE_EQ(-6.0, e(1));
+
+  ASSERT_DOUBLE_EQ(6.0, lin::multiply(2.0, 3.0));
+}
+
+TEST(CoreOperationsTensorOperations, Negate) {
+  lin::Matrixf<0, 0, 3, 3> A(2, 2, {
+    1.0f, 2.0f,
+    -1.0f, 3.0f
+  });
+  lin::Matrixf<0, 0, 3, 3> B(2, 2); B = lin::negate(A);
+  ASSERT_FLOAT_EQ(-1.0f, B(0, 0));
+  ASSERT_FLOAT_EQ(-2.0f, B(0, 1));
+  ASSERT_FLOAT_EQ( 1.0f, B(1, 0));
+  ASSERT_FLOAT_EQ(-3.0f, B(1, 1));
+
+  ASSERT_DOUBLE_EQ(-1.0, lin::negate(1.0));
 }
 
 TEST(CoreOperationsTensorOperations, Sign) {
@@ -104,6 +101,28 @@ TEST(CoreOperationsTensorOperations, Sign) {
   ASSERT_FLOAT_EQ( 1.0f, sign_A(1, 0));
   ASSERT_FLOAT_EQ(-1.0f, sign_A(1, 1));
   ASSERT_FLOAT_EQ(-1.0f, sign_A(1, 2));
+
+  ASSERT_DOUBLE_EQ(1.0, lin::sign(0.1));
+  ASSERT_DOUBLE_EQ(0.0, lin::sign(0.0));
+}
+
+TEST(CoreOperationsTensorOperations, Subtract) {
+  lin::Vector2f a {1.0f, 2.0f};
+  lin::Vector2f b {1.0f, 3.0f};
+
+  lin::Vector2f c = lin::subtract(a, b);
+  ASSERT_FLOAT_EQ( 0.0f, c(0));
+  ASSERT_FLOAT_EQ(-1.0f, c(1));
+
+  lin::Vector2f d = lin::subtract(a, 2.0f);
+  ASSERT_FLOAT_EQ(-1.0f, d(0));
+  ASSERT_FLOAT_EQ( 0.0f, d(1));
+
+  lin::Vector2d e = lin::subtract(-2.0, b);
+  ASSERT_DOUBLE_EQ(-3.0, e(0));
+  ASSERT_DOUBLE_EQ(-5.0, e(1));
+
+  ASSERT_DOUBLE_EQ(-1.0, lin::subtract(2.0, 3.0));
 }
 
 TEST(CoreOperationsTensorOperations, Transpose) {

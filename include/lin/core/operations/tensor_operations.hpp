@@ -125,7 +125,7 @@ inline constexpr auto multiply(internal::Stream<C> const &c, internal::Stream<D>
 template <typename T, class C, std::enable_if_t<
     internal::matches_scalar_tensor<T, C>::value, size_t> = 0>
 inline constexpr auto multiply(T const &t, internal::Stream<C> const &c) {
-  return internal::StreamElementWiseOperator<internal::multiply_st<T>, C>(t, c);
+  return internal::StreamElementWiseOperator<internal::multiply_st<T>, C>(c, t);
 }
 
 template <class C, typename T, std::enable_if_t<

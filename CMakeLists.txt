@@ -13,6 +13,7 @@ add_subdirectory(gtest)
 add_executable(core_tests
   test/core/types_matrix_test.cpp
   test/core/types_vector_test.cpp
+  test/core/operations_functors_test.cpp
   test/core/operations_tensor_operations_test.cpp
   test/core/operations_tensor_operators_test.cpp
   test/core/operations_vector_operations_test.cpp

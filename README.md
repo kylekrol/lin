@@ -11,4 +11,10 @@ Most of the core functionality can be included with `#include <lin/core.hpp>`. T
 
 Additional modules are available and provide more complex functionality such as the references module (`#include <lin/references.hpp>`), generators (`#include <lin/generators.hpp>`), matrix factorizations (`#include <lin/factorizations.hpp>`), etc.
 
-All unit tests live in `test/**`.
+All unit tests live in `test/**` and can be run with:
+
+    mkdir build
+    cd build
+    cmake ../
+    cmake --build .
+    ctest .
