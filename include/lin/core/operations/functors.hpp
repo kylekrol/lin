@@ -7,7 +7,6 @@
 #ifndef LIN_CORE_OPERATIONS_FUNCTORS_HPP_
 #define LIN_CORE_OPERATIONS_FUNCTORS_HPP_
 
-#include <cmath>
 #include <type_traits>
 #include <utility>
 
@@ -28,11 +27,11 @@ struct add {
 template <typename T>
 struct add_st {
   template <typename U>
-  using expression = typename add::expression<T, U>;
+  using expression = typename add::template expression<T, U>;
 
   T const t;
   constexpr add_st() = default;
-  constexpr add_st(T t) : t(t) { }
+  constexpr add_st(T const &t) : t(t) { }
   template <typename U>
   inline constexpr auto operator()(U const &u) const { return add()(t, u); }
 };
@@ -55,11 +54,11 @@ struct divide {
 template <typename T>
 struct divide_st {
   template <typename U>
-  using expression = typename divide::expression<T, U>;
+  using expression = typename divide::template expression<T, U>;
 
   T const t;
   constexpr divide_st() = default;
-  constexpr divide_st(T t) : t(t) { }
+  constexpr divide_st(T const &t) : t(t) { }
   template <typename U>
   inline constexpr auto operator()(U const u) const { return divide()(t, u); }
 };
@@ -68,11 +67,11 @@ struct divide_st {
 template <typename T>
 struct divide_ts {
   template <typename U>
-  using expression = typename divide::expression<U, T>;
+  using expression = typename divide::template expression<U, T>;
 
   T const t;
   constexpr divide_ts() = default;
-  constexpr divide_ts(T t) : t(t) { }
+  constexpr divide_ts(T const &t) : t(t) { }
   template <typename U>
   inline constexpr auto operator()(U const &u) const { return divide()(u, t); }
 };
@@ -91,11 +90,11 @@ struct multiply {
 template <typename T>
 struct multiply_st {
   template <typename U>
-  using expression = typename multiply::expression<T, U>;
+  using expression = typename multiply::template expression<T, U>;
 
   T const t;
   constexpr multiply_st() = default;
-  constexpr multiply_st(T t) : t(t) { }
+  constexpr multiply_st(T const &t) : t(t) { }
   template <typename U>
   inline constexpr auto operator()(U const &u) const { return multiply()(t, u); }
 };
@@ -144,11 +143,11 @@ struct subtract {
 template <typename T>
 struct subtract_st {
   template <typename U>
-  using expression = typename subtract::expression<T, U>;
+  using expression = typename subtract::template expression<T, U>;
 
   T const t;
   constexpr subtract_st() = default;
-  constexpr subtract_st(T t) : t(t) { }
+  constexpr subtract_st(T const &t) : t(t) { }
   template <typename U>
   inline constexpr auto operator()(U const &u) const { return subtract()(t, u); }
 };
@@ -157,11 +156,11 @@ struct subtract_st {
 template <typename T>
 struct subtract_ts {
   template <typename U>
-  using expression = typename subtract::expression<U, T>;
+  using expression = typename subtract::template expression<U, T>;
 
   T const t;
   constexpr subtract_ts() = default;
-  constexpr subtract_ts(T t) : t(t) { }
+  constexpr subtract_ts(T const &t) : t(t) { }
   template <typename U>
   inline constexpr auto operator()(U const &u) const { return subtract()(u, t); }
 };

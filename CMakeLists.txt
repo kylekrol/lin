@@ -54,6 +54,20 @@ target_link_libraries(generators_tests PRIVATE
 )
 add_test(run_generators_tests generators_tests)
 
+add_executable(queries_tests
+  test/queries/queries_functors_test.cpp
+  test/queries/queries_operations_test.cpp
+  test/queries/queries_operators_test.cpp
+)
+target_include_directories(queries_tests PRIVATE
+  include
+)
+target_link_libraries(queries_tests PRIVATE
+  gtest
+  gtest_main
+)
+add_test(run_queries_tests queries_tests)
+
 add_executable(references_tests
   test/references/base_reference_test.cpp
   test/references/stream_reference_test.cpp
