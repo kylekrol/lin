@@ -52,10 +52,11 @@ class StreamMultiply : public Stream<StreamMultiply<C, D>> {
 template <class C, class D>
 struct _traits<StreamMultiply<C, D>> {
   typedef typename multiply::template expression<_traits_elem_t<C>, _traits_elem_t<D>> Elem;
-  constexpr static size_t Rows = _traits<C>::Rows;
-  constexpr static size_t Cols = _traits<D>::Cols;
-  constexpr static size_t MaxRows = _traits<C>::MaxRows;
-  constexpr static size_t MaxCols = _traits<D>::MaxCols;
+  constexpr static size_t
+    Rows = _traits<C>::Rows,
+    Cols = _traits<D>::Cols,
+    MaxRows = _traits<C>::MaxRows,
+    MaxCols = _traits<D>::MaxCols;
 };
 
 template <class C, class D>

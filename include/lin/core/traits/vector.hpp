@@ -44,10 +44,9 @@ template <class C>
 struct vector_traits<C, std::enable_if_t<is_vector<C>::value>> {
   typedef _vector_traits_elem_t<C> Elem;
   typedef _evaluates_to_t<C> Eval;
-  enum : size_t {
+  constexpr static size_t
     Length = _vector_traits<C>::Length,
-    MaxLength = _vector_traits<C>::MaxLength
-  };
+    MaxLength = _vector_traits<C>::MaxLength;
 };
 /** @} */
 

@@ -9,9 +9,6 @@ namespace internal {
 
 template <class C>
 class StreamTranspose : public Stream<StreamTranspose<C>> {
-  template <class D>
-  friend constexpr StreamTranspose<D> lin::transpose(lin::internal::Stream<D> const &);
-
  public:
   /* Import elements from Stream<StreamTranspose<C>>. */
   using Stream<StreamTranspose<C>>::size;
@@ -41,12 +38,13 @@ class StreamTranspose : public Stream<StreamTranspose<C>> {
 };
 
 template <class C>
-struct _traits<StreamTranspose<C>> : _traits<C> { enum : size_t {
-  Rows = _traits<C>::Cols,
-  Cols = _traits<C>::Rows,
-  MaxRows = _traits<C>::MaxCols,
-  MaxCols = _traits<C>::MaxRows
-};};
+struct _traits<StreamTranspose<C>> : _traits<C> {
+  constexpr static size_t
+    Rows = _traits<C>::Cols,
+    Cols = _traits<C>::Rows,
+    MaxRows = _traits<C>::MaxCols,
+    MaxCols = _traits<C>::MaxRows;
+};
 
 template <class C>
 constexpr StreamTranspose<C>::StreamTranspose(Stream<C> const &c) : c(c) { }

@@ -46,14 +46,13 @@ template <class C>
 struct traits {
   typedef _traits_elem_t<C> Elem;
   typedef _evaluates_to_t<C> Eval;
-  enum : size_t {
+  constexpr static size_t
     Rows = _traits<C>::Rows,
     Cols = _traits<C>::Cols,
     Size = Rows * Cols,
     MaxRows = _traits<C>::MaxRows,
     MaxCols = _traits<C>::MaxCols,
-    MaxSize = MaxRows * MaxCols
-  };
+    MaxSize = MaxRows * MaxCols;
 };
 
 /** @typedef traits_elem_t */

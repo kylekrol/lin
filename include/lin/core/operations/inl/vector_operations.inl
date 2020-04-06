@@ -11,8 +11,8 @@ constexpr auto cross(internal::Stream<C> const &u, internal::Stream<D> const &v)
   typedef typename internal::multiply::template expression<internal::_traits_elem_t<C>, internal::traits_elem_t<D>> T;
   return std::conditional_t<
       internal::is_col_vector<C>::value,
-      Vector<T, C::VectorTraits::Length, C::VectorTraits::MaxLength>,
-      RowVector<T, C::VectorTraits::Length, C::VectorTraits::MaxLength>>({
+      Vector<T, internal::_vector_traits<C>::Length, internal::_vector_traits<C>::MaxLength>,
+      RowVector<T, internal::_vector_traits<C>::Length, internal::_vector_traits<C>::MaxLength>>({
     u(1) * v(2) - u(2) * v(1),
     u(2) * v(0) - u(0) * v(2),
     u(0) * v(1) - u(1) * v(0)

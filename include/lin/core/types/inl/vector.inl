@@ -10,10 +10,11 @@ namespace internal {
 template <typename T, size_t N, size_t MN>
 struct _traits<Vector<T, N, MN>> {
   typedef T Elem;
-  constexpr static size_t Rows = N;
-  constexpr static size_t Cols = 1;
-  constexpr static size_t MaxRows = MN;
-  constexpr static size_t MaxCols = 1;
+  constexpr static size_t
+    Rows = N,
+    Cols = 1,
+    MaxRows = MN,
+    MaxCols = 1;
 };
 
 template <class C>
@@ -28,10 +29,11 @@ struct _evaluates_to<C, std::enable_if_t<is_col_vector<C>::value>> {
 template <typename T, size_t N, size_t MN>
 struct _traits<RowVector<T, N, MN>> {
   typedef T Elem;
-  constexpr static size_t Rows = 1;
-  constexpr static size_t Cols = N;
-  constexpr static size_t MaxRows = 1;
-  constexpr static size_t MaxCols = MN;
+  constexpr static size_t
+    Rows = 1,
+    Cols = N,
+    MaxRows = 1,
+    MaxCols = MN;
 };
 
 template <class C>
