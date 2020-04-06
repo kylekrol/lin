@@ -26,19 +26,17 @@ struct is_col_vector<C, std::enable_if_t<(
 template <class C>
 struct _vector_traits<C, std::enable_if_t<is_row_vector<C>::value>> {
   typedef _traits_elem_t<C> Elem;
-  enum : size_t {
+  constexpr static size_t
     Length = _traits<C>::Cols,
-    MaxLength = _traits<C>::MaxCols
-  };
+    MaxLength = _traits<C>::MaxCols;
 };
 
 template <class C>
 struct _vector_traits<C, std::enable_if_t<is_col_vector<C>::value>> {
   typedef _traits_elem_t<C> Elem;
-  enum : size_t {
+  constexpr static size_t
     Length = _traits<C>::Rows,
-    MaxLength = _traits<C>::MaxRows
-  };
+    MaxLength = _traits<C>::MaxRows;
 };
 
 template <class C, typename>
