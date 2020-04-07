@@ -98,6 +98,7 @@ add_test(run_references_tests references_tests)
 add_executable(substitutions_tests
   src/lin_generators_randoms.cpp
   test/substitutions/backward_substitution_test.cpp
+  test/substitutions/forward_substitution_test.cpp
 )
 target_include_directories(substitutions_tests PRIVATE
   include

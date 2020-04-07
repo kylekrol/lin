@@ -2,7 +2,7 @@
  *  @author Kyle Krol
  *  See %lin/substitutions/backward_substitution.hpp for more information. */
 
-#include "../backward_subsitution.hpp"
+#include "../backward_substitution.hpp"
 
 namespace lin {
 

@@ -18,14 +18,14 @@ namespace lin {
 namespace internal {
 
 /** @struct can_chol */
-template <class C, class D>
-struct can_chol : conjunction<have_same_dimensions<C, D>, is_matrix<C>, is_square<C>> { };
+template <class C>
+struct can_chol : conjunction<is_matrix<C>, is_square<C>> { };
 
 }  // namespace internal
 
 /** @fn chol */
-template <class C, class D, std::enable_if_t<internal::can_chol<C, D>::value, size_t> = 0>
-constexpr int chol(internal::Base<C> const &A, internal::Base<D> &L);
+template <class C, std::enable_if_t<internal::can_chol<C>::value, size_t> = 0>
+constexpr int chol(internal::Base<C> &L);
 
 }  // namespace lin
 

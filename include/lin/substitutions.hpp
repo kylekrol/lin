@@ -5,6 +5,7 @@
 #ifndef LIN_SUBSTITUTIONS_HPP_
 #define LIN_SUBSTITUTIONS_HPP_
 
-#include "substitutions/backward_subsitution.hpp"
+#include "substitutions/backward_substitution.hpp"
+#include "substitutions/forward_substitution.hpp"
 
 #endif
