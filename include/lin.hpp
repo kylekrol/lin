@@ -9,6 +9,7 @@
 #include "lin/core.hpp"
 #include "lin/factorizations.hpp"
 #include "lin/generators.hpp"
+#include "lin/math.hpp"
 #include "lin/queries.hpp"
 #include "lin/references.hpp"
 #include "lin/substitutions.hpp"

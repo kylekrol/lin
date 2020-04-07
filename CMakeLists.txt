@@ -54,6 +54,19 @@ target_link_libraries(generators_tests PRIVATE
 )
 add_test(run_generators_tests generators_tests)
 
+add_executable(math_tests
+  test/math/math_functors_test.cpp
+  test/math/math_operations_test.cpp
+)
+target_include_directories(math_tests PRIVATE
+  include
+)
+target_link_libraries(math_tests PRIVATE
+  gtest
+  gtest_main
+)
+add_test(run_math_tests math_tests)
+
 add_executable(queries_tests
   test/queries/queries_functors_test.cpp
   test/queries/queries_operations_test.cpp

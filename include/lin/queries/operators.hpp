@@ -1,6 +1,6 @@
 /** @file lin/queries/operators.hpp
  *  @author Kyle Krol
- *  Defines all operators included in the queries modules. */
+ *  Defines all operators included in the queries module. */
 
 #ifndef LIN_QUERIES_OPERATORS_HPP_
 #define LIN_QUERIES_OPERATORS_HPP_
