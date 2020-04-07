@@ -38,6 +38,7 @@ class Dimension<0, MN> {
   constexpr size_t get() const { return n; }
   constexpr void resize(size_t n) {
     LIN_ASSERT(n <= MN /* Invalid argument passed to Dimension<...>::resize */);
+    LIN_ASSERT(n >  0  /* Invalid argument passed to Dimension<...>::resize */);
     this->n = n;
   }
 };

@@ -29,6 +29,7 @@ add_test(run_core_tests core_tests)
 
 add_executable(factorizations_tests
   src/lin_generators_randoms.cpp
+  test/factorizations/chol_test.cpp
   test/factorizations/qr_test.cpp
 )
 target_include_directories(factorizations_tests PRIVATE

@@ -5,6 +5,7 @@
 #ifndef LIN_FACTORIZATIONS_HPP_
 #define LIN_FACTORIZATIONS_HPP_
 
+#include "factorizations/chol.hpp"
 #include "factorizations/qr.hpp"
 
 #endif
