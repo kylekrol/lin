@@ -6,6 +6,7 @@
 #define LIN_CORE_OPERATIONS_TENSOR_OPERATIONS_HPP_
 
 #include "../config.hpp"
+#include "../traits.hpp"
 #include "../types.hpp"
 #include "element_wise_operator.hpp"
 #include "functors.hpp"
@@ -199,6 +200,14 @@ inline constexpr auto subtract(T const &t, U const &u) {
   return internal::subtract()(t, u);
 }
 /** @} */
+
+/** @fn sum */
+template <class C>
+constexpr typename C::Traits::Elem sum(internal::Stream<C> const &c) {
+  typename C::Traits::Elem x = c(0);
+  for (lin::size_t i = 1; i < c.size(); i++) x += c(i);
+  return x;
+}
 
 /** @fn transpose */
 template <class C, std::enable_if_t<

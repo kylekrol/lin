@@ -7,6 +7,7 @@
 
 #include "operations/element_wise_operator.hpp"
 #include "operations/functors.hpp"
+#include "operations/matrix_operations.hpp"
 #include "operations/tensor_operations.hpp"
 #include "operations/tensor_operators.hpp"
 #include "operations/vector_operations.hpp"

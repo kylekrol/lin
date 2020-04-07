@@ -6,6 +6,19 @@
 
 #include <gtest/gtest.h>
 
+/* START: From matrix operations */
+#include <lin/core/operations/matrix_operations.hpp>
+
+TEST(CoreOperationsMatrixOperations, Trace) {
+  lin::Matrix3x3f A {
+    2.0f,  5.0f, 6.0f,
+    1.0f,  4.0f, 3.0f,
+    0.0f, -7.0f, -1.0f
+  };
+  ASSERT_FLOAT_EQ(5.0f, lin::trace(A));
+}
+/* END: From amtrix operations */
+
 TEST(CoreOperationsTensorOperations, Add) {
   lin::Vector2f a {1.0f, 2.0f};
   lin::Vector2f b {1.0f, 3.0f};
@@ -123,6 +136,14 @@ TEST(CoreOperationsTensorOperations, Subtract) {
   ASSERT_DOUBLE_EQ(-5.0, e(1));
 
   ASSERT_DOUBLE_EQ(-1.0, lin::subtract(2.0, 3.0));
+}
+
+TEST(CoreOperationsTensorOperations, Sum) {
+  lin::Matrix2x2f A {
+     1.0f, 2.0f,
+    -1.0f, 0.0f
+  };
+  ASSERT_FLOAT_EQ(2.0f, lin::sum(A));
 }
 
 TEST(CoreOperationsTensorOperations, Transpose) {
