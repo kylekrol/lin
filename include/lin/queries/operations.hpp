@@ -12,6 +12,20 @@
 
 namespace lin {
 
+/** @fn all */
+template <class C>
+constexpr bool all(internal::Stream<C> const &c) {
+  for (size_t i = 0; i < c.size(); i++) if (!c(i)) return false;
+  return true;
+}
+
+/** @fn any */
+template <class C>
+constexpr bool any(internal::Stream<C> const &c) {
+  for (size_t i = 0; i < c.size(); i++) if (c(i)) return true;
+  return false;
+}
+
 /** @fn equal_to
  *  @{ */
 template <class C, class D, std::enable_if_t<

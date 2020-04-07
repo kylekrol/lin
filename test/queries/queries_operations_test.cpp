@@ -6,6 +6,20 @@
 
 #include <gtest/gtest.h>
 
+TEST(QueriesOperations, All) {
+  lin::Vector3b a {true, true, false};
+  lin::Vector3b b {true, true, true };
+  ASSERT_FALSE(lin::all(a));
+  ASSERT_TRUE(lin::all(b));
+}
+
+TEST(QueriesOperations, Any) {
+  lin::Vector3b a {true, true, false};
+  lin::Vector3b b {true, true, true };
+  ASSERT_TRUE(lin::any(lin::logical_not(a)));
+  ASSERT_FALSE(lin::any(lin::logical_not(b)));
+}
+
 TEST(QueriesOperations, EqualTo) {
   lin::Vector3f a {-1.0f, 0.0f, 1.0f};
   lin::Vector3f b { 0.0f, 0.0f, 0.0f};
