@@ -1,8 +1,6 @@
 
 # lin
 
-[![Build Status](https://travis-ci.com/kkrol27/lin.svg?branch=master)](https://travis-ci.com/kkrol27/lin)
-
 Linear algebra library solely using static memory alocation. It's been developed primarily for the [PAN](https://github.com/pathfinder-for-autonomous-navigation) mission.
 
 The library is structured into a set of individual modules.
