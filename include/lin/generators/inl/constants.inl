@@ -47,12 +47,11 @@ class StreamConstants : public Stream<StreamConstants<T, R, C, MR, MC>>,
 template <typename T, size_t R, size_t C, size_t MR, size_t MC>
 struct _traits<StreamConstants<T, R, C, MR, MC>> {
   typedef T Elem;
-  enum : size_t {
-    Rows = R,
-    Cols = C,
-    MaxRows = MR,
-    MaxCols = MC
-  };
+  constexpr static size_t
+      Rows = R,
+      Cols = C,
+      MaxRows = MR,
+      MaxCols = MC;
 };
 
 template <typename T, size_t R, size_t C, size_t MR, size_t MC>
