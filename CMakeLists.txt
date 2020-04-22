@@ -44,6 +44,7 @@ add_test(run_factorizations_tests factorizations_tests)
 add_executable(generators_tests
   src/lin_generators_randoms.cpp
   test/generators/constants_test.cpp
+  test/generators/identity_test.cpp
   test/generators/randoms_test.cpp
 )
 target_include_directories(generators_tests PRIVATE

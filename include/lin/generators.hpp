@@ -6,6 +6,7 @@
 #define LIN_GENERATORS_HPP_
 
 #include "generators/constants.hpp"
+#include "generators/identity.hpp"
 #include "generators/randoms.hpp"
 
 #endif
