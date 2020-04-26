@@ -1,4 +1,4 @@
-/** @file lin/queries.hpp
+/** @file lin/math.hpp
  *  @author Kyle Krol
  *  Collection of header files composing the math module. */
 
