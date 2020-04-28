@@ -7,6 +7,10 @@
 #ifndef LIN_CORE_TYPES_STREAM_HPP_
 #define LIN_CORE_TYPES_STREAM_HPP_
 
+#ifdef LIN_DESKTOP
+  #include <iostream>
+#endif
+
 #include "../config.hpp"
 #include "../traits.hpp"
 
@@ -43,6 +47,12 @@ class Stream {
   constexpr D const &derived() const;
   constexpr D &derived();
 };
+
+#ifdef LIN_DESKTOP
+template <class C>
+std::ostream &operator<<(std::ostream &os, Stream<C> const &stream);
+#endif
+
 }  // namespace internal
 }  // namespace lin
 

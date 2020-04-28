@@ -46,5 +46,21 @@ template <class D>
 constexpr D &Stream<D>::derived() {
   return static_cast<D &>(*this);
 }
+
+#ifdef LIN_DESKTOP
+template <class C>
+std::ostream &operator<<(std::ostream &os, Stream<C> const &stream) {
+  for (size_t i = 0; i < stream.rows() - 1; i++) {
+    for (size_t j = 0; j < stream.cols() - 1; j++)
+      os << stream(i, j) << " ";
+    os << stream(i, stream.cols() - 1) << "\n";
+  }
+  for (size_t j = 0; j < stream.cols() - 1; j++)
+    os << stream(stream.rows() - 1, j) << " ";
+  os << stream(stream.rows() - 1, stream.cols() - 1) << "\n";
+  return os;
+}
+#endif
+
 }  // namespace internal
 }  // namespace lin
