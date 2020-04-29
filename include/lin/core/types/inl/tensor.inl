@@ -26,7 +26,7 @@ constexpr Tensor<D>::Tensor(size_t r, size_t c, std::initializer_list<T> const &
 }
 
 template <class D>
-template <class C>
+template <class C, std::enable_if_t<have_same_dimensions<D, C>::value, size_t>>
 constexpr Tensor<D>::Tensor(Stream<C> const &stream) {
   resize(stream.rows(), stream.cols());
   derived() = stream;

@@ -14,6 +14,7 @@
 #include "stream.hpp"
 
 #include <initializer_list>
+#include <type_traits>
 
 namespace lin {
 namespace internal {
@@ -46,7 +47,7 @@ class Tensor : public Base<D>, public Dimensions<D> {
   constexpr Tensor(std::initializer_list<T> const &list);
   template <typename T>
   constexpr Tensor(size_t r, size_t c, std::initializer_list<T> const &list);
-  template <class C>
+  template <class C, std::enable_if_t<have_same_dimensions<D, C>::value, size_t> = 0>
   constexpr Tensor(Stream<C> const &stream);
   /* Elements access and read/write functions. */
   constexpr typename Traits::Elem &operator()(size_t i, size_t j);
