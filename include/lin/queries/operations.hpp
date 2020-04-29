@@ -12,19 +12,36 @@
 
 namespace lin {
 
-/** @fn all */
-template <class C>
+/** @fn all
+ *  @{ */
+template <class C,
+    std::enable_if_t<internal::matches_tensor<C>::value, size_t> = 0>
 constexpr bool all(internal::Stream<C> const &c) {
   for (size_t i = 0; i < c.size(); i++) if (!c(i)) return false;
   return true;
 }
 
-/** @fn any */
+template <typename T,
+    std::enable_if_t<internal::matches_scalar<T>::value, size_t> = 0>
+constexpr bool all(T const &t) {
+  return bool(t);
+}
+/** @} */
+
+/** @fn any
+ *  @{ */
 template <class C>
 constexpr bool any(internal::Stream<C> const &c) {
   for (size_t i = 0; i < c.size(); i++) if (c(i)) return true;
   return false;
 }
+
+template <typename T,
+    std::enable_if_t<internal::matches_scalar<T>::value, size_t> = 0>
+constexpr bool any(T const &t) {
+  return bool(t);
+}
+/** @} */
 
 /** @fn equal_to
  *  @{ */
