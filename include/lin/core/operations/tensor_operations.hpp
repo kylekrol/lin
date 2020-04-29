@@ -79,6 +79,21 @@ constexpr auto add(T const &t, U const &u) {
 }
 /** @} */
 
+/** @fn cast
+ *  @{ */
+template <typename T, class C, std::enable_if_t<
+    internal::matches_tensor<C>::value, size_t> = 0>
+inline constexpr auto cast(internal::Stream<C> const &c) {
+  return internal::StreamElementWiseOperator<internal::cast<T>, C>(c);
+}
+
+template <typename T, typename U, std::enable_if_t<
+    internal::matches_scalar<U>::value, size_t> = 0>
+inline constexpr auto cast(U const &u) {
+  return internal::cast<T>()(u);
+}
+/** @} */
+
 /** @fn divide
  *  @{ */
 template <class C, class D, std::enable_if_t<

@@ -38,6 +38,17 @@ TEST(CoreOperationsTensorOperations, Add) {
   ASSERT_DOUBLE_EQ(5.0, lin::add(2.0, 3.0));
 }
 
+TEST(CoreOperationsTensorOperations, Cast) {
+  lin::Vector2f a {1.0f, 2.0f};
+  static_assert(std::is_same<double, decltype(lin::cast<double>(a)(0))>::value, "");
+  ASSERT_DOUBLE_EQ(1.0, lin::cast<double>(a)(0));
+  ASSERT_DOUBLE_EQ(2.0, lin::cast<double>(a)(1));
+
+  double b = 2.0;
+  static_assert(std::is_same<float, decltype(lin::cast<float>(b))>::value, "");
+  ASSERT_FLOAT_EQ(2.0f, lin::cast<float>(b));
+}
+
 TEST(CoreOperationsTensorOperations, Divide) {
   lin::Vectorf<0, 3> a(2, {12.0f, 9.0f});
   lin::Vectorf<0, 3> b(2, { 2.0f, 3.0f});

@@ -40,6 +40,17 @@ struct add_st {
 template <typename T>
 using add_ts = add_st<T>;
 
+/** @struct cast */
+template <typename T>
+struct cast {
+  template <typename U>
+  using expression = decltype(static_cast<T>(std::declval<U &>()));
+
+  constexpr cast() = default;
+  template <typename U>
+  inline constexpr auto operator()(U const &u) const { return static_cast<T>(u); }
+};
+
 /** @struct divide */
 struct divide {
   template <typename T, typename U>

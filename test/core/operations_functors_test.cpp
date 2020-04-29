@@ -31,6 +31,13 @@ TEST(CoreOperationsFunctors, AddTS) {
   ASSERT_DOUBLE_EQ(4.0, _add(1.0));
 }
 
+TEST(CoreOperationsFunctors, Cast) {
+  cast<double> _cast;
+  static_assert(std::is_same<double, decltype(_cast(2.0f))>::value, "");
+
+  ASSERT_DOUBLE_EQ(2.0, _cast(2.0f));
+}
+
 static_assert(std::is_same<double,
     typename divide::template expression<double, float>>::value, "");
 static_assert(std::is_same<float,
