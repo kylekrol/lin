@@ -106,6 +106,21 @@ TEST(CoreOperationsFunctors, Sign) {
 }
 
 static_assert(std::is_same<double,
+    typename square::template expression<double>>::value, "");
+  static_assert(std::is_same<float,
+    typename square::template expression<float>>::value, "");
+
+TEST(CoreOperationsFunctors, Square) {
+  square _square;
+  ASSERT_FLOAT_EQ(4.0f, _square(-2.0f));
+  ASSERT_FLOAT_EQ(0.0f, _square(0.0f));
+  ASSERT_FLOAT_EQ(0.01f, _square(0.1f));
+  ASSERT_EQ(400, _square(20));
+  ASSERT_EQ(0, _square(0));
+  ASSERT_EQ(400u, _square(20u));
+}
+
+static_assert(std::is_same<double,
     typename subtract::template expression<double, float>>::value, "");
 static_assert(std::is_same<float,
     typename subtract::template expression<float, float>>::value, "");

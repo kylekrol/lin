@@ -140,6 +140,16 @@ struct sign {
   inline constexpr auto operator()(T const &t) const { return _sign(t); }
 };
 
+/** @struct square */
+struct square {
+  template <typename T>
+  using expression = decltype(std::declval<T &>() * std::declval<T &>());
+
+  constexpr square() = default;
+  template <typename T>
+  inline constexpr auto operator()(T const &t) const { return t * t; }
+};
+
 /** @struct subtract */
 struct subtract {
   template <typename T, typename U>

@@ -130,6 +130,27 @@ TEST(CoreOperationsTensorOperations, Sign) {
   ASSERT_DOUBLE_EQ(0.0, lin::sign(0.0));
 }
 
+TEST(CoreOperationsTensorOperations, Square) {
+  lin::Matrix2x3f A({
+    0.0f, 0.2f, -100.0f,
+    3.0f, -1.0f, -20.0f
+  });
+  auto sign_A = lin::square(A);
+  static_assert(lin::internal::have_same_traits<decltype(A), decltype(sign_A)>::value, "");
+  ASSERT_EQ(2, sign_A.rows());
+  ASSERT_EQ(3, sign_A.cols());
+  ASSERT_EQ(6, sign_A.size());
+  ASSERT_FLOAT_EQ(    0.0f, sign_A(0, 0));
+  ASSERT_FLOAT_EQ(   0.04f, sign_A(0, 1));
+  ASSERT_FLOAT_EQ(10000.0f, sign_A(0, 2));
+  ASSERT_FLOAT_EQ(    9.0f, sign_A(1, 0));
+  ASSERT_FLOAT_EQ(    1.0f, sign_A(1, 1));
+  ASSERT_FLOAT_EQ(  400.0f, sign_A(1, 2));
+
+  ASSERT_DOUBLE_EQ(0.01, lin::square(0.1));
+  ASSERT_DOUBLE_EQ( 0.0, lin::square(0.0));
+}
+
 TEST(CoreOperationsTensorOperations, Subtract) {
   lin::Vector2f a {1.0f, 2.0f};
   lin::Vector2f b {1.0f, 3.0f};

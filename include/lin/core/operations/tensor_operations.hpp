@@ -187,6 +187,21 @@ inline constexpr auto sign(T const &t) {
 }
 /** @} */
 
+/** @fn square
+ *  @{ */
+template <class C, std::enable_if_t<
+    internal::matches_tensor<C>::value, size_t> = 0>
+inline constexpr auto square(internal::Stream<C> const &c) {
+  return internal::StreamElementWiseOperator<internal::square, C>(c);
+}
+
+template <typename T, std::enable_if_t<
+    internal::matches_scalar<T>::value, size_t> = 0>
+inline constexpr auto square(T const &t) {
+  return internal::square()(t);
+}
+/** @} */
+
 /** @fn subtract
  *  @{ */
 template <class C, class D, std::enable_if_t<
