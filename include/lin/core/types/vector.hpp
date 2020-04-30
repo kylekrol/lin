@@ -72,7 +72,7 @@ typedef Vectord<3> Vector3d;
 typedef Vectord<4> Vector4d;
 
 /** @class RowVector */
-template <typename T, size_t N, size_t MN>
+template <typename T, size_t N, size_t MN = N>
 class RowVector : public internal::Tensor<RowVector<T, N, MN>> {
   static_assert(internal::is_row_vector<RowVector<T, N, MN>>::value, "Invalid RowVector<...> parameters");
 
