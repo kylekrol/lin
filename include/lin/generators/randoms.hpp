@@ -3,7 +3,7 @@
  *  Defines a generator to create matrices and vectors populated with random
  *  values. */
 
-// TODO : Documentation for this entire file
+// TODO : Documentation for this entire fil
 
 #ifndef LIN_GENERATORS_RANDOMS_HPP_
 #define LIN_GENERATORS_RANDOMS_HPP_
@@ -48,8 +48,8 @@ extern RandomsGenerator const rand;
 
 /** @fn rands */
 template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t> = 0>
-constexpr typename C::Traits::Eval rands(size_t r = C::Traits::MaxRows,
-    size_t c = C::Traits::MaxCols, internal::RandomsGenerator const &rand = internal::rand);
+constexpr typename C::Traits::eval_t rands(size_t r = C::Traits::max_rows,
+    size_t c = C::Traits::max_cols, internal::RandomsGenerator const &rand = internal::rand);
 
 }  // namespace lin
 

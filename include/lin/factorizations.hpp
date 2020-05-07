@@ -1,6 +1,8 @@
+// vim: set tabstop=2:softtabstop=2:shiftwidth=2:expandtab
+
 /** @file lin/factorizations.hpp
  *  @author Kyle Krol
- *  Collection of header files composing the factorizations module. */
+ */
 
 #ifndef LIN_FACTORIZATIONS_HPP_
 #define LIN_FACTORIZATIONS_HPP_

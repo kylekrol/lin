@@ -8,7 +8,7 @@
 
 #include <type_traits>
 
-TEST(ReferencesStreamReference, Reference) {
+TEST(StreamReference, Reference) {
   lin::Matrixf<3, 3> A({
     0.0f, 1.0f, 2.0f,
     3.0f, 4.0f, 5.0f,
@@ -39,7 +39,7 @@ TEST(ReferencesStreamReference, Reference) {
   ASSERT_EQ(4, F.size());
 }
 
-TEST(ReferencesStreamReference, ReferenceRow) {
+TEST(StreamReference, ReferenceRow) {
   lin::Matrixf<0, 0, 4, 4> A(3, 2, {
     0.0f, 1.0f,
     2.0f, 3.0f,
@@ -52,7 +52,7 @@ TEST(ReferencesStreamReference, ReferenceRow) {
   ASSERT_EQ(2, a.size());
 }
 
-TEST(ReferencesStreamReference, ReferenceColumn) {
+TEST(StreamReference, ReferenceColumn) {
   lin::Matrixf<0, 0, 4, 4> A(3, 2, {
     0.0f, 1.0f,
     2.0f, 3.0f,

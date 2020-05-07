@@ -11,6 +11,7 @@ enable_testing()
 add_subdirectory(gtest)
 
 add_executable(core_tests
+  test/core/traits_test.cpp
   test/core/types_matrix_test.cpp
   test/core/types_vector_test.cpp
   test/core/operations_functors_test.cpp
@@ -84,7 +85,7 @@ target_link_libraries(queries_tests PRIVATE
 add_test(run_queries_tests queries_tests)
 
 add_executable(references_tests
-  test/references/base_reference_test.cpp
+  test/references/mapping_reference_test.cpp
   test/references/stream_reference_test.cpp
 )
 target_include_directories(references_tests PRIVATE

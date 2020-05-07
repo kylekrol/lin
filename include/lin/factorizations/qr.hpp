@@ -2,7 +2,7 @@
  *  @author Kyle Krol
  *  Defines a QR factorization algorithm for tensor types. */
 
-// TODO : Documentation for this entire file
+// TODO : Documentation for this entire fil
 
 #ifndef LIN_FACTORIZATIONS_QR_HPP_
 #define LIN_FACTORIZATIONS_QR_HPP_
@@ -32,11 +32,11 @@ struct can_qr : conjunction<
 
 /** @fn qr */
 template <class C, class D, class E, std::enable_if_t<internal::can_qr<C, D, E>::value, size_t> = 0>
-constexpr int qr(internal::Stream<C> const &M, internal::Base<D> &Q, internal::Base<E> &R);
+constexpr int qr(internal::Stream<C> const &M, internal::Mapping<D> &Q, internal::Mapping<E> &R);
 
 /** @fn qr */
 template <class C, class D, class E, std::enable_if_t<internal::can_qr<C, D, E>::value, size_t> = 0>
-constexpr int qr(internal::Stream<C> const &M, internal::Tensor<D> &Q, internal::Tensor<E> &R);
+constexpr int qr(internal::Stream<C> const &M, internal::Base<D> &Q, internal::Base<E> &R);
 
 }  // namespace lin
 

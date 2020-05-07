@@ -2,7 +2,7 @@
  *  @author Kyle Krol
  *  Defines a backward substitution algorithm for tensor types. */
 
-// TODO : Documentation for this entire file
+// TODO : Documentation for this entire fil
 
 #ifndef LIN_SUBSTITUTIONS_BACKWARD_SUBSTITUTION_HPP_
 #define LIN_SUBSTITUTIONS_BACKWARD_SUBSTITUTION_HPP_
@@ -29,14 +29,14 @@ struct can_backward_sub : conjunction<
 /** @fn backward_sub */
 template <class C, class D, class E, std::enable_if_t<
     internal::can_backward_sub<C, D, E>::value, size_t> = 0>
-constexpr int backward_sub(internal::Base<C> const &U, internal::Base<D> &X,
-    internal::Base<E> const &Y);
+constexpr int backward_sub(internal::Mapping<C> const &U, internal::Mapping<D> &X,
+    internal::Mapping<E> const &Y);
 
 /** @fn backward_sub */
 template <class C, class D, class E, std::enable_if_t<
     internal::can_backward_sub<C, D, E>::value, size_t> = 0>
-constexpr int backward_sub(internal::Base<C> const &U, internal::Tensor<D> &X,
-    internal::Base<E> const &Y);
+constexpr int backward_sub(internal::Mapping<C> const &U, internal::Base<D> &X,
+    internal::Mapping<E> const &Y);
 
 }  // namespace lin
 

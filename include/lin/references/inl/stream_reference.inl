@@ -30,8 +30,8 @@ class StreamReference : public Stream<StreamReference<R, C, MR, MC, D>>,
   constexpr StreamReference<R, C, MR, MC, D> &operator=(StreamReference<R, C, MR, MC, D> const &) = default;
   constexpr StreamReference<R, C, MR, MC, D> &operator=(StreamReference<R, C, MR, MC, D> &&) = default;
   /* Element access/evaluation functions. */
-  constexpr typename Traits::Elem operator()(size_t i, size_t j) const;
-  constexpr typename Traits::Elem operator()(size_t i) const;
+  constexpr typename Traits::elem_t operator()(size_t i, size_t j) const;
+  constexpr typename Traits::elem_t operator()(size_t i) const;
 
  protected:
   /* Import elements from Stream<StreamReference<R, C, MR, MC, D>>. */
@@ -47,12 +47,16 @@ class StreamReference : public Stream<StreamReference<R, C, MR, MC, D>>,
 };
 
 template <size_t R, size_t C, size_t MR, size_t MC, class D>
-struct _traits<StreamReference<R, C, MR, MC, D>> {
-  typedef _traits_elem_t<D> Elem;
-  constexpr static size_t Rows = R;
-  constexpr static size_t Cols = C;
-  constexpr static size_t MaxRows = MR;
-  constexpr static size_t MaxCols = MC;
+struct _elem<StreamReference<R, C, MR, MC, D>> {
+  typedef _elem_t<D> type;
+};
+
+template <size_t R, size_t C, size_t MR, size_t MC, class D>
+struct _dims<StreamReference<R, C, MR, MC, D>> {
+  static constexpr size_t rows = R;
+  static constexpr size_t cols = C;
+  static constexpr size_t max_rows = MR;
+  static constexpr size_t max_cols = MC;
 };
 
 template <size_t R, size_t C, size_t MR, size_t MC, class D>
@@ -92,11 +96,11 @@ constexpr internal::StreamReference<R, C, R, C, D> ref(internal::Stream<D> const
 
 template <class D>
 constexpr auto ref_row(internal::Stream<D> const &d, size_t i) {
-  return ref<1, D::Traits::Cols, 1, D::Traits::MaxCols>(d, i, 0, 1, d.cols());
+  return ref<1, D::Traits::cols, 1, D::Traits::max_cols>(d, i, 0, 1, d.cols());
 }
 
 template <class D>
 constexpr auto ref_col(internal::Stream<D> const &d, size_t j) {
-  return ref<D::Traits::Rows, 1, D::Traits::MaxRows, 1>(d, 0, j, d.rows(), 1);
+  return ref<D::Traits::rows, 1, D::Traits::max_rows, 1>(d, 0, j, d.rows(), 1);
 }
 }  // namespace lin

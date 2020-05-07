@@ -9,11 +9,11 @@ namespace lin {
 // Source: https://en.wikipedia.org/wiki/Cholesky_decomposition
 // Cholesky–Banachiewicz algorithm
 template <class C, std::enable_if_t<internal::can_chol<C>::value, size_t>>
-constexpr int chol(internal::Base<C> &L) {
+constexpr int chol(internal::Mapping<C> &L) {
   LIN_ASSERT(L.rows() == L.cols() /* L must be square */);
 
   // Useful traits information
-  constexpr size_t C_MaxCols = C::Traits::MaxCols;
+  constexpr size_t C_max_cols = C::Traits::max_cols;
 
   // Set above the main diagonal to zeros
   for (size_t i = 0; i < L.rows(); i++)
@@ -31,11 +31,11 @@ constexpr int chol(internal::Base<C> &L) {
     for (size_t j = 1; j < i; j++)
       // L(i, j)
       L(i, j) = ( L(i, j) -
-          dot(ref<1, 0, 1, C_MaxCols>(L, j, 0, 1, j), ref<1, 0, 1, C_MaxCols>(L, i, 0, 1, j))
+          dot(ref<1, 0, 1, C_max_cols>(L, j, 0, 1, j), ref<1, 0, 1, C_max_cols>(L, i, 0, 1, j))
         ) / L(j, j);
 
     // L(i, i)
-    L(i, i) = std::sqrt(L(i, i) - fro(ref<1, 0, 1, C_MaxCols>(L, i, 0, 1, i)));
+    L(i, i) = std::sqrt(L(i, i) - fro(ref<1, 0, 1, C_max_cols>(L, i, 0, 1, i)));
   }
 
   return 0;

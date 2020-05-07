@@ -28,8 +28,8 @@ class StreamIdentity : public Stream<StreamIdentity<T, N, MN>>,
   /* StreamConstants constructor(s). */
   constexpr StreamIdentity(size_t n);
   /* Element access/evaluation functions. */
-  constexpr typename Traits::Elem operator()(size_t i, size_t j) const;
-  constexpr typename Traits::Elem operator()(size_t i) const;
+  constexpr typename Traits::elem_t operator()(size_t i, size_t j) const;
+  constexpr typename Traits::elem_t operator()(size_t i) const;
 
  protected:
   /* Import elements from Stream<StreamConstants<T, R, C, MR, MC>>. */
@@ -41,13 +41,16 @@ class StreamIdentity : public Stream<StreamIdentity<T, N, MN>>,
 };
 
 template <typename T, size_t N, size_t MN>
-struct _traits<StreamIdentity<T, N, MN>> {
-  typedef T Elem;
-  constexpr static size_t
-      Rows = N,
-      Cols = N,
-      MaxRows = MN,
-      MaxCols = MN;
+struct _elem<StreamIdentity<T, N, MN>> {
+  typedef T type;
+};
+
+template <typename T, size_t N, size_t MN>
+struct _dims<StreamIdentity<T, N, MN>> {
+  static constexpr size_t rows = N;
+  static constexpr size_t cols = N;
+  static constexpr size_t max_rows = MN;
+  static constexpr size_t max_cols = MN;
 };
 
 template <typename T, size_t N, size_t MN>
@@ -56,15 +59,16 @@ constexpr StreamIdentity<T, N, MN>::StreamIdentity(size_t n) {
 }
 
 template <typename T, size_t N, size_t MN>
-constexpr typename StreamIdentity<T, N, MN>::Traits::Elem
+constexpr typename StreamIdentity<T, N, MN>::Traits::elem_t
 StreamIdentity<T, N, MN>::operator()(size_t i, size_t j) const {
   LIN_ASSERT(0 <= i && i <= rows() /* Invalid argument passed to StreamIdentity<...>::operator() */);
   LIN_ASSERT(0 <= j && j <= cols() /* Invalid argument passed to StreamIdentity<...>::operator() */);
+
   return (i == j ? T(1) : T(0));
 }
 
 template <typename T, size_t N, size_t MN>
-constexpr typename StreamIdentity<T, N, MN>::Traits::Elem
+constexpr typename StreamIdentity<T, N, MN>::Traits::elem_t
 StreamIdentity<T, N, MN>::operator()(size_t i) const {
   return (*this)(i / cols(), i % cols());
 }
@@ -75,9 +79,9 @@ constexpr internal::StreamIdentity<T, N, MN> identity(size_t n) {
   return internal::StreamIdentity<T, N, MN>(n);
 }
 
-/** @fn identity */
-template <class C, std::enable_if_t<internal::is_square<C>::value, size_t>>
+template <class C, std::enable_if_t<internal::conjunction<
+    internal::has_traits<C>, internal::is_square<C>>::value, size_t>>
 constexpr auto identity(size_t n) {
-  return internal::StreamIdentity<typename C::Traits::Elem, C::Traits::Rows, C::Traits::MaxRows>(n);
+  return identity<typename C::Traits::elem_t, C::Traits::rows, C::Traits::max_rows>(n);
 }
 }  // namespace lin

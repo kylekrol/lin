@@ -31,6 +31,13 @@ TEST(CoreOperationsFunctors, AddTS) {
   ASSERT_DOUBLE_EQ(4.0, _add(1.0));
 }
 
+TEST(CoreOperationsFunctors, Cast) {
+  cast<double> _cast;
+  static_assert(std::is_same<double, decltype(_cast(2.0f))>::value, "");
+
+  ASSERT_DOUBLE_EQ(2.0, _cast(2.0f));
+}
+
 static_assert(std::is_same<double,
     typename divide::template expression<double, float>>::value, "");
 static_assert(std::is_same<float,
@@ -96,6 +103,21 @@ TEST(CoreOperationsFunctors, Sign) {
   ASSERT_EQ(1, _sign(20));
   ASSERT_EQ(0, _sign(0));
   ASSERT_EQ(1u, _sign(20u));
+}
+
+static_assert(std::is_same<double,
+    typename square::template expression<double>>::value, "");
+  static_assert(std::is_same<float,
+    typename square::template expression<float>>::value, "");
+
+TEST(CoreOperationsFunctors, Square) {
+  square _square;
+  ASSERT_FLOAT_EQ(4.0f, _square(-2.0f));
+  ASSERT_FLOAT_EQ(0.0f, _square(0.0f));
+  ASSERT_FLOAT_EQ(0.01f, _square(0.1f));
+  ASSERT_EQ(400, _square(20));
+  ASSERT_EQ(0, _square(0));
+  ASSERT_EQ(400u, _square(20u));
 }
 
 static_assert(std::is_same<double,

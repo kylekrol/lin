@@ -11,6 +11,10 @@ TEST(QueriesOperations, All) {
   lin::Vector3b b {true, true, true };
   ASSERT_FALSE(lin::all(a));
   ASSERT_TRUE(lin::all(b));
+
+  ASSERT_TRUE(lin::any(1));
+  ASSERT_FALSE(lin::any(0u));
+  ASSERT_FALSE(lin::any(false));
 }
 
 TEST(QueriesOperations, Any) {
@@ -18,6 +22,10 @@ TEST(QueriesOperations, Any) {
   lin::Vector3b b {true, true, true };
   ASSERT_TRUE(lin::any(lin::logical_not(a)));
   ASSERT_FALSE(lin::any(lin::logical_not(b)));
+
+  ASSERT_TRUE(lin::any(1));
+  ASSERT_FALSE(lin::any(0u));
+  ASSERT_FALSE(lin::any(false));
 }
 
 TEST(QueriesOperations, EqualTo) {

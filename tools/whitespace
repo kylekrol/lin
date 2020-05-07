@@ -1,0 +1,6 @@
+#!/bin/sh
+
+find include -type f -exec sed -i 's/ *$//' '{}' ';'
+find src -type f -exec sed -i 's/ *$//' '{}' ';'
+find test -type f -exec sed -i 's/ *$//' '{}' ';'
+

@@ -7,7 +7,7 @@
 namespace lin {
 
 template <class C, class D, class E, std::enable_if_t<internal::can_qr<C, D, E>::value, size_t>>
-constexpr int qr(internal::Stream<C> const &M, internal::Base<D> &Q, internal::Base<E> &R) {
+constexpr int qr(internal::Stream<C> const &M, internal::Mapping<D> &Q, internal::Mapping<E> &R) {
   LIN_ASSERT(M.rows() >= M.cols() /* M isn't 'tall' in qr(...) */);
   LIN_ASSERT(M.rows() == Q.rows() /* Q rows doesn't match in qr(...) */);
   LIN_ASSERT(M.cols() == Q.cols() /* Q cols doesn't match in qr(...) */);
@@ -33,13 +33,13 @@ constexpr int qr(internal::Stream<C> const &M, internal::Base<D> &Q, internal::B
     }
   }
 
-  return 0;  // TODO : Return an actual status code
+  return 0;  // TODO : Return an actual status cod
 }
 
 template <class C, class D, class E, std::enable_if_t<internal::can_qr<C, D, E>::value, size_t>>
-constexpr int qr(internal::Stream<C> const &M, internal::Tensor<D> &Q, internal::Tensor<E> &R) {
+constexpr int qr(internal::Stream<C> const &M, internal::Base<D> &Q, internal::Base<E> &R) {
   Q.resize(M.rows(), M.cols());
   R.resize(M.cols(), M.cols());
-  return qr(M, static_cast<internal::Base<D> &>(Q), static_cast<internal::Base<E> &>(R));
+  return qr(M, static_cast<internal::Mapping<D> &>(Q), static_cast<internal::Mapping<E> &>(R));
 }
 }  // namespace lin
