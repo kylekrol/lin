@@ -1,8 +1,8 @@
+// vim: set tabstop=2:softtabstop=2:shiftwidth=2:expandtab
+
 /** @file lin/core/operations/functors.hpp
  *  @author Kyle Krol
- *  Defines functors to facilitate element wise operations. */
-
-// TODO : Documentation for this entire file
+ */
 
 #ifndef LIN_CORE_OPERATIONS_FUNCTORS_HPP_
 #define LIN_CORE_OPERATIONS_FUNCTORS_HPP_
@@ -13,7 +13,6 @@
 namespace lin {
 namespace internal {
 
-/** @struct add */
 struct add {
   template <typename T, typename U>
   using expression = decltype(std::declval<T &>() + std::declval<U &>());
@@ -23,7 +22,6 @@ struct add {
   inline constexpr auto operator()(T const &t, U const &u) const { return t + u; }
 };
 
-/** @struct add_st */
 template <typename T>
 struct add_st {
   template <typename U>
@@ -36,11 +34,19 @@ struct add_st {
   inline constexpr auto operator()(U const &u) const { return add()(t, u); }
 };
 
-/** @typedef add_ts */
 template <typename T>
 using add_ts = add_st<T>;
 
-/** @struct divide */
+template <typename T>
+struct cast {
+  template <typename U>
+  using expression = decltype(static_cast<T>(std::declval<U &>()));
+
+  constexpr cast() = default;
+  template <typename U>
+  inline constexpr auto operator()(U const &u) const { return static_cast<T>(u); }
+};
+
 struct divide {
   template <typename T, typename U>
   using expression = decltype(std::declval<T &>() / std::declval<U &>());
@@ -50,7 +56,6 @@ struct divide {
   inline constexpr auto operator()(T const &t, U const &u) const { return t / u; }
 };
 
-/** @struct divide_st */
 template <typename T>
 struct divide_st {
   template <typename U>
@@ -63,7 +68,6 @@ struct divide_st {
   inline constexpr auto operator()(U const u) const { return divide()(t, u); }
 };
 
-/** @struct divide_ts */
 template <typename T>
 struct divide_ts {
   template <typename U>
@@ -76,7 +80,6 @@ struct divide_ts {
   inline constexpr auto operator()(U const &u) const { return divide()(u, t); }
 };
 
-/** @struct multiply */
 struct multiply {
   template <typename T, typename U>
   using expression = decltype(std::declval<T &>() * std::declval<U &>());
@@ -86,7 +89,6 @@ struct multiply {
   inline constexpr auto operator()(T const &t, U const &u) const { return t * u; }
 };
 
-/** @struct multiply_st */
 template <typename T>
 struct multiply_st {
   template <typename U>
@@ -99,11 +101,9 @@ struct multiply_st {
   inline constexpr auto operator()(U const &u) const { return multiply()(t, u); }
 };
 
-/** @typedef multiply_ts */
 template <typename T>
 using multiply_ts = multiply_st<T>;
 
-/** @struct negate */
 struct negate {
   template <typename T>
   using expression = decltype(-std::declval<T &>());
@@ -113,7 +113,6 @@ struct negate {
   inline constexpr auto operator()(T const &t) const { return -t; }
 };
 
-/** @struct sign */
 struct sign {
   template <typename T>
   inline constexpr static T _sign(T const &t) {
@@ -129,7 +128,15 @@ struct sign {
   inline constexpr auto operator()(T const &t) const { return _sign(t); }
 };
 
-/** @struct subtract */
+struct square {
+  template <typename T>
+  using expression = decltype(std::declval<T &>() * std::declval<T &>());
+
+  constexpr square() = default;
+  template <typename T>
+  inline constexpr auto operator()(T const &t) const { return t * t; }
+};
+
 struct subtract {
   template <typename T, typename U>
   using expression = decltype(std::declval<T &>() - std::declval<U &>());
@@ -139,7 +146,6 @@ struct subtract {
   inline constexpr auto operator()(T const &t, U const &u) const { return t - u; }
 };
 
-/** @struct subtract_st */
 template <typename T>
 struct subtract_st {
   template <typename U>
@@ -152,7 +158,6 @@ struct subtract_st {
   inline constexpr auto operator()(U const &u) const { return subtract()(t, u); }
 };
 
-/** @struct subtract_ts */
 template <typename T>
 struct subtract_ts {
   template <typename U>

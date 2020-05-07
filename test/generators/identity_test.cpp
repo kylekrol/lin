@@ -22,3 +22,5 @@ TEST(GeneratorsIdentity, Identity) {
   ASSERT_FLOAT_EQ(0.0f, B(1, 0));
   ASSERT_FLOAT_EQ(1.0f, B(1, 1));
 }
+
+static_assert(lin::internal::is_square<lin::Matrixf<0,0,5,5>>(), "");

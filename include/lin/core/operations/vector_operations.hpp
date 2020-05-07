@@ -21,41 +21,53 @@
 namespace lin {
 namespace internal {
 
-/** @struct can_cross */
 template <class C, class D>
 struct can_cross : conjunction<
     have_same_vector_dimensions<C, D, Vector3f>,
-    is_detected<multiply::expression, _traits_elem_t<C>, _traits_elem_t<D>>
+    is_detected<multiply::expression, _elem_t<C>, _elem_t<D>>
   > { };
 
-/** @struct can_dot */
 template <class C, class D>
 struct can_dot : conjunction<
     have_same_vector_dimensions<C, D>,
-    is_detected<multiply::expression, _traits_elem_t<C>, _traits_elem_t<D>>
+    is_detected<multiply::expression, _elem_t<C>, _elem_t<D>>
   > { };
 
-/** @struct can_norm */
 template <class C>
 struct can_norm : is_vector<C> { };
 
 }  // namespace internal
 
-/** @fn cross */
 template <class C, class D, std::enable_if_t<internal::can_cross<C, D>::value, size_t> = 0>
-constexpr auto cross(internal::Stream<C> const &u, internal::Stream<D> const &d);
+constexpr auto cross(internal::Stream<C> const &u, internal::Stream<D> const &v) {
 
-/** @fn dot */
+  typedef typename internal::multiply::template expression<internal::_elem_t<C>, internal::_elem_t<D>> T;
+
+  return std::conditional_t<
+      internal::is_col_vector<C>::value,
+      Vector<T, internal::_vector_dims<C>::length, internal::_vector_dims<C>::max_length>,
+      RowVector<T, internal::_vector_dims<C>::length, internal::_vector_dims<C>::max_length>>({
+    u(1) * v(2) - u(2) * v(1),
+    u(2) * v(0) - u(0) * v(2),
+    u(0) * v(1) - u(1) * v(0)
+  });
+}
+
 template <class C, class D, std::enable_if_t<internal::can_dot<C, D>::value, size_t> = 0>
-constexpr auto dot(internal::Stream<C> const &u, internal::Stream<D> const &v);
+constexpr auto dot(internal::Stream<C> const &u, internal::Stream<D> const &v) {
+  LIN_ASSERT(u.size() == v.size());
 
-/** @fn norm */
+  typedef internal::multiply::expression<internal::_elem_t<C>, internal::_elem_t<D>> T;
+
+  T x = u(0) * v(0);
+  for (size_t i = 1; i < u.size(); i++) x += u(i) * v(i);
+  return x;
+}
+
 template <class C, std::enable_if_t<internal::can_norm<C>::value, size_t> = 0>
 constexpr auto norm(internal::Stream<C> const &u) {
   return std::sqrt(fro(u));
 }
 }  // namespace lin
-
-#include "inl/vector_operations.inl"
 
 #endif

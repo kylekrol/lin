@@ -29,8 +29,8 @@ class StreamConstants : public Stream<StreamConstants<T, R, C, MR, MC>>,
   constexpr StreamConstants<T, R, C, MR, MC> &operator=(StreamConstants<T, R, C, MR, MC> const &) = default;
   constexpr StreamConstants<T, R, C, MR, MC> &operator=(StreamConstants<T, R, C, MR, MC> &&) = default;
   /* Element access/evaluation functions. */
-  constexpr typename Traits::Elem operator()(size_t i, size_t j) const;
-  constexpr typename Traits::Elem operator()(size_t i) const;
+  constexpr typename Traits::elem_t operator()(size_t i, size_t j) const;
+  constexpr typename Traits::elem_t operator()(size_t i) const;
 
  protected:
   /* Import elements from Stream<StreamConstants<T, R, C, MR, MC>>. */
@@ -45,13 +45,16 @@ class StreamConstants : public Stream<StreamConstants<T, R, C, MR, MC>>,
 };
 
 template <typename T, size_t R, size_t C, size_t MR, size_t MC>
-struct _traits<StreamConstants<T, R, C, MR, MC>> {
-  typedef T Elem;
-  constexpr static size_t
-      Rows = R,
-      Cols = C,
-      MaxRows = MR,
-      MaxCols = MC;
+struct _elem<StreamConstants<T, R, C, MR, MC>> {
+  typedef T type;
+};
+
+template <typename T, size_t R, size_t C, size_t MR, size_t MC>
+struct _dims<StreamConstants<T, R, C, MR, MC>> {
+  static constexpr size_t rows = R;
+  static constexpr size_t cols = C;
+  static constexpr size_t max_rows = MR;
+  static constexpr size_t max_cols = MC;
 };
 
 template <typename T, size_t R, size_t C, size_t MR, size_t MC>
@@ -81,13 +84,13 @@ constexpr internal::StreamConstants<T, R, C, MR, MC> consts(T t, size_t r, size_
 }
 
 template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t>>
-constexpr auto consts(typename C::Traits::Elem t, size_t r, size_t c) {
+constexpr auto consts(typename C::Traits::elem_t t, size_t r, size_t c) {
   return consts<
-      internal::_traits_elem_t<C>,
-      internal::_traits<C>::Rows,
-      internal::_traits<C>::Cols,
-      internal::_traits<C>::MaxRows,
-      internal::_traits<C>::MaxCols
+      internal::_elem_t<C>,
+      internal::_dims<C>::rows,
+      internal::_dims<C>::cols,
+      internal::_dims<C>::max_rows,
+      internal::_dims<C>::max_cols
     >(t, r, c);
 }
 
@@ -118,8 +121,8 @@ constexpr internal::StreamConstants<T, R, C, MR, MC> nans(size_t r, size_t c) {
 }
 
 template <class C, std::enable_if_t<(internal::has_traits<C>::value &&
-    std::numeric_limits<typename C::Traits::Elem>::has_quiet_NaN), size_t>>
+    std::numeric_limits<typename C::Traits::elem_t>::has_quiet_NaN), size_t>>
 constexpr auto nans(size_t r, size_t c) {
-  return consts<C>(std::numeric_limits<internal::traits_elem_t<C>>::quiet_NaN(), r, c);
+  return consts<C>(std::numeric_limits<typename C::Traits::elem_t>::quiet_NaN(), r, c);
 }
 }  // namespace lin

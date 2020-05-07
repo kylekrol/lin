@@ -5,7 +5,7 @@
 #ifndef LIN_REFERENCES_HPP_
 #define LIN_REFERENCES_HPP_
 
-#include "references/base_reference.hpp"
+#include "references/mapping_reference.hpp"
 #include "references/stream_reference.hpp"
 
 #endif

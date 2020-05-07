@@ -18,3 +18,10 @@ All unit tests live in `test/**` and can be run with:
     cmake ../
     cmake --build .
     ctest .
+
+Documentation can be built with doxygen by running:
+
+    cd docs
+    doxygen
+
+and then opening `docs/html/index.html`. Starting at the modules page will be most helpful.

@@ -1,14 +1,14 @@
-/** @file test/generators/randoms_test.cpp
+/** @file test/generators/mapping_reference_test.cpp
  *  @author Kyle Krol */
 
 #include <lin/core.hpp>
-#include <lin/references/base_reference.hpp>
+#include <lin/references/mapping_reference.hpp>
 
 #include <gtest/gtest.h>
 
 #include <type_traits>
 
-TEST(ReferencesBaseReference, Reference) {
+TEST(MappingReference, Reference) {
   lin::Matrixf<3, 3> A({
     0.0f, 1.0f, 2.0f,
     3.0f, 4.0f, 5.0f,
@@ -39,7 +39,7 @@ TEST(ReferencesBaseReference, Reference) {
   ASSERT_EQ(4, F.size());
 }
 
-TEST(ReferencesBaseReference, ReferenceRow) {
+TEST(MappingReference, ReferenceRow) {
   lin::Matrixf<0, 0, 4, 4> A(3, 2, {
     0.0f, 1.0f,
     2.0f, 3.0f,
@@ -54,7 +54,7 @@ TEST(ReferencesBaseReference, ReferenceRow) {
   ASSERT_FLOAT_EQ(0.0f, A(1, 0));
 }
 
-TEST(ReferencesBaseReference, ReferenceColumn) {
+TEST(MappingReference, ReferenceColumn) {
   lin::Matrixf<0, 0, 4, 4> A(3, 2, {
     0.0f, 1.0f,
     2.0f, 3.0f,

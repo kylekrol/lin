@@ -13,8 +13,6 @@
 namespace lin {
 namespace internal {
 
-/** @fn operator==
- *  @{ */
 template <class C, class D, std::enable_if_t<
     internal::matches_tensor_tensor<C, D>::value, size_t> = 0>
 inline constexpr auto operator==(internal::Stream<C> const &c, internal::Stream<D> const &d) {
@@ -32,10 +30,7 @@ template <class C, typename T, std::enable_if_t<
 inline constexpr auto operator==(internal::Stream<C> const &c, T const &t) {
   return lin::equal_to(c, t);
 }
-/** @} */
 
-/** @fn operator>
- *  @{ */
 template <class C, class D, std::enable_if_t<
     internal::matches_tensor_tensor<C, D>::value, size_t> = 0>
 inline constexpr auto operator>(internal::Stream<C> const &c, internal::Stream<D> const &d) {
@@ -53,10 +48,7 @@ template <class C, typename T, std::enable_if_t<
 inline constexpr auto operator>(internal::Stream<C> const &c, T const &t) {
   return lin::greater(c, t);
 }
-/** @} */
 
-/** @fn operator>=
- *  @{ */
 template <class C, class D, std::enable_if_t<
     internal::matches_tensor_tensor<C, D>::value, size_t> = 0>
 inline constexpr auto operator>=(internal::Stream<C> const &c, internal::Stream<D> const &d) {
@@ -74,10 +66,7 @@ template <class C, typename T, std::enable_if_t<
 inline constexpr auto operator>=(internal::Stream<C> const &c, T const &t) {
   return lin::greater_equal(c, t);
 }
-/** @} */
 
-/** @fn operator<
- *  @{ */
 template <class C, class D, std::enable_if_t<
     internal::matches_tensor_tensor<C, D>::value, size_t> = 0>
 inline constexpr auto operator<(internal::Stream<C> const &c, internal::Stream<D> const &d) {
@@ -95,10 +84,7 @@ template <class C, typename T, std::enable_if_t<
 inline constexpr auto operator<(internal::Stream<C> const &c, T const &t) {
   return lin::less(c, t);
 }
-/** @} */
 
-/** @fn operator<=
- *  @{ */
 template <class C, class D, std::enable_if_t<
     internal::matches_tensor_tensor<C, D>::value, size_t> = 0>
 inline constexpr auto operator<=(internal::Stream<C> const &c, internal::Stream<D> const &d) {
@@ -116,10 +102,7 @@ template <class C, typename T, std::enable_if_t<
 inline constexpr auto operator<=(internal::Stream<C> const &c, T const &t) {
   return lin::less_equal(c, t);
 }
-/** @} */
 
-/** @fn operator&&
- *  @{ */
 template <class C, class D, std::enable_if_t<
     internal::matches_tensor_tensor<C, D>::value, size_t> = 0>
 inline constexpr auto operator&&(internal::Stream<C> const &c, internal::Stream<D> const &d) {
@@ -137,16 +120,12 @@ template <class C, typename T, std::enable_if_t<
 inline constexpr auto operator&&(internal::Stream<C> const &c, T const &t) {
   return lin::logical_and(c, t);
 }
-/** @} */
 
-/** @fn operator! */
 template <class C, std::enable_if_t<internal::matches_tensor<C>::value, size_t> = 0>
 inline constexpr auto operator!(internal::Stream<C> const &c) {
   return lin::logical_not(c);
 }
 
-/** @fn operator||
- *  @{ */
 template <class C, class D, std::enable_if_t<
     internal::matches_tensor_tensor<C, D>::value, size_t> = 0>
 inline constexpr auto operator||(internal::Stream<C> const &c, internal::Stream<D> const &d) {
@@ -164,10 +143,7 @@ template <class C, typename T, std::enable_if_t<
 inline constexpr auto operator||(internal::Stream<C> const &c, T const &t) {
   return lin::logical_or(c, t);
 }
-/** @} */
 
-/** @fn operator!=
- *  @{ */
 template <class C, class D, std::enable_if_t<
     internal::matches_tensor_tensor<C, D>::value, size_t> = 0>
 inline constexpr auto operator!=(internal::Stream<C> const &c, internal::Stream<D> const &d) {
@@ -185,8 +161,6 @@ template <class C, typename T, std::enable_if_t<
 inline constexpr auto operator!=(internal::Stream<C> const &c, T const &t) {
   return lin::not_equal_to(c, t);
 }
-/** @} */
-
 }  // namespace internal
 }  // namespace lin
 

@@ -2,3 +2,7 @@
 .vscode
 build
 tmp
+docs/*
+!docs/Doxyfile
+!docs/DoxygenLayout.xml
+!docs/index.html

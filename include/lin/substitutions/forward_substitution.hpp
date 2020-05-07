@@ -25,14 +25,14 @@ struct can_forward_sub : conjunction<
 /** @fn forward_sub */
 template <class C, class D, class E, std::enable_if_t<
     internal::can_forward_sub<C, D, E>::value, size_t> = 0>
-constexpr int forward_sub(internal::Base<C> const &L, internal::Base<D> &X,
-    internal::Base<E> const &Y);
+constexpr int forward_sub(internal::Mapping<C> const &L, internal::Mapping<D> &X,
+    internal::Mapping<E> const &Y);
 
 /** @fn forward_sub */
 template <class C, class D, class E, std::enable_if_t<
     internal::can_forward_sub<C, D, E>::value, size_t> = 0>
-constexpr int forward_sub(internal::Base<C> const &L, internal::Tensor<D> &X,
-    internal::Base<E> const &Y);
+constexpr int forward_sub(internal::Mapping<C> const &L, internal::Base<D> &X,
+    internal::Mapping<E> const &Y);
 
 }  // namespace lin
 
