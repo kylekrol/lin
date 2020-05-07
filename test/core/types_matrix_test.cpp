@@ -7,8 +7,6 @@
 
 #include <gtest/gtest.h>
 
-static_assert(lin::internal::can_assign_types<float, float>::value, "shit my pants");
-
 // Check for constexpr matrix dimensions and zero initialization
 constexpr static lin::Matrix2x2f A;
 static_assert(A.rows() == 2, "");

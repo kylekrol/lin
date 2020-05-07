@@ -30,6 +30,9 @@
     template <class C, class D, std::enable_if_t<\
         internal::matches_tensor_tensor<C, D>::value, size_t> = 0>\
     inline constexpr auto op(internal::Stream<C> const &c, internal::Stream<D> const &d) {\
+      LIN_ASSERT(c.rows() == d.rows());\
+      LIN_ASSERT(c.cols() == d.cols());\
+      \
       return internal::StreamElementWiseOperator<internal::op, C, D>(c, d);\
     }\
     template <typename T, class C, std::enable_if_t<\

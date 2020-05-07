@@ -21,7 +21,7 @@ constexpr double RandomsGenerator::next() const {
 }  // namespace internal
 
 template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t>>
-constexpr typename C::Traits::Eval rands(size_t r, size_t c, internal::RandomsGenerator const &rand) {
+constexpr typename C::Traits::eval_t rands(size_t r, size_t c, internal::RandomsGenerator const &rand) {
   internal::traits_eval_t<C> tensor(r, c);
   for (size_t i = 0; i < tensor.size(); i++) tensor(i) = rand.next();
   return tensor;

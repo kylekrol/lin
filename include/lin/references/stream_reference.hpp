@@ -3,7 +3,7 @@
  *  Defines the stream reference type which is a read-only reference interface.
  *  */
 
-// TODO : Documenation for this whole file
+// TODO : Documenation for this whole fil
 
 #ifndef LIN_REFERENCE_STREAM_REFERENCE_HPP_
 #define LIN_REFERENCE_STREAM_REFERENCE_HPP_

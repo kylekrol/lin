@@ -62,7 +62,7 @@ TEST(CoreOperationsTensorOperators, Multiply) {
     1.0f, 2.0f,
     1.0f, 1.0f
   });
-  static_assert(std::is_same<typename decltype(D * E)::Traits::Elem, double>::value, "");
+  static_assert(std::is_same<typename decltype(D * E)::Traits::elem_t, double>::value, "");
   lin::Matrixd<0, 0, 5, 5> F(D * E);
   ASSERT_FLOAT_EQ( 6.0f, F(0, 0));
   ASSERT_FLOAT_EQ( 9.0f, F(0, 1));

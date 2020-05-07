@@ -2,7 +2,7 @@
  *  @author Kyle Krol
  *  Defines functors to faciliate operations in the queries module. */
 
-// TODO : Documentation for this entire file
+// TODO : Documentation for this entire fil
 
 #ifndef LIN_QUERIES_FUNCTORS_HPP_
 #define LIN_QUERIES_FUNCTORS_HPP_
