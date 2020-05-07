@@ -64,32 +64,13 @@
  *  As previously mentioned, the template metaprogramming constructs provided by
  *  the traits module are commonly used in
  *  <a href="http://www.cplusplus.com/reference/type_traits/enable_if/">std::enable_if</a>
- *  guards for tensor operations.// vim: set tabstop=2:softtabstop=2:shiftwidth=2:expandtab
-
-/** @file lin/core/types.hpp
- *  @author Kyle Krol
- */
-
-/** @defgroup CORETYPES Types
- *
- *  @ingroup CORE
- *  @brief Set of core tensor types and interfaces used throughout lin.
+ *  guards for tensor operations.
  * 
- *  More details to come...
- */
-
-#ifndef LIN_CORE_TYPES_HPP_
-#define LIN_CORE_TYPES_HPP_
-
-#include "types/base.hpp"
-#include "types/dimensions.hpp"
-#include "types/mapping.hpp"
-#include "types/matrix.hpp"
-#include "types/stream.hpp"
-#include "types/vector.hpp"
-
-#endif
- to add together.
+ *  As an example, consider tyring to enable a tensor element wise addition
+ *  operator when appropriate. Logically, this requires two things of the input
+ *  types to be true:
+ * 
+ *  1. The tensor elements types must be able to add together.
  *  2. The tensor's should have the same dimensions traits.
  * 
  *  As such, we would define an enable if guard similiar to the following:
