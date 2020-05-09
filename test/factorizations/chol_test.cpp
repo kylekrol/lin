@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-template <typename T, size_t N, size_t MN>
+template <typename T, lin::size_t N, lin::size_t MN>
 static void zero_above_diagonal(lin::Matrix<T, N, N, MN, MN> &M) {
   ASSERT_EQ(M.rows(), M.cols());
   for (lin::size_t i = 0; i < M.rows(); i++)
