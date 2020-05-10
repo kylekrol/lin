@@ -57,6 +57,7 @@ class Matrix : public internal::Tensor<Matrix<T, R, C, MR, MC>> {
   using internal::Tensor<Matrix<T, R, C, MR, MC>>::operator=;
   using internal::Tensor<Matrix<T, R, C, MR, MC>>::operator();
 
+  constexpr Matrix() = default;
   constexpr Matrix(Matrix<T, R, C, MR, MC> const &) = default;
   constexpr Matrix(Matrix<T, R, C, MR, MC> &&) = default;
   constexpr Matrix<T, R, C, MR, MC> &operator=(Matrix<T, R, C, MR, MC> const &) = default;

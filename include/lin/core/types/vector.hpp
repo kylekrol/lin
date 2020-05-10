@@ -61,6 +61,7 @@ class Vector : public internal::Tensor<Vector<T, N, MN>> {
   using internal::Tensor<Vector<T, N, MN>>::operator=;
   using internal::Tensor<Vector<T, N, MN>>::operator();
 
+  constexpr Vector() = default;
   constexpr Vector(Vector<T, N, MN> const &) = default;
   constexpr Vector(Vector<T, N, MN> &&) = default;
   constexpr Vector<T, N, MN> &operator=(Vector<T, N, MN> const &) = default;
@@ -158,6 +159,7 @@ class RowVector : public internal::Tensor<RowVector<T, N, MN>> {
   using internal::Tensor<RowVector<T, N, MN>>::operator=;
   using internal::Tensor<RowVector<T, N, MN>>::operator();
 
+  constexpr RowVector() = default;
   constexpr RowVector(RowVector<T, N, MN> const &) = default;
   constexpr RowVector(RowVector<T, N, MN> &&) = default;
   constexpr RowVector<T, N, MN> &operator=(RowVector<T, N, MN> const &) = default;
