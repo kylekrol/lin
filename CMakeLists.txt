@@ -110,3 +110,16 @@ target_link_libraries(substitutions_tests PRIVATE
   gtest_main
 )
 add_test(run_substitutions_tests substitutions_tests)
+
+add_executable(views_tests
+  test/views/matrix_views_test.cpp
+  test/views/vector_views_test.cpp
+)
+target_include_directories(views_tests PRIVATE
+  include
+)
+target_link_libraries(views_tests PRIVATE
+  gtest
+  gtest_main
+)
+add_test(run_views_tests views_tests)

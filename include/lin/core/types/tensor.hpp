@@ -76,12 +76,12 @@ class Tensor : public Base<D> {
     resize(Traits::max_rows, Traits::max_cols);
   }
 
-  /** @brief Constructs a tensor with zeros initialized elements and the requested
-   *         dimensions.
+  /** @brief Constructs a tensor with zeros initialized elements and the
+   *         requested dimensions.
    *
    *  @param r Initial row dimension.
    *  @param c Initial column dimesnion.
-   * 
+   *
    *  @sa internal::traits
    */
   constexpr Tensor(size_t r, size_t c) {

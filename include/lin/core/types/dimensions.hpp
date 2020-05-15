@@ -20,18 +20,18 @@ namespace internal {
  *  @tparam D Derived type.
  * 
  *  This functionality is broken out as a separate object so we only include
- *  member variables for tensor dimensions that aren't of a fixed size. There is a
- *  template specialization of this class for each of the following cases:
+ *  member variables for tensor dimensions that aren't of a fixed size. There is
+ *  a template specialization of this class for each of the following cases:
  *
  *   - Fixed rows and columns.
  *   - Fixed rows and strictly bounded columns.
  *   - Strictly bounded rows and fixed columns.
  *   - Strictly bounded rows and columns.
  * 
- *  The specialization for fixed rows and columns, for example, has no additional
- *  member variables while the the specialization for fixed rows and stricly
- *  bounded columns requires one additional member variables to track the number
- *  of columns at runtime.
+ *  The specialization for fixed rows and columns, for example, has no
+ *  additional member variables while the the specialization for fixed rows and
+ *  stricly bounded columns requires one additional member variables to track
+ *  the number of columns at runtime.
  *
  *  @sa internal::Base
  *  @sa internal::has_fixed_rows
