@@ -25,3 +25,5 @@ Documentation can be built with doxygen by running:
     doxygen
 
 and then opening `docs/html/index.html`. Starting at the modules page will be most helpful.
+
+The documentation is also hosted online at https://pathfinder-for-autonomous-navigation.github.io/lin/modules.html
