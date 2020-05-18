@@ -13,5 +13,6 @@
 #include "lin/queries.hpp"
 #include "lin/references.hpp"
 #include "lin/substitutions.hpp"
+#include "lin/views.hpp"
 
 #endif

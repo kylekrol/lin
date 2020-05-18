@@ -848,6 +848,10 @@ INPUT                  = \
   ../include/lin/core/operations/matrix_operations.hpp \
   ../include/lin/core/operations/vector_operations.hpp \
   ../include/lin/core/operations/tensor_operators.hpp \
+  ../include/lin/views.hpp \
+  ../include/lin/views/tensor_view.hpp \
+  ../include/lin/views/matrix_view.hpp \
+  ../include/lin/views/vector_view.hpp \
   ../include
 
 # This tag can be used to specify the character encoding of the source files
