@@ -5,4 +5,11 @@ docs/*
 !docs/Doxyfile
 !docs/DoxygenLayout.xml
 !docs/index.html
+build/
 bazel-*/
+venv
+.venv
+__pycache__
+.eggs
+.pytest_cache
+lin.cpp
