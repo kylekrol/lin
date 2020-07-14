@@ -1,8 +1,8 @@
 .DS_Store
 .vscode
-build
 tmp
 docs/*
 !docs/Doxyfile
 !docs/DoxygenLayout.xml
 !docs/index.html
+bazel-*/
