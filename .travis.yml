@@ -8,7 +8,6 @@ matrix:
               - cmake ../
               - cmake --build .
               - ctest --verbose .
-
         - sudo: false
           branches:
               only:
@@ -26,7 +25,6 @@ matrix:
               github_token: $GH_REPO_TOKEN
               on:
                   branch: master
-
         - language: python
           python:
               - "3.6"
@@ -38,3 +36,4 @@ matrix:
               - pip install -vvv .
           script:
               - pytest -v test_lin.py
+
