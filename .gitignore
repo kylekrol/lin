@@ -1,11 +1,12 @@
 .DS_Store
 .vscode
-build
 tmp
 docs/*
 !docs/Doxyfile
 !docs/DoxygenLayout.xml
 !docs/index.html
+build/
+bazel-*/
 venv
 .venv
 __pycache__
