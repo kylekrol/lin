@@ -25,4 +25,15 @@ matrix:
               github_token: $GH_REPO_TOKEN
               on:
                   branch: master
+        - language: python
+          python:
+              - "3.6"
+              - "3.7"
+              - "3.8"
+          sudo: false
+          install:
+              - pip install -r requirements.txt
+              - pip install -vvv .
+          script:
+              - pytest -v test_lin.py
 

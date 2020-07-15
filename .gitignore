@@ -6,3 +6,9 @@ docs/*
 !docs/Doxyfile
 !docs/DoxygenLayout.xml
 !docs/index.html
+venv
+.venv
+__pycache__
+.eggs
+.pytest_cache
+lin.cpp

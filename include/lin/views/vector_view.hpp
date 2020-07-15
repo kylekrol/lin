@@ -193,7 +193,7 @@ class RowVectorView : public internal::TensorView<RowVectorView<T, N, MN>> {
  *  @tparam MN Max length.
  * 
  *  @sa internal::traits
- *  @sa Vector
+ *  @sa VectorView
  */
 template <size_t N, size_t MN = N>
 using VectorViewf = VectorView<float, N, MN>;
@@ -208,7 +208,7 @@ typedef VectorViewf<4> VectorView4f; ///< Four dimensional float vector view.
  *  @tparam MN Max length.
  * 
  *  @sa internal::traits
- *  @sa Vector
+ *  @sa VectorView
  */
 template <size_t N, size_t MN = N>
 using VectorViewd = VectorView<double, N, MN>;
@@ -223,7 +223,7 @@ typedef VectorViewd<4> VectorView4d; ///< Four dimensional double vector view.
  *  @tparam MN Max length.
  * 
  *  @sa internal::traits
- *  @sa RowVector
+ *  @sa RowVectorView
  */
 template <size_t N, size_t MN = N>
 using RowVectorViewf = RowVectorView<float, N, MN>;
@@ -238,7 +238,7 @@ typedef RowVectorViewf<4> RowVectorView4f; ///< Four dimensional float row vecto
  *  @tparam MN Max length.
  * 
  *  @sa internal::traits
- *  @sa RowVector
+ *  @sa RowVectorView
  */
 template <size_t N, size_t MN = N>
 using RowVectorViewd = RowVectorView<double, N, MN>;

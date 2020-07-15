@@ -318,7 +318,7 @@ struct has_bounded_dimensions
  *  and a trivial element type.
  * 
  *  @sa internal::has_bounded_dimensions
- *  @sa <a href="http://www.cplusplus.com/reference/type_traits/is_trivial/">std::is_trivial</a>
+ *  @sa <a href="https://en.cppreference.com/w/cpp/types/is_trivial">std::is_trivial</a>
  * 
  *  @ingroup CORETRAITS
  */
@@ -410,6 +410,42 @@ struct have_same_elements<C> : std::true_type { };
 
 template <>
 struct have_same_elements<> : std::true_type { };
+
+/** @brief Tests if a set of tensor types all have floating point elements.
+ *
+ *  @tparam Cs %Tensor types.
+ *
+ *  If less than one tensor type is given, it defaults to true.
+ *
+ *  @sa internal::traits
+ *  @sa <a href="https://en.cppreference.com/w/cpp/types/is_floating_point">std::is_floating_point</a>
+ *
+ *  @ingroup CORETRAITS
+ */
+template <class... Cs>
+struct have_floating_point_elements
+    : conjunction<std::is_floating_point<_elem_t<Cs>>...> { };
+
+template <>
+struct have_floating_point_elements<> : std::true_type { };
+
+/** @brief Tests if a set of tensor types all have integral elements.
+ *
+ *  @tparam Cs %Tensor types.
+ *
+ *  If less than one tensor type is given, it defaults to true.
+ *
+ *  @sa internal::traits
+ *  @sa <a href="https://en.cppreference.com/w/cpp/types/is_integral">std::is_integral</a>
+ *
+ *  @ingroup CORETRAITS
+ */
+template <class... Cs>
+struct have_integral_elements
+    : conjunction<std::is_integral<_elem_t<Cs>>...> { };
+
+template <>
+struct have_integral_elements<> : std::true_type { };
 
 /** @brief Tests if a set of tensor types all have the same row traits.
  *

@@ -85,6 +85,11 @@ using TraitsFBd = Traits<double, 3, 0, 3, 4>;
 using TraitsBFd = Traits<double, 0, 4, 3, 4>;
 using TraitsBBd = Traits<double, 0, 0, 3, 4>;
 
+using TraitsFFi = Traits<int, 3, 4, 3, 4>;
+using TraitsFBi = Traits<int, 3, 0, 3, 4>;
+using TraitsBFi = Traits<int, 0, 4, 3, 4>;
+using TraitsBBi = Traits<int, 0, 0, 3, 4>;
+
 static_assert( has_fixed_rows<TraitsFFf>(), "");
 static_assert( has_fixed_rows<TraitsFBf>(), "");
 static_assert(!has_fixed_rows<TraitsBFf>(), "");
@@ -166,6 +171,16 @@ static_assert( have_same_elements<TraitsFFf, TraitsBFf>(), "");
 static_assert(!have_same_elements<TraitsFFf, TraitsFFd>(), "");
 static_assert( have_same_elements<TraitsFFf, TraitsFBf, TraitsBFf>(), "");
 static_assert(!have_same_elements<TraitsFFf, TraitsFBd, TraitsBFf>(), "");
+
+static_assert( have_floating_point_elements<>(), "");
+static_assert( have_floating_point_elements<TraitsFFf>(), "");
+static_assert( have_floating_point_elements<TraitsFBd, TraitsFFf>(), "");
+static_assert(!have_floating_point_elements<TraitsFBd, TraitsFFi>(), "");
+
+static_assert( have_integral_elements<>(), "");
+static_assert(!have_integral_elements<TraitsFFf>(), "");
+static_assert(!have_integral_elements<TraitsFBi, TraitsFFf>(), "");
+static_assert( have_integral_elements<TraitsFBi, TraitsFFi>(), "");
 
 static_assert( have_same_rows<>(), "");
 static_assert( have_same_rows<TraitsFFf>(), "");
