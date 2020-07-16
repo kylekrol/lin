@@ -1,0 +1,10 @@
+
+cc_test(
+    name = "tests",
+    srcs = glob(["**/*.cpp"]),
+    deps = [
+        "@gtest//:gtest_main",
+        "//:lin"
+    ],
+    visibility = ["//visibility:private"],
+)
