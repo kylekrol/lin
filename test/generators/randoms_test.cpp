@@ -9,7 +9,7 @@
 #include <type_traits>
 
 TEST(GeneratorsRandoms, RandomsGenerator) {
-  lin::internal::RandomsGenerator const rand;
+  lin::internal::RandomsGenerator rand;
   for (lin::size_t i = 0; i < 10000; i++) {
     double x = rand.next();
     ASSERT_LE(x, 1.0);
@@ -18,8 +18,8 @@ TEST(GeneratorsRandoms, RandomsGenerator) {
 }
 
 TEST(GeneratorsRandoms, Rands) {
-  lin::internal::RandomsGenerator const rand;
-  auto const A = lin::rands<lin::Matrixd<0, 3, 5, 3>>(4, 3, rand);
+  lin::internal::RandomsGenerator rand;
+  auto const A = lin::rands<lin::Matrixd<0, 3, 5, 3>>(rand, 4, 3);
   static_assert(std::is_same<std::remove_cv_t<decltype(A)>, lin::Matrixd<0, 3, 5, 3>>::value, "");
   ASSERT_EQ( 4, A.rows());
   ASSERT_EQ( 3, A.cols());
