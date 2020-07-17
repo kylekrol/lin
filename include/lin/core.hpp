@@ -9,7 +9,7 @@
  *  @brief Defines the core set of tensor types and the basic operations that
  *         can be performed on them.
  *
- *  More details to come.
+ *  More details to come...
  */
 
 #ifndef LIN_CORE_HPP_

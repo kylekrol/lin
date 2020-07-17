@@ -12,7 +12,17 @@
 namespace lin {
 namespace internal {
 
-/** @brief Tensor stream where all elements are the same constant value.
+/** @brief Tensor stream where all element accesses return the same constant
+ *         value.
+ *
+ *  @tparam T  %Stream element type.
+ *  @tparam R  Rows at compile time.
+ *  @tparam C  Columns at compile time.
+ *  @tparam MR Maximum rows at compile time.
+ *  @tparam MC Maximum columns at compile time.
+ *
+ *  This is most commonly use to implement generators that produce tensor whose
+ *  elements are filled by a single constant value.
  *
  *  @sa consts
  *  @sa nans
@@ -52,13 +62,24 @@ class StreamConstants : public Stream<StreamConstants<T, R, C, MR, MC>>,
   constexpr StreamConstants<T, R, C, MR, MC> &operator=(StreamConstants<T, R, C, MR, MC> const &) = default;
   constexpr StreamConstants<T, R, C, MR, MC> &operator=(StreamConstants<T, R, C, MR, MC> &&) = default;
 
-  /** @brief
+  /** @brief Constructs a tensor constants stream of the requested size and
+   *         value.
+   *
+   *  @param[in] t Value of the stream's elements.
+   *  @param[in] r Row count.
+   *  @param[in] c Column count.
    */
   constexpr StreamConstants(T t, size_t r, size_t c) : t(t) {
     resize(r, c);
   }
 
-  /** @brief
+  /** @brief Retrieves the requested tensor elements value, which, in this case
+   *         is a specified constant.
+   *
+   *  @param i Row index.
+   *  @param j Column index.
+   *
+   *  @return Value of the tensor element.
    */
   constexpr typename Traits::elem_t operator()(size_t i, size_t j) const {
     LIN_ASSERT(0 <= i && i <= rows());
@@ -67,7 +88,12 @@ class StreamConstants : public Stream<StreamConstants<T, R, C, MR, MC>>,
     return t;
   }
 
-  /** @brief
+  /** @brief Retrieves the requested tensor elements value, which, in this case
+   *         is a specified constant.
+   *
+   *  @param i Index.
+   *
+   *  @return Value of the tensor element.
    */
   constexpr typename Traits::elem_t operator()(size_t i) const {
     LIN_ASSERT(0 <= i && i <= size());

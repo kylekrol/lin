@@ -9,7 +9,7 @@
  *  @brief Defines a set of functions useful for for initializing the element
  *         value of tensor types.
  *
- *  More details to come.
+ *  More details to come...
  */
 
 #ifndef LIN_GENERATORS_HPP_

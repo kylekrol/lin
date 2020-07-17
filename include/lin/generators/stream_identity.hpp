@@ -12,7 +12,20 @@
 namespace lin {
 namespace internal {
 
-/** @brief
+/** @brief Tensor stream where all element accesses specify an identity matrix.
+ *
+ *  @tparam T  %Stream element type.
+ *  @tparam R  Rows at compile time.
+ *  @tparam C  Columns at compile time.
+ *  @tparam MR Maximum rows at compile time.
+ *  @tparam MC Maximum columns at compile time.
+ *
+ *  This is most commonly use to implement the identity generator function. The
+ *  tensor parameters specified must be considered a square matrix.
+ *
+ *  @sa identity
+ *  @sa internal::is_matrix
+ *  @sa internal::is_square
  *
  *  @ingroup GENERATORS
  */
@@ -45,7 +58,10 @@ class StreamIdentity : public Stream<StreamIdentity<T, R, C, MR, MC>>,
   constexpr StreamIdentity<T, R, C, MR, MC> &operator=(StreamIdentity<T, R, C, MR, MC> const &) = default;
   constexpr StreamIdentity<T, R, C, MR, MC> &operator=(StreamIdentity<T, R, C, MR, MC> &&) = default;
 
-  /** @brief
+  /** @brief Constructs a tensor stream that specifies the identity matrix.
+   *
+   *  @param[in] r Row count.
+   *  @param[in] c Column count.
    */
   constexpr StreamIdentity(size_t r, size_t c) {
     LIN_ASSERT(r == c);
@@ -53,9 +69,13 @@ class StreamIdentity : public Stream<StreamIdentity<T, R, C, MR, MC>>,
     resize(r, c);
   }
 
-  /** @brief
+  /** @brief Retrieves the requested tensor elements value, which, in this case
+   *         is one when on the diagonal and zero otherwise.
    *
-   *  @return
+   *  @param i Row index.
+   *  @param j Column index.
+   *
+   *  @return Value of the tensor element.
    */
   constexpr typename Traits::elem_t operator()(size_t i, size_t j) const {
     LIN_ASSERT(0 <= i && i <= rows());
@@ -64,9 +84,12 @@ class StreamIdentity : public Stream<StreamIdentity<T, R, C, MR, MC>>,
     return typename Traits::elem_t(i == j);
   }
 
-  /** @brief
+  /** @brief Retrieves the requested tensor elements value, which, in this case
+   *         is one when on the diagonal and zero otherwise.
    *
-   *  @return
+   *  @param i Index.
+   *
+   *  @return Value of the tensor element.
    */
   constexpr typename Traits::elem_t operator()(size_t i) const {
     LIN_ASSERT(0 <= i && i <= size());

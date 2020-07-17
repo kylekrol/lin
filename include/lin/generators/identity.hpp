@@ -14,9 +14,18 @@
 
 namespace lin {
 
-/** @brief
+/** @brief Creates a stream which evaluates to an identity matrix.
  *
- *  @return
+ *  @tparam T  %Stream element type.
+ *  @tparam R  Rows at compile time.
+ *  @tparam C  Columns at compile time.
+ *  @tparam MR Maximum rows at compile time.
+ *  @tparam MC Maximum columns at compile time.
+ *
+ *  @param[in] r Row count.
+ *  @param[in] c Column count.
+ *
+ *  @return Identity stream.
  *
  *  @ingroup GENERATORS
  */
@@ -25,9 +34,14 @@ constexpr auto identity(size_t r = MR, size_t c = MC) {
   return internal::StreamIdentity<T, R, C, MR, MC>(r, c);
 }
 
-/** @brief
+/** @brief Creates a stream which evaluates to an identity matrix.
  *
- *  @return
+ *  @tparam C Tensor type whose traits the returned stream will mimic.
+ *
+ *  @param[in] r Row count.
+ *  @param[in] c Column count.
+ *
+ *  @return Identity stream.
  *
  *  @ingroup GENERATORS
  */

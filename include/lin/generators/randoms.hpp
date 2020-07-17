@@ -15,13 +15,16 @@
 namespace lin {
 namespace internal {
 
-/** @brief
+/** @brief Random number generator.
+ *
+ *  Produces random values in the range zero to one. It's used by the rands
+ *  generator function.
  *
  *  @ingroup GENERATORS
  */
 class RandomsGenerator {
  private:
-  /** @brief
+  /** @brief Seed for the random number generator.
    */
   unsigned long long seed;
 
@@ -31,13 +34,15 @@ class RandomsGenerator {
   constexpr RandomsGenerator &operator=(RandomsGenerator const &) = default;
   constexpr RandomsGenerator &operator=(RandomsGenerator &&) = default;
 
-  /** @brief
+  /** @brief Creates a random number generator based on the specified seed.
+   *
+   *  @param[in] seed
    */
   constexpr RandomsGenerator(unsigned long long seed = 0) : seed(seed ^ 4101842887655102017LL) { }
 
-  /** @brief
+  /** @brief Generates a random number in the range zero to one.
    * 
-   *  @return
+   *  @return Random number between zero and one.
    */
   constexpr double next() {
     seed ^= (seed >> 21);
@@ -49,8 +54,18 @@ class RandomsGenerator {
 };
 }  // namespace internal
 
-/** @brief
- * 
+/** @brief Generates a Matrix or Vector populated with random values between 
+ *
+ *  @tparam C Tensor type whose traits the returned stream will mimic.
+ *
+ *  @param[inout] rand Random number generator.
+ *  @param[in]    r    Row count.
+ *  @param[in]    c    Column count.
+ *
+ *  @return Tensor with randomly populated values.
+ *
+ *  @sa internal::RandomsGenerator
+ *
  *  @ingroup GENERATORS
  */
 template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t> = 0>
