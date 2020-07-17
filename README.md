@@ -17,11 +17,7 @@ Additional modules are available and provide more complex functionality such as 
 
 All unit tests live in `test/**` and can be run with:
 
-    mkdir build
-    cd build
-    cmake ../
-    cmake --build .
-    ctest .
+    bazel test //test:tests
 
 ## Documentation
 
