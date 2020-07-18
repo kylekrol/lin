@@ -19,6 +19,10 @@ All unit tests live in `test/**` and can be run with:
 
     bazel test //test:tests
 
+The tests only run in CI can be run wiht:
+
+    bazel test //test:ci
+
 ## Documentation
 
 Documentation can be built with doxygen by running:
