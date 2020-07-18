@@ -1,5 +1,5 @@
 
-def lin_test(name, tags):
+def lin_test(name, tags=[]):
     native.cc_test(
         name = name,
         srcs = native.glob([name + "/*.cpp"]),
@@ -7,6 +7,6 @@ def lin_test(name, tags):
             "@gtest//:gtest_main",
             "//:lin"
         ],
-        tags = ["tests"] + tags,
+        tags = tags,
         visibility = ["//visibility:private"],
     )

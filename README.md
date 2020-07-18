@@ -17,7 +17,7 @@ Additional modules are available and provide more complex functionality such as 
 
 All unit tests live in `test/**` and can be run with:
 
-    bazel test //test:tests
+    bazel test //test:all
 
 The tests only run in CI can be run wiht:
 

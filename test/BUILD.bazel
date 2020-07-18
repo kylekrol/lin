@@ -1,7 +1,6 @@
 load(":test.bzl", "lin_test")
 
 test_suite(name="ci", tags=["ci"])
-test_suite(name="tests", tags=["tests"])
 
 lin_test(name="core", tags=["ci"])
 lin_test(name="factorizations", tags=["ci"])
