@@ -15,11 +15,11 @@ static void zero_above_diagonal(lin::Matrix<T, N, N, MN, MN> &M) {
 }
 
 TEST(FactorizationsChol, FixedSizeChol) {
-  lin::internal::RandomsGenerator const rand;
+  lin::internal::RandomsGenerator rand;
   lin::Matrix4x4f M, L;
 
   for (size_t i = 0; i < 20; i++) {
-    M = lin::rands<lin::Matrix4x4f>(4, 4, rand);
+    M = lin::rands<lin::Matrix4x4f>(rand, 4, 4);
     zero_above_diagonal(M);
     L = M * lin::transpose(M);
     lin::chol(L);
@@ -28,11 +28,11 @@ TEST(FactorizationsChol, FixedSizeChol) {
 }
 
 TEST(FactorizationsChol, VariableSizeChol) {
-  lin::internal::RandomsGenerator const rand;
+  lin::internal::RandomsGenerator rand;
   lin::Matrixf<0, 0, 7, 7> M(6, 6), L(6, 6);
 
   for (size_t i = 0; i < 20; i++) {
-    M = lin::rands<decltype(M)>(6, 6, rand);
+    M = lin::rands<decltype(M)>(rand, 6, 6);
     zero_above_diagonal(M);
     L = M * lin::transpose(M);
     lin::chol(L);

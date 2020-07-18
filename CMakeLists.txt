@@ -29,7 +29,6 @@ target_link_libraries(core_tests PRIVATE
 add_test(run_core_tests core_tests)
 
 add_executable(factorizations_tests
-  src/lin_generators_randoms.cpp
   test/factorizations/chol_test.cpp
   test/factorizations/qr_test.cpp
 )
@@ -43,7 +42,6 @@ target_link_libraries(factorizations_tests PRIVATE
 add_test(run_factorizations_tests factorizations_tests)
 
 add_executable(generators_tests
-  src/lin_generators_randoms.cpp
   test/generators/constants_test.cpp
   test/generators/identity_test.cpp
   test/generators/randoms_test.cpp
@@ -98,7 +96,6 @@ target_link_libraries(references_tests PRIVATE
 add_test(run_references_tests references_tests)
 
 add_executable(substitutions_tests
-  src/lin_generators_randoms.cpp
   test/substitutions/backward_substitution_test.cpp
   test/substitutions/forward_substitution_test.cpp
 )

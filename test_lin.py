@@ -147,6 +147,22 @@ def test_pickle():
     pass # TODO : Implement this
 
 
+def test_generators():
+    """Tests the zeros, ones, and nans generator functions.
+    """
+    m = lin.Matrix2x2.ones()
+    for i in range(m.size()):
+        assert m[i] == 1.0
+
+    m = lin.Matrix2x2.nans()
+    for i in range(m.size()):
+        assert m[i] != m[i]
+
+    m = lin.Matrix2x2.zeros()
+    for i in range(m.size()):
+        assert m[i] == 0.0
+
+
 def test_add():
     """Tests all overloads of the addition operator and add function.
 
