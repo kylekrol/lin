@@ -15,7 +15,7 @@ matrix:
         - sha256sum -c bazel_3.4.1-linux-x86_64.deb.sha256
         - sudo dpkg -i bazel_3.4.1-linux-x86_64.deb
       script:
-        - bazel test //test:tests --verbose_failures
+        - bazel test //test:ci --verbose_failures
     - language: python
       python:
         - "3.6"
