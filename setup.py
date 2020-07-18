@@ -134,6 +134,9 @@ def autocode():
             '      self(i) = *((double *)(((char *) info.ptr) + i * info.strides[0]));\n' + \
             '  } else { throw std::runtime_error("Incompatible buffer dimensions - expected one or two dimensions!"); }\n' + \
             '});\n' + \
+            f'{py_class}.def_static("nans", []() -> {cxx_class} * ' + '{ ' + f'return new {cxx_class}(lin::nans<{cxx_class}>());' +' });\n' + \
+            f'{py_class}.def_static("ones", []() -> {cxx_class} * ' + '{ ' + f'return new {cxx_class}(lin::ones<{cxx_class}>());' +' });\n' + \
+            f'{py_class}.def_static("zeros", []() -> {cxx_class} * ' + '{ ' + f'return new {cxx_class}(lin::zeros<{cxx_class}>());' +' });\n' + \
             f'{py_class}.def_buffer([]({cxx_class} &self) -> py::buffer_info ' + '{\n' + \
             f'  if (lin::internal::is_col_vector<{cxx_class}>())\n' + \
             '    return py::buffer_info{ self.data(), sizeof(double), py::format_descriptor<double>::format(), 1, {self.rows()}, {sizeof(double)} };\n' + \
@@ -289,6 +292,7 @@ def autocode():
 namespace py = pybind11;
 
 #include <lin/core.hpp>
+#include <lin/generators.hpp>
 #include <lin/math.hpp>
 #include <lin/queries.hpp>
 
