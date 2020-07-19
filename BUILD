@@ -1,8 +1,8 @@
+
 cc_library(
     name = "lin",
-    srcs = glob(["src/**/*.cpp", "include/**/*.inl"]),
     hdrs = glob(["include/**/*.hpp"]),
+    srcs = glob(["include/**/*.inl"]),
     includes = ["include"],
-    linkstatic = True,
-    visibility = ["//visibility:public"]
+    visibility = ["//visibility:public"],
 )
