@@ -11,9 +11,9 @@
 
 /** @def LIN_ASSERT(x)
  *  @brief Asserts the condition x when assertions are enabled within lin.
- * 
+ *
  *  To disable assertions, define the `LIN_NO_CASSERT` macro when building.
- * 
+ *
  *  @ingroup CORE
  */
 

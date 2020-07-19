@@ -13,3 +13,4 @@ __pycache__
 .eggs
 .pytest_cache
 lin.cpp
+bazel-*

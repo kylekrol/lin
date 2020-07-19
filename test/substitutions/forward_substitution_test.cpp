@@ -16,13 +16,13 @@ static void zero_above_diagonal(lin::Matrix<T, N, N, MN, MN> &M) {
 }
 
 TEST(SubstitutionsFowardSubstitutions, FixedSizeFowardSubstition) {
-  lin::internal::RandomsGenerator const rand(9); // seed=0 fails here - unlucky I guess
+  lin::internal::RandomsGenerator rand(9); // seed=0 fails here - unlucky I guess
   lin::Matrix4x4f M, L;
   lin::Matrix4x3f X, Y, Z;
 
   for (lin::size_t i = 0; i < 25; i++) {
-    M = lin::rands<decltype(M)>(4, 4, rand);
-    Z = lin::rands<decltype(Y)>(4, 3, rand);
+    M = lin::rands<decltype(M)>(rand, 4, 4);
+    Z = lin::rands<decltype(Y)>(rand, 4, 3);
     zero_above_diagonal(M);
     L = M * lin::transpose(M);
     M = L;
@@ -35,13 +35,13 @@ TEST(SubstitutionsFowardSubstitutions, FixedSizeFowardSubstition) {
 }
 
 TEST(SubstitutionsFowardSubstitutions, VariableSizeForwardSubstitution) {
-  lin::internal::RandomsGenerator const rand;
+  lin::internal::RandomsGenerator rand;
   lin::Matrixf<0, 0, 7, 7> M(5, 5), L(5, 5);
   lin::Matrixf<0, 2, 7, 2> X, Y, Z(5, 2);
 
   for (lin::size_t i = 0; i < 25; i++) {
-    M = lin::rands<decltype(M)>(5, 5, rand);
-    Z = lin::rands<decltype(Z)>(5, 2, rand);
+    M = lin::rands<decltype(M)>(rand, 5, 5);
+    Z = lin::rands<decltype(Z)>(rand, 5, 2);
     zero_above_diagonal(M);
     L = M * lin::transpose(M);
     M = L;
