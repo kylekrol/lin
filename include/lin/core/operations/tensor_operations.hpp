@@ -130,9 +130,6 @@ template <typename T, typename U>
 struct matches_scalar_scalar
     : conjunction<matches_scalar<T>, matches_scalar<U>> { };
 
-template <class C>
-class StreamTranspose;
-
 }  // namespace internal
 
 /** @weakgroup COREOPERATIONS
