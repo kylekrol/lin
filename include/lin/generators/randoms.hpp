@@ -110,7 +110,7 @@ constexpr auto gaussian_rands(internal::RandomsGenerator &rand, size_t r = C::Tr
     t(i) = typename C::Traits::elem_t(R*cos(T));
     t(i+1) = typename C::Traits::elem_t(R*sin(T));
   }
-  if(t.size()/2 == 1){
+  if(t.size()%2 == 1){
     t(t.size() - 1) = typename C::Traits::elem_t(rand.gaussian());
   }
   return t;
