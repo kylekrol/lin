@@ -51,6 +51,17 @@ class RandomsGenerator {
 
     return 5.42101086242752217E-20 * (seed * 2685821657736338717ULL);
   }
+
+  /**
+   * @brief Return a gaussian random number with mean 0 and std 1
+   * 
+   * @return constexpr double 
+   */
+  constexpr double gaussian() {
+    double R = sqrt(-2.0L*log(next()));
+    double T = 2.0L*M_PI*next();
+    return R*cos(T);
+  }
 };
 }  // namespace internal
 
@@ -76,6 +87,7 @@ constexpr auto rands(internal::RandomsGenerator &rand, size_t r = C::Traits::max
 }
 
 /** @brief Generates a Matrix or Vector populated with independent gaussian random variables 
+ *  with a mean of 0 and standard deviation of 1
  *
  *  @tparam C Tensor type whose traits the returned stream will mimic.
  *
@@ -92,11 +104,17 @@ constexpr auto rands(internal::RandomsGenerator &rand, size_t r = C::Traits::max
 template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t> = 0>
 constexpr auto gaussian_rands(internal::RandomsGenerator &rand, size_t r = C::Traits::max_rows, size_t c = C::Traits::max_cols) {
   typename C::Traits::eval_t t(r, c);
-  for (lin::size_t i = 0; i < t.size(); i+=2) {
-    t(i) = typename C::Traits::elem_t(rand.next());
-    t(i+1) = typename C::Traits::elem_t(rand.next());
+  for (lin::size_t i = 0; i < t.size()-1; i+=2) {
+    double R = sqrt(-2.0L*log(rand.next()));
+    double T = 2.0L*M_PI*rand.next();
+    t(i) = typename C::Traits::elem_t(R*cos(T));
+    t(i+1) = typename C::Traits::elem_t(R*sin(T));
+  }
+  if(t.size()/2 == 1){
+    t(t.size() - 1) = typename C::Traits::elem_t(rand.gaussian());
   }
   return t;
+}
 }  // namespace lin
 
 #endif
