@@ -25,3 +25,12 @@ TEST(GeneratorsRandoms, Rands) {
   ASSERT_EQ( 3, A.cols());
   ASSERT_EQ(12, A.size());
 }
+
+TEST(GeneratorsRandoms, Rands){
+  lin::internal::RandomsGenerator rand;
+  auto const A = lin::rands<lin::Matrixd<0, 3, 5, 3>>(rand, 4, 3);
+  static_assert(std::is_same<std::remove_cv_t<decltype(A)>, lin::Matrixd<0, 3, 5, 3>>::value, "");
+  ASSERT_EQ( 4, A.rows());
+  ASSERT_EQ( 3, A.cols());
+  ASSERT_EQ(12, A.size());  
+}

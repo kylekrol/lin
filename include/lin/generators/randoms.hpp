@@ -54,7 +54,7 @@ class RandomsGenerator {
 };
 }  // namespace internal
 
-/** @brief Generates a Matrix or Vector populated with random values between 
+/** @brief Generates a Matrix or Vector populated with random values between 0 and 1
  *
  *  @tparam C Tensor type whose traits the returned stream will mimic.
  *
@@ -74,6 +74,29 @@ constexpr auto rands(internal::RandomsGenerator &rand, size_t r = C::Traits::max
   for (lin::size_t i = 0; i < t.size(); i++) t(i) = typename C::Traits::elem_t(rand.next());
   return t;
 }
+
+/** @brief Generates a Matrix or Vector populated with independent gaussian random variables 
+ *
+ *  @tparam C Tensor type whose traits the returned stream will mimic.
+ *
+ *  @param[inout] rand Random number generator.
+ *  @param[in]    r    Row count.
+ *  @param[in]    c    Column count.
+ *
+ *  @return Tensor with randomly populated values.
+ *
+ *  @sa internal::RandomsGenerator
+ *
+ *  @ingroup GENERATORS
+ */
+template <class C, std::enable_if_t<internal::has_traits<C>::value, size_t> = 0>
+constexpr auto gaussian_rands(internal::RandomsGenerator &rand, size_t r = C::Traits::max_rows, size_t c = C::Traits::max_cols) {
+  typename C::Traits::eval_t t(r, c);
+  for (lin::size_t i = 0; i < t.size(); i+=2) {
+    t(i) = typename C::Traits::elem_t(rand.next());
+    t(i+1) = typename C::Traits::elem_t(rand.next());
+  }
+  return t;
 }  // namespace lin
 
 #endif
