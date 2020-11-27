@@ -53,8 +53,8 @@ class RandomsGenerator {
    */
   constexpr RandomsGenerator(unsigned long long seed = 0) : 
     seed(seed ^ 4101842887655102017LL), 
-    has_cached(false),
-    cached_rand(0.0) { }
+    cached_rand(0.0),
+    has_cached(false) { }
 
   /** @brief Generates a uniform random number in the range zero to one.
    * 
