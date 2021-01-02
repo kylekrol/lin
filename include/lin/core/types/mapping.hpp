@@ -119,6 +119,32 @@ class Mapping : public Stream<D> {
     return const_cast<D &>(derived())(i);
   }
 
+  /** @brief Provides read and write access to tensor elements.
+   *
+   *  @param i Index
+   *
+   *  @return Reference to the tensor element.
+   *
+   *  Element access proceeds as if all the elements of the tensor stream were
+   *  flattened into an array in row major order.
+   */
+  inline constexpr typename Traits::elem_t &operator[](size_t i) {
+    return derived()(i);
+  }
+
+  /** @brief Provides read only access to tensor elements.
+   *
+   *  @param i Index.
+   *
+   *  @return Value of the tensor elements.
+   *
+   *  Element access proceeds as if all the elements of the tensor stream were
+   *  flattened into an array in row major order.
+   */
+  inline constexpr typename Traits::elem_t operator[](size_t i) const {
+    return const_cast<D &>(derived())(i);
+  }
+
   /** @brief Copy an initializer list's elements into the tensor's elements.
    * 
    *  @param list Initializer list.

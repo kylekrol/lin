@@ -125,6 +125,24 @@ class Stream {
     return derived()(i);
   }
 
+  /** @brief Provides read only access to tensor elements.
+   *
+   *  @param i Index.
+   *
+   *  @return Value of the tensor elements.
+   *
+   *  Element access proceeds as if all the elements of the tensor stream were
+   *  flattened into an array in row major order.
+   *
+   *  If accessing data from a lazily evaluation tensor operation, you may want to
+   *  consider for the creation of a value backed type to reduce overhead.
+   *
+   *  @sa internal::Stream::eval
+   */
+  inline constexpr typename Traits::elem_t operator[](size_t i) const {
+    return derived()(i);
+  }
+
   /** @brief Forces evaluation of this stream to a value backed type.
    * 
    *  @returns Resulting value.
