@@ -27,3 +27,20 @@ matrix:
         - pip install -vvv .
       script:
         - pytest -v test_lin.py
+    - sudo: false
+      branches:
+          only:
+              - master
+      addons:
+          apt:
+              packages:
+                  - doxygen
+      script:
+          - cd docs && doxygen && cd ..
+      deploy:
+          provider: pages
+          skip_cleanup: true
+          local_dir: docs/html
+          github_token: $GH_REPO_TOKEN
+          on:
+              branch: master
