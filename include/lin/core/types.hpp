@@ -16,6 +16,7 @@
 #define LIN_CORE_TYPES_HPP_
 
 #include "types/base.hpp"
+#include "types/const_base.hpp"
 #include "types/dimensions.hpp"
 #include "types/mapping.hpp"
 #include "types/matrix.hpp"
