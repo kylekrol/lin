@@ -17,19 +17,20 @@ constexpr int forward_sub(internal::Mapping<C> const &L, internal::Mapping<D> &X
   LIN_ASSERT(Y.cols() == X.cols() /* X cols don't match in forward_sub(...) */);
 
   // Useful traits information
+  typedef typename C::Traits::elem_t Elem;
   constexpr size_t C_max_cols = C::Traits::max_cols;
   constexpr size_t E_cols     = E::Traits::cols;
   constexpr size_t E_max_rows = E::Traits::max_rows;
   constexpr size_t E_max_cols = E::Traits::max_cols;
 
   // X(0, :)
-  lin::ref_row(X, 0) = lin::ref_row(Y, 0) / L(0, 0);
+  ref_row(X, 0) = ref_row(Y, 0) / L(0, 0);
 
   // X(1:, :)
   for (size_t i = 1; i < X.rows(); i++)
     // X(i, :)
-    lin::ref_row(X, i) = ( lin::ref_row(Y, i) - lin::ref<1, 0, 1, C_max_cols>(L, i, 0, 1, i) *
-        lin::ref<0, E_cols, E_max_rows, E_max_cols>(X, 0, 0, i, X.cols())
+    ref_row(X, i) = ( ref_row(Y, i) - ref<RowVector<Elem, 0, C_max_cols>>(L, i, 0, i) *
+        ref<Matrix<Elem, 0, E_cols, E_max_rows, E_max_cols>>(X, 0, 0, i, X.cols())
       ) / L(i, i);
 
   return 0;
