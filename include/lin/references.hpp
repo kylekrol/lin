@@ -276,7 +276,7 @@ constexpr auto ref_col(internal::Mapping<D> &mapping, size_t j) {
   constexpr size_t Rows = D::Traits::rows;
   constexpr size_t MaxRows = D::Traits::max_rows;
 
-  return ref<Vector<Elem, Rows, MaxRows>>(stream, 0, j, mapping.rows());
+  return ref<Vector<Elem, Rows, MaxRows>>(mapping, 0, j, mapping.rows());
 }
 
 /** @brief Creates a mapping reference of a particular row of a given tensor.
@@ -302,7 +302,7 @@ constexpr auto ref_row(internal::Mapping<D> &mapping, size_t i) {
   constexpr size_t Cols = D::Traits::cols;
   constexpr size_t MaxCols = D::Traits::max_cols;
 
-  return ref<RowVector<Elem, Cols, MaxCols>>(stream, i, 0, mapping.cols());
+  return ref<RowVector<Elem, Cols, MaxCols>>(mapping, i, 0, mapping.cols());
 }
 
 /** @brief Creates a mapping stream with default dimensions.
