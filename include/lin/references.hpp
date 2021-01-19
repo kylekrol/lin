@@ -105,10 +105,13 @@ namespace internal {
 
 /** @internal
  *
- *  @brief
+ *  @brief Provides a specific tensor type's corresponding mapping reference
+ *         type.
  *
- *  @tparam C
- *  @tparam D
+ *  @tparam C %Tensor type whose traits are replicated.
+ *  @tparam D Underlying referenced type.
+ *
+ *  @sa internal::stream_reference
  *
  *  @ingroup REFERENCES
  */
@@ -138,10 +141,13 @@ struct mapping_reference<C, D, std::enable_if_t<conjunction<
 
 /** @internal
  *
- *  @brief
+ *  @brief Provides a specific tensor type's corresponding stream reference
+ *         type.
  *
- *  @tparam C
- *  @tparam D
+ *  @tparam C %Tensor type whose traits are replicated.
+ *  @tparam D Underlying referenced type.
+ *
+ *  @sa internal::mapping_reference
  *
  *  @ingroup REFERENCES
  */
