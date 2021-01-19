@@ -22,12 +22,12 @@ constexpr int backward_sub(internal::Mapping<C> const &U, internal::Mapping<D> &
   // Solve for the last rows
   // It's trivially the last row of Y divided by the bottom right element of U
   const size_t m = U.rows() - 1;
-  ref_row(X, m) = ref_row(Y, m) / U(m, m);
+  row(X, m) = row(Y, m) / U(m, m);
 
   // Solve for the other rows in descending order
   for (size_t n = m - 1;; n--) {
-    ref_row(X, n) = (
-            ref_row(Y, n) - (ref<RowVector<typename TU::elem_t, 0, TU::max_rows>>(U, n, n + 1, m - n) *
+    row(X, n) = (
+            row(Y, n) - (ref<RowVector<typename TU::elem_t, 0, TU::max_rows>>(U, n, n + 1, m - n) *
                 ref<Matrix<typename TU::elem_t, 0, TY::cols, TY::max_rows,TY::max_cols>>(X, n + 1, 0, m - n, X.cols()))
         ) / U(n, n);
     if (n == 0) break;  // Must perform this check here for unsigned valu

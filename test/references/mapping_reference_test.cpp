@@ -111,3 +111,40 @@ TEST(MappingReference, RowVectorMappingReference) {
   d(1) = 10.0f;
   ASSERT_FLOAT_EQ(10.0f, A(2, 2));
 }
+
+TEST(MappingReference, DiagonalMappingReference) {
+  lin::Matrix3x3f A = {
+    0.0f, 1.0f, 2.0f,
+    3.0f, 4.0f, 5.0f,
+    6.0f, 7.0f, 8.0f
+  };
+  lin::Vector3f a = {
+    0.0f,
+    4.0f,
+    8.0f
+  };
+
+  auto b = lin::diag(A);
+  static_assert(lin::internal::have_same_traits<decltype(b), lin::Vector3f>::value, "");
+  ASSERT_FLOAT_EQ(0.0f, lin::fro(a - b));
+  ASSERT_EQ(3, b.rows());
+  ASSERT_EQ(1, b.cols());
+
+  lin::Matrixf<0, 0, 5, 5> B(2, 2, {
+    0.0f, 1.0f,
+    2.0f, 3.0f
+  });
+  lin::Vectorf<0, 5> c(2, {
+    0.0f,
+    3.0f
+  });
+
+  auto d = lin::diag(B);
+  static_assert(lin::internal::have_same_traits<decltype(d), lin::Vectorf<0, 5>>::value, "");
+  ASSERT_FLOAT_EQ(0.0f, lin::fro(c - d));
+  ASSERT_EQ(2, d.rows());
+  ASSERT_EQ(1, d.cols());
+
+  d(1) = 4.0f;
+  ASSERT_FLOAT_EQ(4.0f, B(1, 1));
+}

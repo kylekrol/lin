@@ -93,6 +93,8 @@
 #define LIN_REFERENCES_HPP_
 
 #include "core.hpp"
+#include "references/diagonal_mapping_reference.hpp"
+#include "references/diagonal_stream_reference.hpp"
 #include "references/matrix_mapping_reference.hpp"
 #include "references/matrix_stream_reference.hpp"
 #include "references/vector_mapping_reference.hpp"
@@ -277,7 +279,7 @@ constexpr auto ref(internal::Mapping<D> &mapping, size_t i, size_t j, size_t r, 
  *  @ingroup REFERENCES
  */
 template <class D>
-constexpr auto ref_col(internal::Mapping<D> &mapping, size_t j) {
+constexpr auto col(internal::Mapping<D> &mapping, size_t j) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Rows = D::Traits::rows;
   constexpr size_t MaxRows = D::Traits::max_rows;
@@ -303,12 +305,19 @@ constexpr auto ref_col(internal::Mapping<D> &mapping, size_t j) {
  *  @ingroup REFERENCES
  */
 template <class D>
-constexpr auto ref_row(internal::Mapping<D> &mapping, size_t i) {
+constexpr auto row(internal::Mapping<D> &mapping, size_t i) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Cols = D::Traits::cols;
   constexpr size_t MaxCols = D::Traits::max_cols;
 
   return ref<RowVector<Elem, Cols, MaxCols>>(mapping, i, 0, mapping.cols());
+}
+
+/**
+ */
+template <class D, typename = std::enable_if_t<internal::is_matrix<D>::value>>
+constexpr auto diag(internal::Mapping<D> &mapping) {
+  return internal::DiagonalMappingReference<D>(mapping);
 }
 
 /** @brief Creates a mapping stream with default dimensions.
@@ -412,7 +421,7 @@ constexpr auto ref(internal::Stream<D> const &stream, size_t i, size_t j, size_t
  *  @ingroup REFERENCES
  */
 template <class D>
-constexpr auto ref_col(internal::Stream<D> const &stream, size_t j) {
+constexpr auto col(internal::Stream<D> const &stream, size_t j) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Rows = D::Traits::rows;
   constexpr size_t MaxRows = D::Traits::max_rows;
@@ -438,12 +447,17 @@ constexpr auto ref_col(internal::Stream<D> const &stream, size_t j) {
  *  @ingroup REFERENCES
  */
 template <class D>
-constexpr auto ref_row(internal::Stream<D> const &stream, size_t i) {
+constexpr auto row(internal::Stream<D> const &stream, size_t i) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Cols = D::Traits::cols;
   constexpr size_t MaxCols = D::Traits::max_cols;
 
   return ref<RowVector<Elem, Cols, MaxCols>>(stream, i, 0, stream.cols());
+}
+
+template <class D, typename = std::enable_if_t<internal::is_matrix<D>::value>>
+constexpr auto diag(internal::Stream<D> const &stream) {
+  return internal::DiagonalStreamReference<D>(stream);
 }
 }  // namespace lin
 
