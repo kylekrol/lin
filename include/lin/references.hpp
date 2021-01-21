@@ -313,9 +313,24 @@ constexpr auto row(internal::Mapping<D> &mapping, size_t i) {
   return ref<RowVector<Elem, Cols, MaxCols>>(mapping, i, 0, mapping.cols());
 }
 
-/**
+/** @brief Creates a diagonal mapping reference from the given mapping.
+ *
+ *  @tparam D Underlying referenced type.
+ *
+ *  @param mapping Underlying mapping.
+ *
+ *  @return Instance of an internal::DiagonalMappingReference.
+ *
+ *  The underlying mapping must have the traits of a square matrix and lin
+ *  assertion errors will be thrown if the underlying mapping isn't square at
+ *  runtime.
+ *
+ *  @sa internal::is_matrix
+ *  @sa internal::is_square
+ *  @sa internal::traits
  */
-template <class D, typename = std::enable_if_t<internal::is_matrix<D>::value>>
+template <class D, typename = std::enable_if_t<internal::conjunction<
+    internal::is_matrix<D>, internal::is_square<D>>::value>>
 constexpr auto diag(internal::Mapping<D> &mapping) {
   return internal::DiagonalMappingReference<D>(mapping);
 }
@@ -455,7 +470,24 @@ constexpr auto row(internal::Stream<D> const &stream, size_t i) {
   return ref<RowVector<Elem, Cols, MaxCols>>(stream, i, 0, stream.cols());
 }
 
-template <class D, typename = std::enable_if_t<internal::is_matrix<D>::value>>
+/** @brief Creates a diagonal stream reference from the given stream.
+ *
+ *  @tparam D Underlying referenced type.
+ *
+ *  @param stream Underlying stream.
+ *
+ *  @return Instance of an internal::DiagonalMappingReference.
+ *
+ *  The underlying mapping must have the traits of a square matrix and lin
+ *  assertion errors will be thrown if the underlying mapping isn't square at
+ *  runtime.
+ *
+ *  @sa internal::is_matrix
+ *  @sa internal::is_square
+ *  @sa internal::traits
+ */
+template <class D, typename = std::enable_if_t<internal::conjunction<
+    internal::is_matrix<D>, internal::is_square<D>>::value>>
 constexpr auto diag(internal::Stream<D> const &stream) {
   return internal::DiagonalStreamReference<D>(stream);
 }
