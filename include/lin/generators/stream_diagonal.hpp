@@ -1,11 +1,11 @@
 // vim: set tabstop=2:softtabstop=2:shiftwidth=2:expandtab
 
-/** @file lin/generators/stream_diag.hpp
+/** @file lin/generators/stream_diagonal.hpp
  *  @author Kyle Krol
  */
 
-#ifndef LIN_GENERATORS_STREAM_IDENTITY_HPP_
-#define LIN_GENERATORS_STREAM_IDENTITY_HPP_
+#ifndef LIN_GENERATORS_STREAM_DIAGONAL_HPP_
+#define LIN_GENERATORS_STREAM_DIAGONAL_HPP_
 
 #include "../core.hpp"
 

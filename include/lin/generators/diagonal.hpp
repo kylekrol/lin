@@ -7,7 +7,7 @@
 #ifndef LIN_GENERATORS_DIAGONAL_HPP_
 #define LIN_GENERATORS_DIAGONAL_HPP_
 
-#include "stream_diag.hpp"
+#include "stream_diagonal.hpp"
 #include "../core.hpp"
 
 #include <limits>
