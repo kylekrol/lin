@@ -17,7 +17,7 @@ namespace lin {
 
 /**
  */
-template <class D, typename = std::enable_if_t<internal::is_vector<D>::value>>
+template <class D, typename std::enable_if_t<internal::is_vector<D>::value, size_t> = 0>
 constexpr auto diag(internal::Stream<D> const &stream) {
   return internal::StreamDiagonal<D>(stream);
 }
