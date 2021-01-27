@@ -27,8 +27,8 @@ constexpr int backward_sub(internal::Mapping<C> const &U, internal::Mapping<D> &
   // Solve for the other rows in descending order
   for (size_t n = m - 1;; n--) {
     ref_row(X, n) = (
-            ref_row(Y, n) - (ref<1, 0, 1, TU::max_rows>(U, n, n + 1, 1, m - n) *
-                ref<0, TY::cols, TY::max_rows, TY::max_cols>(X, n + 1, 0, m - n, X.cols()))
+            ref_row(Y, n) - (ref<RowVector<typename TU::elem_t, 0, TU::max_rows>>(U, n, n + 1, m - n) *
+                ref<Matrix<typename TU::elem_t, 0, TY::cols, TY::max_rows,TY::max_cols>>(X, n + 1, 0, m - n, X.cols()))
         ) / U(n, n);
     if (n == 0) break;  // Must perform this check here for unsigned valu
   }
