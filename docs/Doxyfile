@@ -852,6 +852,9 @@ INPUT                  = \
   ../include/lin/views/tensor_view.hpp \
   ../include/lin/views/matrix_view.hpp \
   ../include/lin/views/vector_view.hpp \
+  ../include/lin/views/const_tensor_view.hpp \
+  ../include/lin/views/const_matrix_view.hpp \
+  ../include/lin/views/const_vector_view.hpp \
   ../include/lin/references.hpp \
   ../include/lin/references/tensor_mapping_reference.hpp \
   ../include/lin/references/matrix_mapping_reference.hpp \
