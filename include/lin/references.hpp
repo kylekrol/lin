@@ -69,9 +69,9 @@
  *     read only references can also be generated in the same fashion if the
  *     underlying type is `const` or read only.
  *
- *  Lastly, there are also convenience functions `lin::ref_col` and
- *  `lin::ref_row` to more easily reference the entire column or row of a tensor
- *  directly. In fact, if you don't mind using the `lin::internal` namespace a
+ *  Lastly, there are also convenience functions `lin::col`, `lin::row`, and
+ *  `lin::diag` to more easily reference the entire column, row, or diagonal of
+ *  a tensor. In fact, if you don't mind using the `lin::internal` namespace a
  *  little, a simple function normalizing the columns of any matrix can be
  *  implemented as shown below:
  *
@@ -79,11 +79,13 @@
  *  #include <lin/core.hpp>
  *  #include <lin/references.hpp>
  *
+ *  #include <type_traits>
+ *
  *  template <class D, typename = std::enable_if_t<lin::internal::disjunction<
  *      lin::internal::is_matrix<D>, lin::internal::is_col_vector<D>>::value>>
  *  void normalize(lin::internal::Mapping<D> &M) {
  *    for (lin::size_t j = 0; j < M.cols(); j++) {
- *      auto m = lin::ref_col(M, j);
+ *      auto m = lin::col(M, j);
  *      m = m / lin::norm(m);
  *    }
  *  }
@@ -94,6 +96,8 @@
 #define LIN_REFERENCES_HPP_
 
 #include "core.hpp"
+#include "references/diagonal_mapping_reference.hpp"
+#include "references/diagonal_stream_reference.hpp"
 #include "references/matrix_mapping_reference.hpp"
 #include "references/matrix_stream_reference.hpp"
 #include "references/vector_mapping_reference.hpp"
@@ -212,6 +216,7 @@ constexpr auto ref(internal::Mapping<D> &mapping, size_t i, size_t j) {
  *  @param mapping Underlying mapping.
  *  @param i       Anchor point row index.
  *  @param j       Anchor point column index.
+ *  @param n       Provided length.
  *
  *  @return Instance of an internal::RowVectorMappingReference or
  *          internal::VectorMappingReference
@@ -243,8 +248,8 @@ constexpr auto ref(internal::Mapping<D> &mapping, size_t i, size_t j, size_t n) 
  *  @param mapping Underlying mapping.
  *  @param i       Anchor point row index.
  *  @param j       Anchor point column index.
- *  @param r       Initial row dimension.
- *  @param c       Initial column dimension.
+ *  @param r       Provided row dimension.
+ *  @param c       Provided column dimension.
  *
  *  @return Instance of an internal::MatrixMappingReference,
  *          internal::RowVectorMappingReference, or
@@ -287,7 +292,7 @@ constexpr auto ref(internal::Mapping<D> &mapping, size_t i, size_t j, size_t r, 
  *  @ingroup REFERENCES
  */
 template <class D>
-constexpr auto ref_col(internal::Mapping<D> &mapping, size_t j) {
+constexpr auto col(internal::Mapping<D> &mapping, size_t j) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Rows = D::Traits::rows;
   constexpr size_t MaxRows = D::Traits::max_rows;
@@ -313,12 +318,36 @@ constexpr auto ref_col(internal::Mapping<D> &mapping, size_t j) {
  *  @ingroup REFERENCES
  */
 template <class D>
-constexpr auto ref_row(internal::Mapping<D> &mapping, size_t i) {
+constexpr auto row(internal::Mapping<D> &mapping, size_t i) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Cols = D::Traits::cols;
   constexpr size_t MaxCols = D::Traits::max_cols;
 
   return ref<RowVector<Elem, Cols, MaxCols>>(mapping, i, 0, mapping.cols());
+}
+
+/** @brief Creates a diagonal mapping reference from the given mapping.
+ *
+ *  @tparam D Underlying referenced type.
+ *
+ *  @param mapping Underlying mapping.
+ *
+ *  @return Instance of an internal::DiagonalMappingReference.
+ *
+ *  The underlying mapping must have the traits of a square matrix and lin
+ *  assertion errors will be thrown if the underlying mapping isn't square at
+ *  runtime.
+ *
+ *  @sa internal::is_matrix
+ *  @sa internal::is_square
+ *  @sa internal::traits
+ *
+ *  @ingroup REFERENCES
+ */
+template <class D, typename = std::enable_if_t<internal::conjunction<
+    internal::is_matrix<D>, internal::is_square<D>>::value>>
+constexpr auto diag(internal::Mapping<D> &mapping) {
+  return internal::DiagonalMappingReference<D>(mapping);
 }
 
 /** @brief Creates a mapping stream with default dimensions.
@@ -356,6 +385,7 @@ constexpr auto ref(internal::Stream<D> const &stream, size_t i, size_t j) {
  *  @param stream Underlying stream.
  *  @param i      Anchor point row index.
  *  @param j      Anchor point column index.
+ *  @param n      Provided length.
  *
  *  @return Instance of an internal::RowVectorStreamReference or
  *          internal::VectorStreamReference
@@ -387,8 +417,8 @@ constexpr auto ref(internal::Stream<D> const &stream, size_t i, size_t j, size_t
  *  @param stream Underlying stream.
  *  @param i      Anchor point row index.
  *  @param j      Anchor point column index.
- *  @param r      Initial row dimension.
- *  @param c      Initial column dimension.
+ *  @param r      Provided row dimension.
+ *  @param c      Provided column dimension.
  *
  *  @return Instance of an internal::MatrixStreamReference,
  *          internal::RowVectorStreamReference, or
@@ -431,7 +461,7 @@ constexpr auto ref(internal::Stream<D> const &stream, size_t i, size_t j, size_t
  *  @ingroup REFERENCES
  */
 template <class D>
-constexpr auto ref_col(internal::Stream<D> const &stream, size_t j) {
+constexpr auto col(internal::Stream<D> const &stream, size_t j) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Rows = D::Traits::rows;
   constexpr size_t MaxRows = D::Traits::max_rows;
@@ -457,12 +487,36 @@ constexpr auto ref_col(internal::Stream<D> const &stream, size_t j) {
  *  @ingroup REFERENCES
  */
 template <class D>
-constexpr auto ref_row(internal::Stream<D> const &stream, size_t i) {
+constexpr auto row(internal::Stream<D> const &stream, size_t i) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Cols = D::Traits::cols;
   constexpr size_t MaxCols = D::Traits::max_cols;
 
   return ref<RowVector<Elem, Cols, MaxCols>>(stream, i, 0, stream.cols());
+}
+
+/** @brief Creates a diagonal stream reference from the given stream.
+ *
+ *  @tparam D Underlying referenced type.
+ *
+ *  @param stream Underlying stream.
+ *
+ *  @return Instance of an internal::DiagonalMappingReference.
+ *
+ *  The underlying mapping must have the traits of a square matrix and lin
+ *  assertion errors will be thrown if the underlying mapping isn't square at
+ *  runtime.
+ *
+ *  @sa internal::is_matrix
+ *  @sa internal::is_square
+ *  @sa internal::traits
+ *
+ *  @ingroup REFERENCES
+ */
+template <class D, typename = std::enable_if_t<internal::conjunction<
+    internal::is_matrix<D>, internal::is_square<D>>::value>>
+constexpr auto diag(internal::Stream<D> const &stream) {
+  return internal::DiagonalStreamReference<D>(stream);
 }
 }  // namespace lin
 

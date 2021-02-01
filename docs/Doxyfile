@@ -859,9 +859,11 @@ INPUT                  = \
   ../include/lin/references/tensor_mapping_reference.hpp \
   ../include/lin/references/matrix_mapping_reference.hpp \
   ../include/lin/references/vector_mapping_reference.hpp \
+  ../include/lin/references/diagonal_mapping_reference.hpp \
   ../include/lin/references/tensor_stream_reference.hpp \
   ../include/lin/references/matrix_stream_reference.hpp \
   ../include/lin/references/vector_stream_reference.hpp \
+  ../include/lin/references/diagonal_stream_reference.hpp \
   ../include
 
 # This tag can be used to specify the character encoding of the source files

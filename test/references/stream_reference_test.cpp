@@ -98,3 +98,37 @@ TEST(StreamReference, RowVectorStreamReference) {
   ASSERT_EQ(1, d.rows());
   ASSERT_EQ(2, d.cols());
 }
+
+TEST(StreamReference, StreamMappingReference) {
+  lin::Matrix3x3f const A = {
+    0.0f, 1.0f, 2.0f,
+    3.0f, 4.0f, 5.0f,
+    6.0f, 7.0f, 8.0f
+  };
+  lin::Vector3f const a = {
+    0.0f,
+    4.0f,
+    8.0f
+  };
+
+  auto const b = lin::diag(A);
+  static_assert(lin::internal::have_same_traits<std::remove_const_t<decltype(b)>, lin::Vector3f>::value, "");
+  ASSERT_FLOAT_EQ(0.0f, lin::fro(a - b));
+  ASSERT_EQ(3, b.rows());
+  ASSERT_EQ(1, b.cols());
+
+  lin::Matrixf<0, 0, 5, 5> const B(2, 2, {
+    0.0f, 1.0f,
+    2.0f, 3.0f
+  });
+  lin::Vectorf<0, 5> const c(2, {
+    0.0f,
+    3.0f
+  });
+
+  auto const d = lin::diag(B);
+  static_assert(lin::internal::have_same_traits<std::remove_const_t<decltype(d)>, lin::Vectorf<0, 5>>::value, "");
+  ASSERT_FLOAT_EQ(0.0f, lin::fro(c - d));
+  ASSERT_EQ(2, d.rows());
+  ASSERT_EQ(1, d.cols());
+}

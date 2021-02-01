@@ -24,12 +24,12 @@ constexpr int forward_sub(internal::Mapping<C> const &L, internal::Mapping<D> &X
   constexpr size_t E_max_cols = E::Traits::max_cols;
 
   // X(0, :)
-  ref_row(X, 0) = ref_row(Y, 0) / L(0, 0);
+  row(X, 0) = row(Y, 0) / L(0, 0);
 
   // X(1:, :)
   for (size_t i = 1; i < X.rows(); i++)
     // X(i, :)
-    ref_row(X, i) = ( ref_row(Y, i) - ref<RowVector<Elem, 0, C_max_cols>>(L, i, 0, i) *
+    row(X, i) = ( row(Y, i) - ref<RowVector<Elem, 0, C_max_cols>>(L, i, 0, i) *
         ref<Matrix<Elem, 0, E_cols, E_max_rows, E_max_cols>>(X, 0, 0, i, X.cols())
       ) / L(i, i);
 
