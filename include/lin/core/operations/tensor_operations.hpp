@@ -11,6 +11,7 @@
 #include "../traits.hpp"
 #include "../types.hpp"
 #include "functors.hpp"
+#include "mapping_transpose.hpp"
 #include "stream_element_wise_operator.hpp"
 #include "stream_transpose.hpp"
 
@@ -314,6 +315,12 @@ constexpr auto sum(internal::Stream<C> const &c) {
   typename C::Traits::elem_t x = c(0);
   for (lin::size_t i = 1; i < c.size(); i++) x += c(i);
   return x;
+}
+
+template <class C, std::enable_if_t<
+    internal::matches_tensor<C>::value, size_t> = 0>
+constexpr auto transpose(internal::Mapping<C> &c) {
+  return internal::MappingTranspose<C>(c);
 }
 
 template <class C, std::enable_if_t<
