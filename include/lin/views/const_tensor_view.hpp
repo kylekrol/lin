@@ -1,18 +1,18 @@
 // vim: set tabstop=2:softtabstop=2:shiftwidth=2:expandtab
 
-/** @file lin/views/tensor_view.hpp
+/** @file lin/views/const_tensor_view.hpp
  *  @author Kyle Krol
  */
 
-#ifndef LIN_VIEWS_TENSOR_VIEW_HPP_
-#define LIN_VIEWS_TENSOR_VIEW_HPP_
+#ifndef LIN_VIEWS_CONST_TENSOR_VIEW_HPP_
+#define LIN_VIEWS_CONST_TENSOR_VIEW_HPP_
 
 #include "../core.hpp"
 
 namespace lin {
 namespace internal {
 
-/** @brief Member pointer backed tensor.
+/** @brief Member pointer backed constant tensor.
  * 
  *  @tparam D Derived type.
  * 
@@ -20,17 +20,17 @@ namespace internal {
  *  specified buffer is assumed to be at least as large as the tensor's maximum
  *  size and elements are read and written to the buffer in row major order.
  *
- *  @sa internal::Base
- *  @sa internal::MatrixView
- *  @sa internal::RowVectorView
- *  @sa internal::VectorView
+ *  @sa internal::ConstBase
+ *  @sa internal::ConstMatrixView
+ *  @sa internal::ConstRowVectorView
+ *  @sa internal::ConstVectorView
  * 
  *  @ingroup VIEWS
  */
 template <class D>
-class TensorView : public Base<D> {
+class ConstTensorView : public ConstBase<D> {
   static_assert(has_valid_traits<D>::value,
-      "Derived types to Tensor<...> must have valid traits");
+      "Derived types to ConstTensor<...> must have valid traits");
 
  public:
   /** @brief Traits information for this type.
@@ -40,31 +40,29 @@ class TensorView : public Base<D> {
   typedef traits<D> Traits;
 
  private:
-  typename Traits::elem_t *const elems;
+  typename Traits::elem_t const *const elems;
 
  protected:
-  using Base<D>::derived;
+  using ConstBase<D>::derived;
 
  public:
-  using Base<D>::rows;
-  using Base<D>::cols;
-  using Base<D>::resize;
-  using Base<D>::size;
-  using Base<D>::operator=;
-  using Base<D>::operator();
-  using Base<D>::data;
-  using Base<D>::eval;
+  using ConstBase<D>::rows;
+  using ConstBase<D>::cols;
+  using ConstBase<D>::resize;
+  using ConstBase<D>::size;
+  using ConstBase<D>::operator();
+  using ConstBase<D>::eval;
 
-  constexpr TensorView() = delete;
-  constexpr TensorView(TensorView<D> const &) = default;
-  constexpr TensorView(TensorView<D> &&) = default;
-  constexpr TensorView<D> &operator=(TensorView<D> const &) = default;
-  constexpr TensorView<D> &operator=(TensorView<D> &&) = default;
+  constexpr ConstTensorView() = delete;
+  constexpr ConstTensorView(ConstTensorView<D> const &) = default;
+  constexpr ConstTensorView(ConstTensorView<D> &&) = default;
+  constexpr ConstTensorView<D> &operator=(ConstTensorView<D> const &) = default;
+  constexpr ConstTensorView<D> &operator=(ConstTensorView<D> &&) = default;
 
-  /** @brief Constructs a new tensor tensor view with the provided backing
-   *         array.
+  /** @brief Constructs a new constant tensor tensor view with the provided
+   *         backing array.
    * 
-   *  @param elems Element backing array.
+   *  @param elems Constant element backing array.
    * 
    *  The element backing array is a assumed to be in row major order. Elements
    *  of the tensor initially hold whatever values were left in the backing
@@ -75,15 +73,15 @@ class TensorView : public Base<D> {
    * 
    *  The size of the tensor defaults to the maximum allowed size.
    */
-  constexpr TensorView(typename Traits::elem_t *elems)
+  constexpr ConstTensorView(typename Traits::elem_t const *elems)
   : elems(elems) {
     resize(Traits::max_rows, Traits::max_cols);
   }
 
-  /** @brief Constructs a new tensor tensor view with the provided backing
-   *         array and requested dimensions.
+  /** @brief Constructs a new constant tensor tensor view with the provided
+   *         backing array and requested dimensions.
    *
-   *  @param elems Element backing array.
+   *  @param elems Constant element backing array.
    *  @param r     Initial row dimension.
    *  @param c     Initial column dimension.
    *
@@ -99,18 +97,18 @@ class TensorView : public Base<D> {
    *
    *  @sa internal::traits
    */
-  constexpr TensorView(typename Traits::elem_t *elems, size_t r, size_t c)
+  constexpr ConstTensorView(typename Traits::elem_t const *elems, size_t r, size_t c)
   : elems(elems) {
     resize(r, c);
   }
 
-  /** @brief Retrives a pointer to the element backing array.
+  /** @brief Retrives a constant pointer to the element backing array.
    * 
-   *  @returns Pointer to the backing array.
+   *  @returns Constant pointer to the backing array.
    * 
    *  This is the same buffer the tensor view was constructed with.
    */
-  constexpr typename Traits::elem_t *data() {
+  constexpr typename Traits::elem_t const *data() const {
     return elems;
   }
 };

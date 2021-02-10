@@ -178,13 +178,19 @@ TEST(CoreOperationsTensorOperations, Sum) {
   ASSERT_FLOAT_EQ(2.0f, lin::sum(A));
 }
 
-TEST(CoreOperationsTensorOperations, Transpose) {
+TEST(CoreOperationsTensorOperations, MappingTranspose) {
   lin::Matrix2x2f A({0.0f, 1.0f, 2.0f, 3.0f});
-  auto const transpose_A = lin::transpose(A);
+  auto transpose_A = lin::transpose(A);
   ASSERT_FLOAT_EQ(0.0f, transpose_A(0, 0));
   ASSERT_FLOAT_EQ(2.0f, transpose_A(0, 1));
   ASSERT_FLOAT_EQ(1.0f, transpose_A(1, 0));
   ASSERT_FLOAT_EQ(3.0f, transpose_A(1, 1));
+
+  transpose_A = { 1.0f, 2.0f, 3.0f, 4.0f };
+  ASSERT_FLOAT_EQ(1.0f, A(0, 0));
+  ASSERT_FLOAT_EQ(3.0f, A(0, 1));
+  ASSERT_FLOAT_EQ(2.0f, A(1, 0));
+  ASSERT_FLOAT_EQ(4.0f, A(1, 1));
 
   lin::Matrixf<0, 0, 4, 4> B(3, 2);
   auto const transpose_B = lin::transpose(B);
@@ -193,6 +199,27 @@ TEST(CoreOperationsTensorOperations, Transpose) {
   ASSERT_EQ(6, transpose_B.size());
 
   lin::Matrix2x4f C;
+  auto const transpose_C = lin::transpose(C);
+  ASSERT_EQ(4, transpose_C.rows());
+  ASSERT_EQ(2, transpose_C.cols());
+  ASSERT_EQ(8, transpose_C.size());
+}
+
+TEST(CoreOperationsTensorOperations, StreamTranspose) {
+  lin::Matrix2x2f const A({0.0f, 1.0f, 2.0f, 3.0f});
+  auto const transpose_A = lin::transpose(A);
+  ASSERT_FLOAT_EQ(0.0f, transpose_A(0, 0));
+  ASSERT_FLOAT_EQ(2.0f, transpose_A(0, 1));
+  ASSERT_FLOAT_EQ(1.0f, transpose_A(1, 0));
+  ASSERT_FLOAT_EQ(3.0f, transpose_A(1, 1));
+
+  lin::Matrixf<0, 0, 4, 4> const B(3, 2);
+  auto const transpose_B = lin::transpose(B);
+  ASSERT_EQ(2, transpose_B.rows());
+  ASSERT_EQ(3, transpose_B.cols());
+  ASSERT_EQ(6, transpose_B.size());
+
+  lin::Matrix2x4f const C;
   auto const transpose_C = lin::transpose(C);
   ASSERT_EQ(4, transpose_C.rows());
   ASSERT_EQ(2, transpose_C.cols());

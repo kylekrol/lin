@@ -11,6 +11,7 @@
 #include "tensor_view.hpp"
 
 namespace lin {
+namespace internal {
 
 /** @brief Generic vector view.
  * 
@@ -27,8 +28,8 @@ namespace lin {
  *  @ingroup VIEWS
  */
 template <typename T, size_t N, size_t MN = N>
-class VectorView : public internal::TensorView<VectorView<T, N, MN>> {
-  static_assert(internal::is_col_vector<VectorView<T, N, MN>>::value,
+class VectorView : public TensorView<VectorView<T, N, MN>> {
+  static_assert(is_col_vector<VectorView<T, N, MN>>::value,
       "Invalid VectorView<...> parameters");
 
  public:
@@ -36,29 +37,29 @@ class VectorView : public internal::TensorView<VectorView<T, N, MN>> {
    * 
    *  @sa internal::traits
    */
-  typedef internal::traits<VectorView<T, N, MN>> Traits;
+  typedef traits<VectorView<T, N, MN>> Traits;
 
   /** @brief Vector traits information for this type.
    * 
    *  @sa internal::vector_traits
    */
-  typedef internal::vector_traits<VectorView<T, N, MN>> VectorTraits;
+  typedef vector_traits<VectorView<T, N, MN>> VectorTraits;
 
  protected:
-  using internal::TensorView<VectorView<T, N, MN>>::derived;
+  using TensorView<VectorView<T, N, MN>>::derived;
 
  public:
-  using internal::TensorView<VectorView<T, N, MN>>::TensorView;
-  using internal::TensorView<VectorView<T, N, MN>>::rows;
-  using internal::TensorView<VectorView<T, N, MN>>::cols;
-  using internal::TensorView<VectorView<T, N, MN>>::size;
-  using internal::TensorView<VectorView<T, N, MN>>::data;
-  using internal::TensorView<VectorView<T, N, MN>>::eval;
-  using internal::TensorView<VectorView<T, N, MN>>::resize;
-  using internal::TensorView<VectorView<T, N, MN>>::operator=;
-  using internal::TensorView<VectorView<T, N, MN>>::operator();
+  using TensorView<VectorView<T, N, MN>>::TensorView;
+  using TensorView<VectorView<T, N, MN>>::rows;
+  using TensorView<VectorView<T, N, MN>>::cols;
+  using TensorView<VectorView<T, N, MN>>::size;
+  using TensorView<VectorView<T, N, MN>>::data;
+  using TensorView<VectorView<T, N, MN>>::eval;
+  using TensorView<VectorView<T, N, MN>>::resize;
+  using TensorView<VectorView<T, N, MN>>::operator=;
+  using TensorView<VectorView<T, N, MN>>::operator();
 
-  constexpr VectorView() = default;
+  constexpr VectorView() = delete;
   constexpr VectorView(VectorView<T, N, MN> const &) = default;
   constexpr VectorView(VectorView<T, N, MN> &&) = default;
   constexpr VectorView<T, N, MN> &operator=(VectorView<T, N, MN> const &) = default;
@@ -80,7 +81,7 @@ class VectorView : public internal::TensorView<VectorView<T, N, MN>> {
    *  @sa internal::has_strictly_bounded_rows
    */
   constexpr VectorView(typename Traits::elem_t *elems, size_t n)
-  : internal::TensorView<VectorView<T, N, MN>>(elems, n, 1) { }
+  : TensorView<VectorView<T, N, MN>>(elems, n, 1) { }
 
   /** @brief Resizes the vector view's length.
    *  
@@ -99,7 +100,7 @@ class VectorView : public internal::TensorView<VectorView<T, N, MN>> {
 
 /** @brief Generic row vector view.
  * 
- *  @tparam T  Row vector element type.
+ *  @tparam T  Row vector view element type.
  *  @tparam N  Number of elements at compile time (i.e. number of rows).
  *  @tparam MN Maximum number of elements (i.e. maximum number of rows).
  * 
@@ -112,8 +113,8 @@ class VectorView : public internal::TensorView<VectorView<T, N, MN>> {
  *  @ingroup VIEWS
  */
 template <typename T, size_t N, size_t MN = N>
-class RowVectorView : public internal::TensorView<RowVectorView<T, N, MN>> {
-  static_assert(internal::is_row_vector<RowVectorView<T, N, MN>>::value,
+class RowVectorView : public TensorView<RowVectorView<T, N, MN>> {
+  static_assert(is_row_vector<RowVectorView<T, N, MN>>::value,
       "Invalid RowVectorView<...> parameters");
 
  public:
@@ -121,27 +122,27 @@ class RowVectorView : public internal::TensorView<RowVectorView<T, N, MN>> {
    * 
    *  @sa internal::traits
    */
-  typedef internal::traits<RowVectorView<T, N, MN>> Traits;
+  typedef traits<RowVectorView<T, N, MN>> Traits;
 
   /** @brief Vector traits information for this type.
    * 
    *  @sa internal::vector_traits
    */
-  typedef internal::vector_traits<RowVectorView<T, N, MN>> VectorTraits;
+  typedef vector_traits<RowVectorView<T, N, MN>> VectorTraits;
 
  protected:
-  using internal::TensorView<RowVectorView<T, N, MN>>::derived;
+  using TensorView<RowVectorView<T, N, MN>>::derived;
 
  public:
-  using internal::TensorView<RowVectorView<T, N, MN>>::TensorView;
-  using internal::TensorView<RowVectorView<T, N, MN>>::rows;
-  using internal::TensorView<RowVectorView<T, N, MN>>::cols;
-  using internal::TensorView<RowVectorView<T, N, MN>>::size;
-  using internal::TensorView<RowVectorView<T, N, MN>>::data;
-  using internal::TensorView<RowVectorView<T, N, MN>>::eval;
-  using internal::TensorView<RowVectorView<T, N, MN>>::resize;
-  using internal::TensorView<RowVectorView<T, N, MN>>::operator=;
-  using internal::TensorView<RowVectorView<T, N, MN>>::operator();
+  using TensorView<RowVectorView<T, N, MN>>::TensorView;
+  using TensorView<RowVectorView<T, N, MN>>::rows;
+  using TensorView<RowVectorView<T, N, MN>>::cols;
+  using TensorView<RowVectorView<T, N, MN>>::size;
+  using TensorView<RowVectorView<T, N, MN>>::data;
+  using TensorView<RowVectorView<T, N, MN>>::eval;
+  using TensorView<RowVectorView<T, N, MN>>::resize;
+  using TensorView<RowVectorView<T, N, MN>>::operator=;
+  using TensorView<RowVectorView<T, N, MN>>::operator();
 
   constexpr RowVectorView() = default;
   constexpr RowVectorView(RowVectorView<T, N, MN> const &) = default;
@@ -165,7 +166,7 @@ class RowVectorView : public internal::TensorView<RowVectorView<T, N, MN>> {
    *  @sa internal::has_strictly_bounded_cols
    */
   constexpr RowVectorView(typename Traits::elem_t *elems, size_t n)
-  : internal::TensorView<RowVectorView<T, N, MN>>(elems, 1, n) { }
+  : TensorView<RowVectorView<T, N, MN>>(elems, 1, n) { }
 
   /** @brief Resizes the row vector view's length.
    *  
@@ -181,76 +182,6 @@ class RowVectorView : public internal::TensorView<RowVectorView<T, N, MN>> {
     resize(1, n);
   }
 };
-
-/** @weakgroup VIEWS
- *  @{
- */
-
-
-/** @brief Generic float vector view.
- * 
- *  @tparam N  Length at compile time
- *  @tparam MN Max length.
- * 
- *  @sa internal::traits
- *  @sa VectorView
- */
-template <size_t N, size_t MN = N>
-using VectorViewf = VectorView<float, N, MN>;
-
-typedef VectorViewf<2> VectorView2f; ///< Two dimensional float vector view.
-typedef VectorViewf<3> VectorView3f; ///< Three dimensional float vector view.
-typedef VectorViewf<4> VectorView4f; ///< Four dimensional float vector view.
-
-/** @brief Generic double vector view.
- * 
- *  @tparam N  Length at compile time
- *  @tparam MN Max length.
- * 
- *  @sa internal::traits
- *  @sa VectorView
- */
-template <size_t N, size_t MN = N>
-using VectorViewd = VectorView<double, N, MN>;
-
-typedef VectorViewd<2> VectorView2d; ///< Two dimensional double vector view.
-typedef VectorViewd<3> VectorView3d; ///< Three dimensional double vector view.
-typedef VectorViewd<4> VectorView4d; ///< Four dimensional double vector view.
-
-/** @brief Generic float row vector view.
- * 
- *  @tparam N  Length at compile time
- *  @tparam MN Max length.
- * 
- *  @sa internal::traits
- *  @sa RowVectorView
- */
-template <size_t N, size_t MN = N>
-using RowVectorViewf = RowVectorView<float, N, MN>;
-
-typedef RowVectorViewf<2> RowVectorView2f; ///< Two dimensional float row vector view.
-typedef RowVectorViewf<3> RowVectorView3f; ///< Three dimensional float row vector view.
-typedef RowVectorViewf<4> RowVectorView4f; ///< Four dimensional float row vector view.
-
-/** @brief Generic double row vector view.
- * 
- *  @tparam N  Length at compile time
- *  @tparam MN Max length.
- * 
- *  @sa internal::traits
- *  @sa RowVectorView
- */
-template <size_t N, size_t MN = N>
-using RowVectorViewd = RowVectorView<double, N, MN>;
-
-typedef RowVectorViewd<2> RowVectorView2d; ///< Two dimensional double row vector view.
-typedef RowVectorViewd<3> RowVectorView3d; ///< Three dimensional double row vector view.
-typedef RowVectorViewd<4> RowVectorView4d; ///< Four dimensional double row vector view.
-
-/** @}
- */
-
-namespace internal {
 
 template <typename T, size_t N, size_t MN>
 struct _elem<VectorView<T, N, MN>> {

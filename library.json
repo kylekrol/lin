@@ -3,7 +3,8 @@
     "version": "0.0.1",
     "license": "MIT",
     "build": {
-        "includeDir": "include"
+        "includeDir": "include",
+        "libArchive": false
     },
     "repository": {
         "type": "git",

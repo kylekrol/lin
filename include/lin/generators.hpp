@@ -16,6 +16,7 @@
 #define LIN_GENERATORS_HPP_
 
 #include "generators/constants.hpp"
+#include "generators/diagonal.hpp"
 #include "generators/identity.hpp"
 #include "generators/randoms.hpp"
 #include "generators/stream_constants.hpp"
