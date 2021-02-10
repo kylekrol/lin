@@ -66,29 +66,25 @@ class MappingTranspose : public Mapping<MappingTranspose<C>> {
     return c.rows();
   }
 
-  /** @brief Lazily evaluates the requested tensor element.
+  /** @brief Read write access to the requested tensor element.
    * 
    *  @param i Row index.
    *  @param j Column index.
    * 
-   *  @return Resulting value of the tensor element.
-   * 
-   *  @sa internal::TensorStream::eval
+   *  @return Reference to the tensor element.
    */
   constexpr typename Traits::elem_t &operator()(size_t i, size_t j) {
     return c(j, i);
   }
 
-  /** @brief Lazily evaluates the requested tensor element.
+  /** @brief Read write access to the requested tensor element.
    * 
    *  @param i Index.
    * 
-   *  @return Resulting value of the tensor element.
+   *  @return Reference to the tensor element.
    * 
    *  Element access proceeds as if all the elements of the tensor stream were
    *  flattened into an array in row major order.
-   * 
-   *  @sa internal::TensorStream::eval
    */
   constexpr typename Traits::elem_t &operator()(size_t i) {
     return (*this)(i / cols(), i % cols());
