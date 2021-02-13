@@ -4,7 +4,8 @@
     "license": "MIT",
     "build": {
         "includeDir": "include",
-        "libArchive": false
+        "libArchive": false,
+        "srcDir": "src"
     },
     "repository": {
         "type": "git",
