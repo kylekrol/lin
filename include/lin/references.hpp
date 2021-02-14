@@ -281,13 +281,17 @@ constexpr auto ref(internal::Mapping<D> &mapping, size_t i, size_t j, size_t r, 
  *  @param mapping Underlying mapping.
  *  @param j       Index of the referenced column.
  *
- *  @return Instance of an internal::VectorMappingReference.
+ *  @return Instance of an internal::VectorMappingReference or
+ *          internal::MatrixMappingReference
  *
  *  This is a convenience function and the same result can be obtained with a
  *  call to another reference function.
  *
  *  The dimensions of a variably sized column are set depending on the provided
  *  mapping's row dimension at run time.
+ *
+ *  If calling this function on a mapping representing a row vector, a one by
+ *  one matrix reference is returned.
  *
  *  @ingroup REFERENCES
  */
@@ -296,8 +300,9 @@ constexpr auto col(internal::Mapping<D> &mapping, size_t j) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Rows = D::Traits::rows;
   constexpr size_t MaxRows = D::Traits::max_rows;
+  typedef std::conditional_t<internal::is_row_vector<D>::value, Matrix<Elem, 1, 1>, Vector<Elem, Rows, MaxRows>> T;
 
-  return ref<Vector<Elem, Rows, MaxRows>>(mapping, 0, j, mapping.rows());
+  return ref<T>(mapping, 0, j, mapping.rows(), 1);
 }
 
 /** @brief Creates a mapping reference of a particular row of a given tensor.
@@ -307,13 +312,17 @@ constexpr auto col(internal::Mapping<D> &mapping, size_t j) {
  *  @param mapping Underlying mapping.
  *  @param j       Index of the referenced row.
  *
- *  @return Instance of an internal::RowVectorMappingReference.
+ *  @return Instance of an internal::RowVectorMappingReference or
+ *          internal::MatrixMappingReference.
  *
  *  This is a convenience function and the same result can be obtained with a
  *  call to another reference function.
  *
  *  The dimensions of a variably sized row are set depending on the provided
  *  mapping's column dimension at run time.
+ *
+ *  If calling this function on a mapping representing a column vector, a one by
+ *  one matrix reference is returned.
  *
  *  @ingroup REFERENCES
  */
@@ -322,8 +331,9 @@ constexpr auto row(internal::Mapping<D> &mapping, size_t i) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Cols = D::Traits::cols;
   constexpr size_t MaxCols = D::Traits::max_cols;
+  typedef std::conditional_t<internal::is_col_vector<D>::value, Matrix<Elem, 1, 1>, RowVector<Elem, Cols, MaxCols>> T;
 
-  return ref<RowVector<Elem, Cols, MaxCols>>(mapping, i, 0, mapping.cols());
+  return ref<T>(mapping, i, 0, 1, mapping.cols());
 }
 
 /** @brief Creates a diagonal mapping reference from the given mapping.
@@ -450,13 +460,17 @@ constexpr auto ref(internal::Stream<D> const &stream, size_t i, size_t j, size_t
  *  @param stream Underlying stream.
  *  @param j      Index of the referenced column.
  *
- *  @return Instance of an internal::VectorStreamReference.
+ *  @return Instance of an internal::VectorStreamReference or
+ *          internal::MatrixStreamReference.
  *
  *  This is a convenience function and the same result can be obtained with a
  *  call to another reference function.
  *
  *  The dimensions of a variably sized column are set depending on the provided
  *  mapping's row dimension at run time.
+ *
+ *  If calling this function on a stream representing a row vector, a one by one
+ *  matrix reference is returned.
  *
  *  @ingroup REFERENCES
  */
@@ -465,8 +479,9 @@ constexpr auto col(internal::Stream<D> const &stream, size_t j) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Rows = D::Traits::rows;
   constexpr size_t MaxRows = D::Traits::max_rows;
+  typedef std::conditional_t<internal::is_row_vector<D>::value, Matrix<Elem, 1, 1>, Vector<Elem, Rows, MaxRows>> T;
 
-  return ref<Vector<Elem, Rows, MaxRows>>(stream, 0, j, stream.rows());
+  return ref<T>(stream, 0, j, stream.rows(), 1);
 }
 
 /** @brief Creates a stream reference of a particular row of a given tensor.
@@ -476,13 +491,17 @@ constexpr auto col(internal::Stream<D> const &stream, size_t j) {
  *  @param stream Underlying stream.
  *  @param j      Index of the referenced row.
  *
- *  @return Instance of an internal::RowVectorStreamReference.
+ *  @return Instance of an internal::RowVectorStreamReference or
+ *          internal::MatrixStreamReference.
  *
  *  This is a convenience function and the same result can be obtained with a
  *  call to another reference function.
  *
  *  The dimensions of a variably sized row are set depending on the provided
  *  mapping's column dimension at run time.
+ *
+ *  If calling this function on a stream representing a column vector, a one by
+ *  one matrix reference is returned.
  *
  *  @ingroup REFERENCES
  */
@@ -491,8 +510,9 @@ constexpr auto row(internal::Stream<D> const &stream, size_t i) {
   typedef typename D::Traits::elem_t Elem;
   constexpr size_t Cols = D::Traits::cols;
   constexpr size_t MaxCols = D::Traits::max_cols;
+  typedef std::conditional_t<internal::is_col_vector<D>::value, Matrix<Elem, 1, 1>, RowVector<Elem, Cols, MaxCols>> T;
 
-  return ref<RowVector<Elem, Cols, MaxCols>>(stream, i, 0, stream.cols());
+  return ref<T>(stream, i, 0, 1, stream.cols());
 }
 
 /** @brief Creates a diagonal stream reference from the given stream.
