@@ -1,0 +1,55 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+AccessModifierOffset: -1
+AlignAfterOpenBracket: DontAlign
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+AlignOperands: DontAlign
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AlwaysBreakBeforeMultilineStrings: true
+AlwaysBreakTemplateDeclarations: Yes
+BraceWrapping:
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: true
+BreakBeforeBraces: Attach
+BreakBeforeTernaryOperators: false
+BreakAfterJavaFieldAnnotations: true
+ColumnLimit: 80
+CommentPragmas: '^ IWYU pragma:'
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
+DeriveLineEnding: false
+IncludeBlocks:   Regroup
+IncludeCategories:
+  - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
+    Priority:        2
+    SortPriority:    0
+  - Regex:           '^(<|"(gtest|gmock|isl|json)/)'
+    Priority:        3
+    SortPriority:    0
+  - Regex:           '.*'
+    Priority:        1
+    SortPriority:    0
+IndentCaseLabels: true
+IndentCaseBlocks: true
+IndentPPDirectives: BeforeHash
+IndentExternBlock: NoIndent
+IndentWidth: 2
+KeepEmptyLinesAtTheStartOfBlocks: true
+PointerAlignment: Right
+ReflowComments: false
+SortIncludes: true
+SortUsingDeclarations: false
+SpaceAfterCStyleCast: true
+SpaceBeforeCpp11BracedList: true
+SpaceInEmptyBlock: true
+SpacesBeforeTrailingComments: 2
+SpacesInContainerLiterals: false
+Standard: c++14
+TabWidth: 2
+UseCRLF: false
+UseTab: Never
