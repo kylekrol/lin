@@ -4,7 +4,7 @@
 #include <lin/core.hpp>
 #include <lin/factorizations/qr.hpp>
 #include <lin/generators/randoms.hpp>
-#include <lin/substitutions/backward_substitution.hpp>
+#include <lin/substitutions.hpp>
 
 #include <gtest/gtest.h>
 
@@ -22,6 +22,20 @@ TEST(SubstitutionsBackwardSubstitution, FixedSizeBackwardSubstituion) {
   }
 }
 
+TEST(SubstitutionsBackwardSubstitution, FixedSizeVectorBackwardSubstituion) {
+  lin::internal::RandomsGenerator rand;
+  lin::Matrix4x4f M, Q, R;
+  lin::Vector4f X, Y;
+
+  for (lin::size_t i = 0; i < 25; i++) {
+    M = lin::rands<decltype(M)>(rand, M.rows(), M.cols());
+    Y = lin::rands<decltype(Y)>(rand, Y.rows(), Y.cols());
+    ASSERT_EQ(0, lin::qr(M, Q, R));
+    ASSERT_EQ(0, lin::backward_sub(R, X, (lin::transpose(Q) * Y).eval()));
+    ASSERT_NEAR(0.0f, lin::fro(M * X - Y), 1e-6 * Y.size());
+  }
+}
+
 TEST(SubstitutionsBackwardSubstitution, StaticSizeBackwardSubstituion) {
   lin::internal::RandomsGenerator rand;
   lin::Matrixf<0, 0, 9, 9> M, Q, R;
@@ -29,6 +43,22 @@ TEST(SubstitutionsBackwardSubstitution, StaticSizeBackwardSubstituion) {
 
   M.resize(8, 8);
   Y.resize(8, 5);
+  for (lin::size_t i = 0; i < 25; i++) {
+    M = lin::rands<decltype(M)>(rand, M.rows(), M.cols());
+    Y = lin::rands<decltype(Y)>(rand, Y.rows(), Y.cols());
+    ASSERT_EQ(0, lin::qr(M, Q, R));
+    ASSERT_EQ(0, lin::backward_sub(R, X, (lin::transpose(Q) * Y).eval()));
+    ASSERT_NEAR(0.0f, lin::fro(M * X - Y), 1e-6 * Y.size());
+  }
+}
+
+TEST(SubstitutionsBackwardSubstitution, StaticSizeVectorBackwardSubstituion) {
+  lin::internal::RandomsGenerator rand;
+  lin::Matrixf<0, 0, 9, 9> M, Q, R;
+  lin::Vectorf<0, 9> X, Y;
+
+  M.resize(8, 8);
+  Y.resize(8);
   for (lin::size_t i = 0; i < 25; i++) {
     M = lin::rands<decltype(M)>(rand, M.rows(), M.cols());
     Y = lin::rands<decltype(Y)>(rand, Y.rows(), Y.cols());

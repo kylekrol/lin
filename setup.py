@@ -52,7 +52,7 @@ def has_flag(compiler, flagname):
 
 
 def cpp_flag(compiler):
-    for flag in ['-std=c++17', '-std=c++14']:
+    for flag in ['-std=c++14']:
         if has_flag(compiler, flag):
             return flag
 
@@ -82,8 +82,8 @@ class BuildExt(build_ext):
             opts.append(cpp_flag(self.compiler))
             if has_flag(self.compiler, '-fvisibility=hidden'):
                 opts.append('-fvisibility=hidden')
-            if has_flag(self.compiler, '-Werror'):
-                opts.append('-Werror')
+            #if has_flag(self.compiler, '-Werror'):
+            #    opts.append('-Werror')
 
         for ext in self.extensions:
             ext.define_macros = [('VERSION_INFO', '"{}"'.format(self.distribution.get_version()))]
@@ -468,7 +468,7 @@ setup(
     description='Simple python wrapper for lin matrix and vector types.',
     long_description='',
     ext_modules=ext_modules,
-    setup_requires=['pybind11>=2.5.0'],
+    setup_requires=['pybind11>=2.6.0'],
     install_requires=['numpy'],
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,

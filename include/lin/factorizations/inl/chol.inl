@@ -14,6 +14,7 @@ constexpr int chol(internal::Mapping<C> &L) {
 
   // Useful traits information
   constexpr size_t C_max_cols = C::Traits::max_cols;
+  typedef typename C::Traits::elem_t Elem;
 
   // Set above the main diagonal to zeros
   for (size_t i = 0; i < L.rows(); i++)
@@ -31,11 +32,11 @@ constexpr int chol(internal::Mapping<C> &L) {
     for (size_t j = 1; j < i; j++)
       // L(i, j)
       L(i, j) = ( L(i, j) -
-          dot(ref<1, 0, 1, C_max_cols>(L, j, 0, 1, j), ref<1, 0, 1, C_max_cols>(L, i, 0, 1, j))
+          dot(ref<RowVector<Elem, 0, C_max_cols>>(L, j, 0, j), ref<RowVector<Elem, 0, C_max_cols>>(L, i, 0, j))
         ) / L(j, j);
 
     // L(i, i)
-    L(i, i) = std::sqrt(L(i, i) - fro(ref<1, 0, 1, C_max_cols>(L, i, 0, 1, i)));
+    L(i, i) = std::sqrt(L(i, i) - fro(ref<RowVector<Elem, 0, C_max_cols>>(L, i, 0, i)));
   }
 
   return 0;
