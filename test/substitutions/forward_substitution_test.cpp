@@ -1,10 +1,10 @@
 /** @file test/substitution/forward_substitution_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core.hpp>
-#include <lin/factorizations/chol.hpp>
-#include <lin/generators/randoms.hpp>
-#include <lin/substitutions.hpp>
+#include "lin/core.hpp"
+#include "lin/factorizations/chol.hpp"
+#include "lin/generators/randoms.hpp"
+#include "lin/substitutions.hpp"
 
 #include <gtest/gtest.h>
 

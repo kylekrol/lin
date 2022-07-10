@@ -1,8 +1,8 @@
 /** @file test/core/operations/vector_operations_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core/operations/vector_operations.hpp>
-#include <lin/core/types/vector.hpp>
+#include "lin/core/operations/vector_operations.hpp"
+#include "lin/core/types/vector.hpp"
 
 #include <gtest/gtest.h>
 

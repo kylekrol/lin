@@ -1,8 +1,8 @@
 /** @file test/generators/diagonal_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core.hpp>
-#include <lin/generators/diagonal.hpp>
+#include "lin/core.hpp"
+#include "lin/generators/diagonal.hpp"
 
 #include <gtest/gtest.h>
 

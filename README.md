@@ -19,9 +19,9 @@ All unit tests live in `test/**` and can be run with:
 
     bazel test //test:all
 
-The tests only run in CI can be run wiht:
+To test an individual module, simply specify that module's target directly with:
 
-    bazel test //test:ci
+    bazel test //test:<module>
 
 ## Documentation
 
@@ -33,20 +33,3 @@ Documentation can be built with doxygen by running:
 and then opening `docs/html/index.html`. Starting at the modules page will be most helpful.
 
 The documentation is also hosted online at https://pathfinder-for-autonomous-navigation.github.io/lin/modules.html
-
-## Python Bindings
-
-There is a small python module wrapping a few basic types from `lin` that have `double` elements. All of the core module is implemented with a handful of helpful additions. The source code for the it is generated at install time by the `setup.py` file.
-
-The module can be installed with:
-
-    pip install .
-
-For running tests locally using a virtual environment may be useful:
-
-    python -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
-    pip install . -vvv
-    pytest -v test_lin.py
-

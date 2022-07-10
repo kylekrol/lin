@@ -1,9 +1,9 @@
 /** @file test/factorizations/qr_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core.hpp>
-#include <lin/factorizations/qr.hpp>
-#include <lin/generators/randoms.hpp>
+#include "lin/core.hpp"
+#include "lin/factorizations/qr.hpp"
+#include "lin/generators/randoms.hpp"
 
 #include <gtest/gtest.h>
 

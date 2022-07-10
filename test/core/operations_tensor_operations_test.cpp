@@ -1,13 +1,13 @@
 /** @file test/core/operations_tensor_operations_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core/types.hpp>
-#include <lin/core/operations/tensor_operations.hpp>
+#include "lin/core/types.hpp"
+#include "lin/core/operations/tensor_operations.hpp"
 
 #include <gtest/gtest.h>
 
 /* START: From matrix operations */
-#include <lin/core/operations/matrix_operations.hpp>
+#include "lin/core/operations/matrix_operations.hpp"
 
 TEST(CoreOperationsMatrixOperations, Trace) {
   lin::Matrix3x3f A {

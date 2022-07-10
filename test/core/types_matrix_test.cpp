@@ -3,7 +3,7 @@
 
 // TODO : Test the stream constructor
 
-#include <lin/core/types/matrix.hpp>
+#include "lin/core/types/matrix.hpp"
 
 #include <gtest/gtest.h>
 

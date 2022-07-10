@@ -1,7 +1,7 @@
 /** @file test/queries/queries_functors_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/queries/functors.hpp>
+#include "lin/queries/functors.hpp"
 
 #include <gtest/gtest.h>
 

@@ -3,7 +3,7 @@
 
 // TODO : Test the stream constructor
 
-#include <lin/core/types/vector.hpp>
+#include "lin/core/types/vector.hpp"
 
 #include <gtest/gtest.h>
 

@@ -1,8 +1,8 @@
 /** @file test/generators/constants_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core.hpp>
-#include <lin/generators/constants.hpp>
+#include "lin/core.hpp"
+#include "lin/generators/constants.hpp"
 
 #include <gtest/gtest.h>
 

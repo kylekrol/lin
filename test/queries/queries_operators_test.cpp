@@ -1,8 +1,8 @@
 /** @file test/queries/queries_operators_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/queries/operators.hpp>
-#include <lin/queries/types.hpp>
+#include "lin/queries/operators.hpp"
+#include "lin/queries/types.hpp"
 
 #include <gtest/gtest.h>
 

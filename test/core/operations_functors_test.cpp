@@ -1,7 +1,7 @@
 /** @file test/core/operations_functors_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core/operations/functors.hpp>
+#include "lin/core/operations/functors.hpp"
 
 #include <gtest/gtest.h>
 

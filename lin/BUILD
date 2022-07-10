@@ -1,0 +1,10 @@
+load(":module.bzl", "lin_module")
+
+lin_module(name="core")
+lin_module(name="factorizations", deps=[":core", ":generators", ":references"])
+lin_module(name="generators",     deps=[":core"])
+lin_module(name="math",           deps=[":core"])
+lin_module(name="queries",        deps=[":core"])
+lin_module(name="references",     deps=[":core"])
+lin_module(name="substitutions",  deps=[":core", ":references"])
+lin_module(name="views",          deps=[":core"])

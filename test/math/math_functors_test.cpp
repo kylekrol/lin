@@ -4,7 +4,7 @@
 /* We should only need to test a few functors here because they are generated
  * with macros. */
 
-#include <lin/math/functors.hpp>
+#include "lin/math/functors.hpp"
 
 #include <gtest/gtest.h>
 

@@ -4,8 +4,8 @@
 /* We should only need to test a few operations here because they are generated
  * with macros. */
 
-#include <lin/core.hpp>
-#include <lin/math/operations.hpp>
+#include "lin/core.hpp"
+#include "lin/math/operations.hpp"
 
 #include <gtest/gtest.h>
 

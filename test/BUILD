@@ -1,0 +1,10 @@
+load(":module_test.bzl", "lin_module_test")
+
+lin_module_test(name="core")
+lin_module_test(name="factorizations")
+lin_module_test(name="generators")
+lin_module_test(name="math")
+lin_module_test(name="queries")
+lin_module_test(name="references")
+lin_module_test(name="substitutions", deps=["//lin:factorizations", "//lin:generators"])
+lin_module_test(name="views")

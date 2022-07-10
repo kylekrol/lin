@@ -81,7 +81,7 @@ class StreamConstants : public Stream<StreamConstants<T, R, C, MR, MC>>,
    *
    *  @return Value of the tensor element.
    */
-  constexpr typename Traits::elem_t operator()(size_t i, size_t j) const {
+  constexpr typename Traits::elem_t operator()([[maybe_unused]] size_t i, [[maybe_unused]] size_t j) const {
     LIN_ASSERT(0 <= i && i <= rows());
     LIN_ASSERT(0 <= j && j <= cols());
 
@@ -95,7 +95,7 @@ class StreamConstants : public Stream<StreamConstants<T, R, C, MR, MC>>,
    *
    *  @return Value of the tensor element.
    */
-  constexpr typename Traits::elem_t operator()(size_t i) const {
+  constexpr typename Traits::elem_t operator()([[maybe_unused]] size_t i) const {
     LIN_ASSERT(0 <= i && i <= size());
 
     return t;

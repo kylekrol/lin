@@ -1,8 +1,8 @@
 /** @file test/generators/identity_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core.hpp>
-#include <lin/generators/identity.hpp>
+#include "lin/core.hpp"
+#include "lin/generators/identity.hpp"
 
 #include <gtest/gtest.h>
 

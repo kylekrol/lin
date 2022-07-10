@@ -1,7 +1,7 @@
 // vim: set tabstop=2:softtabstop=2:shiftwidth=2:expandtab
 
-#include <lin/core.hpp>
-#include <lin/views.hpp>
+#include "lin/core.hpp"
+#include "lin/views.hpp"
 
 #include <gtest/gtest.h>
 

@@ -40,6 +40,6 @@ constexpr int qr(internal::Stream<C> const &M, internal::Base<D> &Q, internal::B
 
 }  // namespace lin
 
-#include "inl/qr.inl"
+#include "inl/qr.hpp"
 
 #endif

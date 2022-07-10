@@ -2,8 +2,8 @@
  *  @author Kyle Krol 
  *  @author Shihao Cao
 */
-#include <lin/core.hpp>
-#include <lin/generators/randoms.hpp>
+#include "lin/core.hpp"
+#include "lin/generators/randoms.hpp"
 
 #include <gtest/gtest.h>
 

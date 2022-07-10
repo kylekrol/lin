@@ -1,8 +1,8 @@
 /** @file test/core/operations_tensor_operators_test.cpp
  *  @author Kyle Krol */
 
-#include <lin/core/types.hpp>
-#include <lin/core/operations/tensor_operators.hpp>
+#include "lin/core/types.hpp"
+#include "lin/core/operations/tensor_operators.hpp"
 
 #include <gtest/gtest.h>
 

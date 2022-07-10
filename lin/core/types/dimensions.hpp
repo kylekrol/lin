@@ -90,7 +90,7 @@ class Dimensions<D, std::enable_if_t<has_fixed_dimensions<D>::value>> {
   /* Getters and setters for tensor size. */
   inline constexpr size_t rows() const { return D::Traits::rows; }
   inline constexpr size_t cols() const { return D::Traits::cols; }
-  constexpr void resize(size_t r, size_t c) {
+  constexpr void resize([[maybe_unused]] size_t r, [[maybe_unused]] size_t c) {
     LIN_ASSERT(r == D::Traits::rows);
     LIN_ASSERT(c == D::Traits::cols);
   }
@@ -114,7 +114,7 @@ class Dimensions<D, std::enable_if_t<
   /* Getters and setters for tensor size. */
   inline constexpr size_t rows() const { return D::Traits::rows; }
   inline constexpr size_t cols() const { return _cols; }
-  constexpr void resize(size_t r, size_t c) {
+  constexpr void resize([[maybe_unused]] size_t r, size_t c) {
     LIN_ASSERT(r == D::Traits::rows);
     LIN_ASSERT(c > 0 && c <= D::Traits::max_cols);
     _cols = c;
@@ -139,7 +139,7 @@ class Dimensions<D, std::enable_if_t<
   /* Getters and setters for tensor size. */
   inline constexpr size_t rows() const { return _rows; }
   inline constexpr size_t cols() const { return D::Traits::cols; }
-  constexpr void resize(size_t r, size_t c) {
+  constexpr void resize(size_t r, [[maybe_unused]] size_t c) {
     LIN_ASSERT(r > 0 && r <= D::Traits::max_rows);
     LIN_ASSERT(c == D::Traits::cols);
     _rows = r;

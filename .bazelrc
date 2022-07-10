@@ -1,1 +1,2 @@
-build --cxxopt=-std=c++14
+build       --repo_env=BAZEL_CXXOPTS="-std=c++17:-Werror:-Wall:-Wdeprecated:-Wextra:-Wpedantic:-O2:-DNDEBUG"
+build:debug --repo_env=BAZEL_CXXOPTS="-std=c++17:-Werror:-Wall:-Wdeprecated:-Wextra:-Wpedantic:-Og:-g"

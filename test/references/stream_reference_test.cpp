@@ -2,8 +2,8 @@
  *  @author Kyle Krol
  */
 
-#include <lin/core.hpp>
-#include <lin/references.hpp>
+#include "lin/core.hpp"
+#include "lin/references.hpp"
 
 #include <gtest/gtest.h>
 

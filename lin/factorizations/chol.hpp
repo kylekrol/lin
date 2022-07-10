@@ -29,6 +29,6 @@ constexpr int chol(internal::Mapping<C> &L);
 
 }  // namespace lin
 
-#include "inl/chol.inl"
+#include "inl/chol.hpp"
 
 #endif
